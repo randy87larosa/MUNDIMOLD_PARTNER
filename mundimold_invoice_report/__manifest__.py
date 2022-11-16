@@ -1,6 +1,6 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 {
-    "name": "Mundimold Invoice Report,
+    "name": "Mundimold Invoice Report",
     "summary": "Mundimold Invoice Report",
     'version': '12.0.1.0.0',
     "category": "Product",
