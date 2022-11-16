@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_plaid_bank_account_user,plaid.bank.account.user,model_plaid_bank_account,,1,1,1,0
+access_plaid_bank_account_manager,plaid.bank.account.manager,model_plaid_bank_account,account.group_account_manager,1,1,1,1

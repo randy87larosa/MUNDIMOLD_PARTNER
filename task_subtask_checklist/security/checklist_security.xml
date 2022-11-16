@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="group_checklist_task_progress_restriction" model="res.groups">
+        <field name="name">Checklist Task Progress Restriction</field>
+        <field name="comment">Restrict Task Progress For Some Configured Stages Before All Checklist Either Canceled Or Completed</field>
+        <field name="category_id" ref="base.module_category_hidden"/>
+    </record>
+
+</odoo>

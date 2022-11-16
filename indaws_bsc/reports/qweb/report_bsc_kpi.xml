@@ -1,0 +1,269 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<data>
+<template id="report_bsc_kpi">
+    <t t-call="report.html_container">
+        <t t-foreach="docs" t-as="o">
+            
+                <div class="page">
+                
+                    <style>
+                        table, th, td {
+                           font-size: 9pt;
+                        }
+                    </style>
+                    
+                    
+                    <div style="width:100%; padding: 5px; text-align:center; background-color:#7692ed; font-size:14pt; color:#FFF"><span t-esc="o.name"/></div>
+                    
+                    <div style="padding:0 20 0 20">
+                     <table class="table table-condensed">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <t t-foreach="o.line_ids" t-as="l">
+                                    <th t-if="l.is_actual"><span t-field="l.period_id.name"/></th>
+                                </t>
+                            </tr>
+                       </thead>
+                       <tbody class="sale_tbody">
+                            <tr>
+                                <td>Objetivo</td>
+                                <t t-foreach="o.line_ids" t-as="l">
+                                    <td t-if="l.is_actual"><span t-esc="formatLang(l.target, digits=2)"/></td>
+                                </t>
+                            </tr>
+                            <tr>
+                                <td>Objetivo acumulado</td>
+                                <t t-foreach="o.line_ids" t-as="l">
+                                    <td t-if="l.is_actual"><span t-esc="formatLang(l.target_acum, digits=2)"/></td>
+                                </t>                                
+                            </tr>
+                            <tr>
+                                <td><strong>Real</strong></td>
+                                
+                                <t t-foreach="o.line_ids" t-as="l">
+                                    <td t-if="l.is_actual"><span t-esc="formatLang(l.real, digits=2)"/></td>
+                                </t>       
+                            </tr>
+                            
+                            <tr>
+                                <td><strong>Real acumulado</strong></td>
+                                
+                                <t t-foreach="o.line_ids" t-as="l">
+                                    <td t-if="l.is_actual"><span t-esc="formatLang(l.real_acum, digits=2)"/></td>
+                                </t>       
+                            </tr>
+                            
+                            <tr>
+                                <td><strong>Real año anterior</strong></td>
+                                
+                                <t t-foreach="o.line_ids" t-as="l">
+                                    <td t-if="l.is_actual"><span t-esc="formatLang(l.real_ant, digits=2)"/></td>
+                                </t>       
+                            </tr>
+                            <tr>
+                                <td><strong>Real año anterior acumulado</strong></td>
+                                
+                                <t t-foreach="o.line_ids" t-as="l">
+                                    <td t-if="l.is_actual"><span t-esc="formatLang(l.real_ant_acum, digits=2)"/></td>
+                                </t>       
+                            </tr>
+                            
+                            
+                            
+                            
+                            <tr t-if="o.show_difference_real_obj == True">
+                                <td>Diferencia: Real vs Objetivo</td>
+                                <t t-foreach="o.line_ids" t-as="l">
+                                    <td t-if="l.is_actual">
+                                        <!--<t t-if="l.difference_real_obj > 0.0">
+                                            <i><span t-field="l.difference_real_obj" style="color:green"/></i>
+                                        </t>
+                                        <t t-if="l.difference_real_obj * (-1) > 0.0">
+                                            <i><span t-field="l.difference_real_obj" style="color:red"/></i>
+                                        </t>
+                                        <t t-if="l.difference_real_obj == 0.0">
+                                            <i><span t-field="l.difference_real_obj"/></i>
+                                        </t>-->
+
+                                        <span t-field="l.difference_real_obj" t-att-style="'color:%s' % l.color_real_obj "/>
+                                    </td>
+                                </t>
+
+                            </tr>
+                            
+                            <tr t-if="o.show_percentage_real_obj">
+                                <td>Porcentaje: Real vs Objetivo</td>
+                                <t t-foreach="o.line_ids" t-as="l">
+                                    <td t-if="l.is_actual">
+                                        <!--<t t-if="l.percentage_real_obj > 100.0">
+                                            <i><span t-field="l.percentage_real_obj" style="color:green"/></i>
+                                        </t>
+                                        <t t-if="l.percentage_real_obj * (-1) > 100.0">
+                                            <i><span t-field="l.percentage_real_obj" style="color:red"/></i>
+                                        </t>
+                                        <t t-if="l.percentage_real_obj == 100.0">
+                                            <i><span t-field="l.percentage_real_obj"/></i>
+                                        </t>-->
+                                        <span t-field="l.percentage_real_obj" t-att-style="'color:%s' % l.color_real_obj "/>
+                                    </td>
+                                </t>
+
+                            </tr>
+                            
+                            
+                            
+                            <tr t-if="o.show_difference_real_obj_acum">
+                                <td>Diferencia: Real vs Objetivo (Acum)</td>
+                                <t t-foreach="o.line_ids" t-as="l">
+                                    <td t-if="l.is_actual">
+                                        <!--<t t-if="l.difference_real_obj_acum > 0.0">
+                                            <i><span t-field="l.difference_real_obj_acum" style="color:green"/></i>
+                                        </t>
+                                        <t t-if="l.difference_real_obj_acum * (-1) > 0.0">
+                                            <i><span t-field="l.difference_real_obj_acum" style="color:red"/></i>
+                                        </t>
+                                        <t t-if="l.difference_real_obj_acum == 0.0">
+                                            <i><span t-field="l.difference_real_obj_acum"/></i>
+                                        </t>-->
+                                        <span t-field="l.difference_real_obj_acum" t-att-style="'color:%s' % l.color_real_obj_acum "/>
+                                    </td>
+                                </t>
+
+                            </tr>
+                            
+                            
+                            <tr t-if="o.show_percentage_real_obj_acum">
+                                <td>Porcentaje: Real vs Objetivo (Acum)</td>
+                                <t t-foreach="o.line_ids" t-as="l">
+                                    <td t-if="l.is_actual">
+                                        <!--<t t-if="l.percentage_real_obj_acum > 100.0">
+                                            <i><span t-field="l.percentage_real_obj_acum" style="color:green"/></i>
+                                        </t>
+                                        <t t-if="l.percentage_real_obj_acum * (-1) > 100.0">
+                                            <i><span t-field="l.percentage_real_obj_acum" style="color:red"/></i>
+                                        </t>
+                                        <t t-if="l.percentage_real_obj_acum == 100.0">
+                                            <i><span t-field="l.percentage_real_obj_acum"/></i>
+                                        </t>-->
+                                        <span t-field="l.percentage_real_obj_acum" t-att-style="'color:%s' % l.color_real_obj_acum "/>
+                                    </td>
+                                </t>
+
+                            </tr>
+                            
+                            
+                            
+                            <tr t-if="o.show_difference_real_ant">
+                                <td>Diferencia: Real vs Año anterior</td>
+                                <t t-foreach="o.line_ids" t-as="l">
+                                    <td t-if="l.is_actual">
+                                        <!--<t t-if="l.difference_real_ant > 0.0">
+                                            <i><span t-field="l.difference_real_ant" style="color:green"/></i>
+                                        </t>
+                                        <t t-if="l.difference_real_ant * (-1) > 0.0">
+                                            <i><span t-field="l.difference_real_ant" style="color:red"/></i>
+                                        </t>
+                                        <t t-if="l.difference_real_ant == 0.0">
+                                            <i><span t-field="l.difference_real_ant"/></i>
+                                        </t>-->
+                                        <span t-field="l.difference_real_ant" t-att-style="'color:%s' % l.color_real_ant "/>
+                                    </td>
+                                </t>
+
+                            </tr>
+                            
+                            
+                            <tr t-if="o.show_percentage_real_ant">
+                                <td>Porcentaje: Real vs Año anterior</td>
+                                <t t-foreach="o.line_ids" t-as="l">
+                                    <td t-if="l.is_actual">
+                                        <!--<t t-if="l.percentage_real_ant > 100.0">
+                                            <i><span t-field="l.percentage_real_ant" style="color:green"/></i>
+                                        </t>
+                                        <t t-if="l.percentage_real_ant * (-1) > 100.0">
+                                            <i><span t-field="l.percentage_real_ant" style="color:red"/></i>
+                                        </t>
+                                        <t t-if="l.percentage_real_ant == 100.0">
+                                            <i><span t-field="l.percentage_real_ant"/></i>
+                                        </t>-->
+                                        <span t-field="l.percentage_real_ant" t-att-style="'color:%s' % l.color_real_ant "/>
+                                    </td>
+                                </t>
+
+                            </tr>
+                            
+                            
+                            <tr t-if="o.show_difference_real_ant_acum">
+                                <td>Diferencia: Real vs Año anterior (Acum)</td>
+                                <t t-foreach="o.line_ids" t-as="l">
+                                    <td t-if="l.is_actual">
+                                        <!--<t t-if="l.difference_real_ant_acum > 0.0">
+                                            <i><span t-field="l.difference_real_ant_acum" style="color:green"/></i>
+                                        </t>
+                                        <t t-if="l.difference_real_ant_acum * (-1) > 0.0">
+                                            <i><span t-field="l.difference_real_ant_acum" style="color:red"/></i>
+                                        </t>
+                                        <t t-if="l.difference_real_ant_acum == 0.0">
+                                            <i><span t-field="l.difference_real_ant_acum"/></i>
+                                        </t>-->
+                                        <span t-field="l.difference_real_ant_acum" t-att-style="'color:%s' % l.color_real_ant_acum "/>
+                                    </td>
+                                </t>
+
+                            </tr>
+                            
+                            
+                            <tr t-if="o.show_percentage_real_ant_acum">
+                                <td>Porcentaje: Real vs Año anterior (Acum)</td>
+                                <t t-foreach="o.line_ids" t-as="l">
+                                    <td t-if="l.is_actual">
+                                        <!--<t t-if="l.percentage_real_ant_acum > 0.0">
+                                            <i><span t-field="l.percentage_real_ant_acum" style="color:green"/></i>
+                                        </t>
+                                        <t t-if="l.percentage_real_ant_acum * (-1) > 0.0">
+                                            <i><span t-field="l.percentage_real_ant_acum" style="color:red"/></i>
+                                        </t>
+                                        <t t-if="l.percentage_real_ant_acum == 0.0">
+                                            <i><span t-field="l.percentage_real_ant_acum"/></i>
+                                        </t>-->
+                                         <span t-field="l.percentage_real_ant_acum" t-att-style="'color:%s' % l.color_real_ant_acum "/>
+                                    </td>
+                                </t>
+
+                            </tr>
+                            
+                            
+                            
+                        </tbody>
+                    </table>
+                    </div>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                </div>
+
+        </t>
+    </t>
+</template>
+</data>
+</odoo>

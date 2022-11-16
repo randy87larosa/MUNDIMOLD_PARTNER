@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="bsc_kpi_wizard_calc_form_view">
+            <field name="name">bsc.kpi.wizard.calc.form</field>
+            <field name="model">bsc.kpi.wizard.calc</field>
+            <field name="arch" type="xml">
+                <form string="Calcular informes">
+                    <group>
+                        <field name="kpi_ids">
+                            
+                        </field>
+                        
+                    </group>
+                    <group>
+                        <field name="period_id" />
+                    </group>
+                    <group>
+                        <field name="period_ids" />
+                    </group>
+                    <footer>
+                        <button name="calcular_valores_kpi" type="object"
+                                string="Calcular" class="oe_highlight"/>
+                        or
+                        <button special="cancel" string="Cancelar"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <act_window id="launch_wizard_bsc_kpi_wizard_calc"
+            name="Calcular informes"
+            src_model="bsc.kpi"
+            res_model="bsc.kpi.wizard.calc"
+            view_mode="form"
+            target="new"
+            key2="client_action_multi"/>
+            
+            
+        <record id="action_launch_bsc_kpi_wizard_calc" model="ir.actions.act_window">
+            <field name="name">Calcular indicador</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">bsc.kpi.wizard.calc</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="bsc_kpi_wizard_calc_form_view"/>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</odoo>

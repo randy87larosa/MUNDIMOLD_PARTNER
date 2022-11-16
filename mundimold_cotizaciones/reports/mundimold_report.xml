@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+		
+        <report 
+            id="rep_sale_cotizacion"
+            string="Oferta"
+            model="sale.cotizacion" 
+            report_type="qweb-pdf"
+            file="mundimold_cotizaciones.report_cotizacion" 
+            name="mundimold_cotizaciones.report_cotizacion" 
+        />
+        
+		
+		
+
+    </data>
+</openerp>

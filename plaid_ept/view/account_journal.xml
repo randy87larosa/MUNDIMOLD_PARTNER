@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="account_journal_form_inherit_plaid_sync" model="ir.ui.view">
+            <field name="name">account.journal.form.inherit.plaid.sync</field>
+            <field name="model">account.journal</field>
+            <field name="inherit_id" ref="account.view_account_journal_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='bank_account']/group" position="inside">
+                    <group string="Plaid Online Synchronization"
+                           attrs="{'invisible': [('bank_statements_source', '!=', 'plaid_sync')]}">
+                        <field name="plaid_account_id" options="{'no_create': True}"/>
+                        <button name="plaid_configure" string="Configure" type="object"
+                                attrs="{'invisible':[('plaid_account_id','!=',False)]}"
+                                class="btn btn-primary btn-sm"/>
+                        <field name="last_sync_date" attrs="{'invisible':[('plaid_account_id','=',False)]}"/>
+                        <field name="next_synchronization_cron" attrs="{'invisible':[('plaid_account_id','=',False)]}" readonly="1"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Add "Sync Now" Button and "Next Sync" field into Accounting Dashboard -->
+        <record id="journal_dashboard_view_inherit_ept" model="ir.ui.view">
+            <field name="name">account.journal.dashboard.kanban.inherit.ept</field>
+            <field name="model">account.journal</field>
+            <field name="inherit_id" ref="account.account_journal_dashboard_kanban_view"/>
+            <field name="arch" type="xml">
+                <field name="kanban_dashboard" position="after">
+                    <field name="next_synchronization_cron"/>
+                    <field name="plaid_account_id"/>
+                </field>
+                <xpath expr='//t[@t-name="JournalBodyBankCash"]/div[1]' position='inside'>
+                    <t t-if="dashboard.bank_statements_source == 'plaid_sync'">
+                        <button name="manual_sync_from_dashboard" attrs="{'invisible': [('plaid_account_id', '=', False)]}" string="Manual Sync"
+                                type="object" style="background:transparent; border:transparent; outline:none; font-size:14px; color:#535783;">Sync Now <i class="fa fa-refresh"/>
+                        </button>
+                    </t>
+                    <br/>
+                    <t t-if="dashboard.bank_statements_source == 'plaid_sync'">
+                        <span class="text-muted" t-if="(record.plaid_account_id.value != '')" t-att-title="record.next_synchronization_cron.value" style="color:#535783;">Next sync: <t t-esc="record.next_synchronization_cron.value"/></span>
+                    </t>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

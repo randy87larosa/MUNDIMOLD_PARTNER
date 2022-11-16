@@ -1,0 +1,704 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <menuitem
+        id ="parent_conf_mundimold"
+        string="Conf.Clientes"
+        parent="contacts.res_partner_menu_config"
+        ></menuitem>
+
+        <record id="tipo_enchufe_tree_view" model="ir.ui.view">
+            <field name="name">Tipo de enchufe</field>
+            <field name="model">res.partner.tipo.enchufe</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="name"></field>
+                </tree>
+            </field>
+        </record>
+
+        <record id="tipo_enchufe_action" model="ir.actions.act_window">
+			<field name="name">Tipo de enchufe</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">res.partner.tipo.enchufe</field>
+			<field name="view_mode">tree</field>
+			<field name="view_id" ref="tipo_enchufe_tree_view"/>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">Click para crear un nuevo tipo de enchufe</p>
+			</field>
+		</record>
+
+        <menuitem
+        id ="tipo_enchufe_action_menuitem"
+        action="tipo_enchufe_action"
+        string="Tipo de enchufe"
+        parent="parent_conf_mundimold"
+        ></menuitem>
+
+        <record id="partner_colectorres_tree_view" model="ir.ui.view">
+            <field name="name">Colectores</field>
+            <field name="model">res.partner.colectores</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="name"></field>
+                </tree>
+            </field>
+        </record>
+
+        <record id="partner_colectorres_action" model="ir.actions.act_window">
+			<field name="name">Colectores</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">res.partner.colectores</field>
+			<field name="view_mode">tree</field>
+			<field name="view_id" ref="partner_colectorres_tree_view"/>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">Click para crear un nuevo colectores</p>
+			</field>
+		</record>
+
+        <menuitem
+        id ="partner_colectorresn_menuitem"
+        action="partner_colectorres_action"
+        string="Colectores"
+        parent="parent_conf_mundimold"
+        ></menuitem>
+
+        <record id="enchufe_entrada_tree_view" model="ir.ui.view">
+            <field name="name">Enchufes entrada</field>
+            <field name="model">res.partner.enchufe.entrada</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="name"></field>
+                </tree>
+            </field>
+        </record>
+
+        <record id="enchufe_entrada_action" model="ir.actions.act_window">
+			<field name="name">Enchufes entrada</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">res.partner.enchufe.entrada</field>
+			<field name="view_mode">tree</field>
+			<field name="view_id" ref="enchufe_entrada_tree_view"/>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">Click para crear un nuevo Enchufes entrada</p>
+			</field>
+		</record>
+
+        <menuitem
+        id ="enchufe_entrada_action_menuitem"
+        action="enchufe_entrada_action"
+        string="Enchufes entrada"
+        parent="parent_conf_mundimold"
+        ></menuitem>
+
+        <record id="enchufe_salida_tree_view" model="ir.ui.view">
+            <field name="name">Enchufes salida</field>
+            <field name="model">res.partner.enchufe.salida</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="name"></field>
+                </tree>
+            </field>
+        </record>
+
+        <record id="enchufe_salida_action" model="ir.actions.act_window">
+			<field name="name">Enchufes salida</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">res.partner.enchufe.salida</field>
+			<field name="view_mode">tree</field>
+			<field name="view_id" ref="enchufe_salida_tree_view"/>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">Click para crear un nuevo Enchufes salida</p>
+			</field>
+		</record>
+
+        <menuitem
+        id ="enchufe_salida_action_menuitem"
+        action="enchufe_salida_action"
+        string="Enchufes salida"
+        parent="parent_conf_mundimold"
+        ></menuitem>
+
+
+        <record id="enchufe_entrada_tree_view" model="ir.ui.view">
+            <field name="name">Enchufes entrada</field>
+            <field name="model">res.partner.enchufe.entrada</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="name"></field>
+                </tree>
+            </field>
+        </record>
+
+        <record id="enchufe_entrada_action" model="ir.actions.act_window">
+			<field name="name">Enchufes entrada</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">res.partner.enchufe.entrada</field>
+			<field name="view_mode">tree</field>
+			<field name="view_id" ref="enchufe_entrada_tree_view"/>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">Click para crear un nuevo Enchufes entrada</p>
+			</field>
+		</record>
+
+        <menuitem
+        id ="enchufe_entrada_action_menuitem"
+        action="enchufe_entrada_action"
+        string="Enchufes entrada"
+        parent="parent_conf_mundimold"
+        ></menuitem>
+
+
+        <record id="refrigeracion_conexion_tree_view" model="ir.ui.view">
+            <field name="name">Conexion Refrigeracion</field>
+            <field name="model">res.partner.conexion</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="name"></field>
+                </tree>
+            </field>
+        </record>
+
+        <record id="refrigeracion_conexion_action" model="ir.actions.act_window">
+			<field name="name">Conexion Refrigeracion</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">res.partner.conexion</field>
+			<field name="view_mode">tree</field>
+			<field name="view_id" ref="refrigeracion_conexion_tree_view"/>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">Click para crear un nuevo conexion refrigeracion</p>
+			</field>
+		</record>
+
+        <menuitem
+        id ="conexion_action_menuitem"
+        action="refrigeracion_conexion_action"
+        string="Conexion Refrigeracion"
+        parent="parent_conf_mundimold"
+        ></menuitem>
+
+        <!-- Sistema Hidraulico-->
+
+        <record id="refrigeracion_provcilinhid_tree_view" model="ir.ui.view">
+            <field name="name">Provvedor Cilin Hidr</field>
+            <field name="model">res.partner.provcilinhid</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="name"></field>
+                </tree>
+            </field>
+        </record>
+
+        <record id="refrigeracion_provcilinhid_action" model="ir.actions.act_window">
+			<field name="name">Provvedor Cilin Hidr</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">res.partner.provcilinhid</field>
+			<field name="view_mode">tree</field>
+			<field name="view_id" ref="refrigeracion_provcilinhid_tree_view"/>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">Click para crear un nuevo conexion refrigeracion</p>
+			</field>
+		</record>
+
+        <menuitem
+        id ="provcilinhid_action_menuitem"
+        action="refrigeracion_provcilinhid_action"
+        string="Provvedor Cilin Hidr"
+        parent="parent_conf_mundimold"
+        ></menuitem>
+
+        <record id="refrigeracion_conexion_entrada_tree_view" model="ir.ui.view">
+            <field name="name">Conexion Entrada Hidraulico</field>
+            <field name="model">res.partner.conexion.entrada</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="name"></field>
+                </tree>
+            </field>
+        </record>
+
+        <record id="refrigeracion_conexion_entrada_action" model="ir.actions.act_window">
+			<field name="name">Conexion Entrada Hidraulico</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">res.partner.conexion.entrada</field>
+			<field name="view_mode">tree</field>
+			<field name="view_id" ref="refrigeracion_conexion_entrada_tree_view"/>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">Click para crear un nuevo conexion Entrada Hidraulico</p>
+			</field>
+		</record>
+
+        <menuitem
+        id ="conexion_entrada_action_menuitem"
+        action="refrigeracion_conexion_entrada_action"
+        string="Conexion Entrada Hidraulico"
+        parent="parent_conf_mundimold"
+        ></menuitem>
+
+        <record id="refrigeracion_conexion_salida_tree_view" model="ir.ui.view">
+            <field name="name">Conexion Salida Hidraulico</field>
+            <field name="model">res.partner.conexion.salida</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="name"></field>
+                </tree>
+            </field>
+        </record>
+
+        <record id="refrigeracion_conexion_salida_action" model="ir.actions.act_window">
+			<field name="name">Conexion Salida Hidraulico</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">res.partner.conexion.salida</field>
+			<field name="view_mode">tree</field>
+			<field name="view_id" ref="refrigeracion_conexion_salida_tree_view"/>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">Click para crear un nuevo conexion Salida Hidraulico</p>
+			</field>
+		</record>
+
+        <menuitem
+        id ="conexion_salida_action_menuitem"
+        action="refrigeracion_conexion_salida_action"
+        string="Conexion Entrada Hidraulico"
+        parent="parent_conf_mundimold"
+        ></menuitem>
+
+        <!-- Sistema inyeccion-->
+
+        <record id="refrigeracion_tipo_inyeccion_tree_view" model="ir.ui.view">
+            <field name="name">Tipo Inyección</field>
+            <field name="model">res.partner.tipo.inyeccion</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="name"></field>
+                </tree>
+            </field>
+        </record>
+
+        <record id="refrigeracion_tipo_inyeccion_action" model="ir.actions.act_window">
+			<field name="name">Tipo Inyección</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">res.partner.tipo.inyeccion</field>
+			<field name="view_mode">tree</field>
+			<field name="view_id" ref="refrigeracion_tipo_inyeccion_tree_view"/>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">Click para crear un nuevo conexion Salida Hidraulico</p>
+			</field>
+		</record>
+
+        <menuitem
+        id ="tipo_inyeccion_action_menuitem"
+        action="refrigeracion_tipo_inyeccion_action"
+        string="Tipo Inyección"
+        parent="parent_conf_mundimold"
+        ></menuitem>
+
+        <record id="refrigeracion_valvula_obturacion_tree_view" model="ir.ui.view">
+            <field name="name">Valvula Obturación</field>
+            <field name="model">res.partner.valvula.obturacion</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="name"></field>
+                </tree>
+            </field>
+        </record>
+
+        <record id="refrigeracion_valvula_obturacion_action" model="ir.actions.act_window">
+			<field name="name">Valvula Obturación</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">res.partner.valvula.obturacion</field>
+			<field name="view_mode">tree</field>
+			<field name="view_id" ref="refrigeracion_valvula_obturacion_tree_view"/>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">Click para crear un nuevo conexion Salida Hidraulico</p>
+			</field>
+		</record>
+
+        <menuitem
+        id ="valvula_obturacion_action_menuitem"
+        action="refrigeracion_valvula_obturacion_action"
+        string="Valvula Obturación"
+        parent="parent_conf_mundimold"
+        ></menuitem>
+
+        <record id="refrigeracion_proveedor_diferente_tree_view" model="ir.ui.view">
+            <field name="name">Proveedor Diferente Inyección</field>
+            <field name="model">res.partner.prov.diff</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="name"></field>
+                </tree>
+            </field>
+        </record>
+
+        <record id="refrigeracion_proveedor_diferente_action" model="ir.actions.act_window">
+			<field name="name">Proveedor Diferente Inyección</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">res.partner.prov.diff</field>
+			<field name="view_mode">tree</field>
+			<field name="view_id" ref="refrigeracion_proveedor_diferente_tree_view"/>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">Click para crear un nuevo conexion Salida Hidraulico</p>
+			</field>
+		</record>
+
+        <menuitem
+        id ="proveedor_diferente_action_menuitem"
+        action="refrigeracion_proveedor_diferente_action"
+        string="Proveedor Diferente Inyección"
+        parent="parent_conf_mundimold"
+        ></menuitem>
+
+        <record id="refrigeracion_poyo_boquilla_mauina_tree_view" model="ir.ui.view">
+            <field name="name">Apoyo boquilla máquina</field>
+            <field name="model">res.partner.abovvomaq</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="name"></field>
+                </tree>
+            </field>
+        </record>
+
+        <record id="refrigeracion_poyo_boquilla_mauina_action" model="ir.actions.act_window">
+			<field name="name">Apoyo boquilla máquina</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">res.partner.abovvomaq</field>
+			<field name="view_mode">tree</field>
+			<field name="view_id" ref="refrigeracion_poyo_boquilla_mauina_tree_view"/>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">Click para crear un nuevo conexion Salida Hidraulico</p>
+			</field>
+		</record>
+
+        <menuitem
+        id ="poyo_boquilla_mauina_action_menuitem"
+        action="refrigeracion_poyo_boquilla_mauina_action"
+        string="Apoyo boquilla máquina"
+        parent="parent_conf_mundimold"
+        ></menuitem>
+
+
+        <!--Neumatica-->
+
+        <record id="refrigeracion_conexion_neumatica_tree_view" model="ir.ui.view">
+            <field name="name">Conexión Neumática</field>
+            <field name="model">res.partner.conexion.neumatica</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="name"></field>
+                </tree>
+            </field>
+        </record>
+
+        <record id="refrigeracion_conexion_neumatica_action" model="ir.actions.act_window">
+			<field name="name">Conexión Neumática</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">res.partner.conexion.neumatica</field>
+			<field name="view_mode">tree</field>
+			<field name="view_id" ref="refrigeracion_conexion_neumatica_tree_view"/>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">Click para crear un nuevo conexion Salida Hidraulico</p>
+			</field>
+		</record>
+
+        <menuitem
+        id ="conexion_neumatica_action_menuitem"
+        action="refrigeracion_conexion_neumatica_action"
+        string="Conexión Neumática"
+        parent="parent_conf_mundimold"
+        ></menuitem>
+
+        <!--Expulsion-->
+
+        <record id="refrigeracion_tipo_expulsion_tree_view" model="ir.ui.view">
+            <field name="name">Tipo Expulsión</field>
+            <field name="model">res.partner.tipo.expulsion</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="name"></field>
+                </tree>
+            </field>
+        </record>
+
+        <record id="refrigeracion_tipo_expulsion_action" model="ir.actions.act_window">
+			<field name="name">Tipo Expulsión</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">res.partner.tipo.expulsion</field>
+			<field name="view_mode">tree</field>
+			<field name="view_id" ref="refrigeracion_tipo_expulsion_tree_view"/>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">Click para crear un nuevo conexion Salida Hidraulico</p>
+			</field>
+		</record>
+
+        <menuitem
+        id ="tipo_expulsion_action_menuitem"
+        action="refrigeracion_tipo_expulsion_action"
+        string="Tipo Expulsión"
+        parent="parent_conf_mundimold"
+        ></menuitem>
+
+        <record id="refrigeracion_expulsion_pieza_tree_view" model="ir.ui.view">
+            <field name="name">Expulsión Pieza</field>
+            <field name="model">res.partner.expulsion.pieza</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="name"></field>
+                </tree>
+            </field>
+        </record>
+
+        <record id="refrigeracion_expulsion_pieza_action" model="ir.actions.act_window">
+			<field name="name">Expulsión Pieza</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">res.partner.expulsion.pieza</field>
+			<field name="view_mode">tree</field>
+			<field name="view_id" ref="refrigeracion_expulsion_pieza_tree_view"/>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">Click para crear un nuevo conexion Salida Hidraulico</p>
+			</field>
+		</record>
+
+        <menuitem
+        id ="expulsion_pieza_action_menuitem"
+        action="refrigeracion_expulsion_pieza_action"
+        string="Expulsión Pieza"
+        parent="parent_conf_mundimold"
+        ></menuitem>
+
+
+        <record id="refrigeracion_expulsion_acontecimientos_tree_view" model="ir.ui.view">
+            <field name="name">Acontecimientos Expulsión</field>
+            <field name="model">res.partner.expulsion.acontecimientos</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="name"></field>
+                </tree>
+            </field>
+        </record>
+
+        <record id="refrigeracion_expulsion_acontecimientos_action" model="ir.actions.act_window">
+			<field name="name">Acontecimientos Expulsión</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">res.partner.expulsion.acontecimientos</field>
+			<field name="view_mode">tree</field>
+			<field name="view_id" ref="refrigeracion_expulsion_acontecimientos_tree_view"/>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">Click para crear un nuevo conexion Salida Hidraulico</p>
+			</field>
+		</record>
+
+        <menuitem
+        id ="expulsion_acontecimientos_action_menuitem"
+        action="refrigeracion_expulsion_acontecimientos_action"
+        string="Acontecimientos Expulsión"
+        parent="parent_conf_mundimold"
+        ></menuitem>
+
+
+        <!--Accionamientos-->
+
+        <record id="refrigeracion_tipo_accionamiento_tree_view" model="ir.ui.view">
+            <field name="name">Tipo Accionamiento</field>
+            <field name="model">res.partner.tipo.accionamiento</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="name"></field>
+                </tree>
+            </field>
+        </record>
+
+        <record id="refrigeracion_tipo_accionamiento_action" model="ir.actions.act_window">
+			<field name="name">Tipo Accionamiento</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">res.partner.tipo.accionamiento</field>
+			<field name="view_mode">tree</field>
+			<field name="view_id" ref="refrigeracion_tipo_accionamiento_tree_view"/>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">Click para crear un nuevo conexion Salida Hidraulico</p>
+			</field>
+		</record>
+
+        <menuitem
+        id ="tipo_accionamiento_action_menuitem"
+        action="refrigeracion_tipo_accionamiento_action"
+        string="Tipo Accionamiento"
+        parent="parent_conf_mundimold"
+        ></menuitem>
+
+        <record id="refrigeracion_detec_movimien_tree_view" model="ir.ui.view">
+            <field name="name">Detección movimientos</field>
+            <field name="model">res.partner.detec.mov</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="name"></field>
+                </tree>
+            </field>
+        </record>
+
+        <record id="refrigeracion_detec_movimien_action" model="ir.actions.act_window">
+			<field name="name">Detección movimientos</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">res.partner.detec.mov</field>
+			<field name="view_mode">tree</field>
+			<field name="view_id" ref="refrigeracion_detec_movimien_tree_view"/>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">Click para crear un nuevo conexion Salida Hidraulico</p>
+			</field>
+		</record>
+
+        <menuitem
+        id ="detec_movimien_action_menuitem"
+        action="refrigeracion_detec_movimien_action"
+        string="Detección movimientos"
+        parent="parent_conf_mundimold"
+        ></menuitem>
+
+        <!--MANIPULACIÓN DE MOLDE-->
+
+        <record id="refrigeracion_puente_grua_tree_view" model="ir.ui.view">
+            <field name="name">Puente Grua</field>
+            <field name="model">res.partner.puente.grua</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="name"></field>
+                </tree>
+            </field>
+        </record>
+
+        <record id="refrigeracion_puente_grua_action" model="ir.actions.act_window">
+			<field name="name">Puente Grua</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">res.partner.puente.grua</field>
+			<field name="view_mode">tree</field>
+			<field name="view_id" ref="refrigeracion_puente_grua_tree_view"/>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">Click para crear un nuevo conexion Salida Hidraulico</p>
+			</field>
+		</record>
+
+        <menuitem
+        id ="puente_grua_action_menuitem"
+        action="refrigeracion_puente_grua_action"
+        string="Puente Grua"
+        parent="parent_conf_mundimold"
+        ></menuitem>
+
+        <record id="refrigeracion_entrega_molde_tree_view" model="ir.ui.view">
+            <field name="name">Entrega Molde</field>
+            <field name="model">res.partner.entrega.molde</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="name"></field>
+                </tree>
+            </field>
+        </record>
+
+        <record id="refrigeracion_entrega_molde_action" model="ir.actions.act_window">
+			<field name="name">Entrega Molde</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">res.partner.entrega.molde</field>
+			<field name="view_mode">tree</field>
+			<field name="view_id" ref="refrigeracion_entrega_molde_tree_view"/>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">Click para crear un nuevo conexion Salida Hidraulico</p>
+			</field>
+		</record>
+
+        <menuitem
+        id ="entrega_molde_action_menuitem"
+        action="refrigeracion_entrega_molde_action"
+        string="Entrega Molde"
+        parent="parent_conf_mundimold"
+        ></menuitem>
+
+        <!-- #DOCUMENTACIÓN -->
+
+        <record id="refrigeracion_carpeta_doc_tree_view" model="ir.ui.view">
+            <field name="name">Carpeta Documentacion</field>
+            <field name="model">res.partner.carpeta.doc</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="name"></field>
+                </tree>
+            </field>
+        </record>
+
+        <record id="refrigeracion_carpeta_doc_action" model="ir.actions.act_window">
+			<field name="name">Carpeta Documentacion</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">res.partner.carpeta.doc</field>
+			<field name="view_mode">tree</field>
+			<field name="view_id" ref="refrigeracion_carpeta_doc_tree_view"/>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">Click para crear un nuevo conexion Salida Hidraulico</p>
+			</field>
+		</record>
+
+        <menuitem
+        id ="carpeta_doc_action_menuitem"
+        action="refrigeracion_carpeta_doc_action"
+        string="Carpeta Documentacion"
+        parent="parent_conf_mundimold"
+        ></menuitem>
+
+        <!--VARIOS-->
+        <record id="refrigeracion_molde_pintado_tree_view" model="ir.ui.view">
+            <field name="name">Molde Pintado</field>
+            <field name="model">res.partner.molde.pintado</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="name"></field>
+                </tree>
+            </field>
+        </record>
+
+        <record id="refrigeracion_molde_pintado_action" model="ir.actions.act_window">
+			<field name="name">Molde Pintado</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">res.partner.molde.pintado</field>
+			<field name="view_mode">tree</field>
+			<field name="view_id" ref="refrigeracion_molde_pintado_tree_view"/>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">Click para crear un nuevo conexion Salida Hidraulico</p>
+			</field>
+		</record>
+
+        <menuitem
+        id ="molde_pintado_action_menuitem"
+        action="refrigeracion_molde_pintado_action"
+        string="Molde Pintado"
+        parent="parent_conf_mundimold"
+        ></menuitem>
+
+        <record id="refrigeracion_fij_maquina_tree_view" model="ir.ui.view">
+            <field name="name">Fijación molde máquina</field>
+            <field name="model">res.partner.fij.maqui</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="name"></field>
+                </tree>
+            </field>
+        </record>
+
+        <record id="refrigeracion_fij_maquina_action" model="ir.actions.act_window">
+			<field name="name">Fijación molde máquina</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">res.partner.fij.maqui</field>
+			<field name="view_mode">tree</field>
+			<field name="view_id" ref="refrigeracion_fij_maquina_tree_view"/>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">Click para crear un nuevo conexion Salida Hidraulico</p>
+			</field>
+		</record>
+
+        <menuitem
+        id ="fij_maquina_action_menuitem"
+        action="refrigeracion_fij_maquina_action"
+        string="Fijación molde máquina"
+        parent="parent_conf_mundimold"
+        ></menuitem>
+
+
+    </data>
+</odoo>

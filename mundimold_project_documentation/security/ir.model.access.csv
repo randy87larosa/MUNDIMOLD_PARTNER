@@ -1,0 +1,6 @@
+"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
+"access_project_document_line","project_project_document_line manager","model_project_document_line","project.group_project_manager",1,1,1,1
+"access_parque_maquinaria_project","parque_maquinaria_project manager","model_parque_maquinaria_project","project.group_project_manager",1,1,1,1
+"access_parque_maquinaria_sale","parque_maquinaria_sale manager","model_parque_maquinaria_sale","sales_team.group_sale_salesman",1,1,1,1
+"access_parque_maquinaria_crm","parque_maquinaria_crm manager","model_parque_maquinaria_crm","sales_team.group_sale_salesman",1,1,1,1
+"access_diseno_pieza_project","diseno_pieza_project manager","model_diseno_pieza_project","project.group_project_manager",1,1,1,1

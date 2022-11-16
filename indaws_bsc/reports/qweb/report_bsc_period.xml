@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="report_bsc_period">
+            <t t-call="report.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <div class="page">
+                        <style>
+                            table, th, td {
+                            font-size: 9pt;
+                            }
+                        </style>
+
+                        <div style="width:100%; padding: 5px; text-align:center; background-color:#7692ed; font-size:14pt; color:#FFF">
+                            <span t-esc="o.name"/>
+                        </div>
+
+                        <div style="padding:0 20 0 20">
+                            <table class="table table-condensed">
+                                <thead>
+                                    <tr>
+                                        <th>Indicador</th>
+                                        <th>Objetivo</th>
+                                        <th>Real ant</th>
+                                        <th>Real</th>
+                                        <th>Objetivo acum</th>
+                                        <th>Real ant acum</th>
+                                        <th>Real acum</th>
+                                        <th>% Real-Obj</th>
+                                        <th>% Real-Obj acum</th>
+                                        <th>% Real-Ant</th>
+                                        <th>% Real-Ant acum</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="sale_tbody">
+                                    <tr t-foreach="o.line_ids" t-as="l">
+                                        <td>
+                                            <span t-esc="l.kpi_id.name"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="formatLang(l.target, digits=2)"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="formatLang(l.real_ant, digits=2)"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="formatLang(l.real, digits=2)"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="formatLang(l.target_acum, digits=2)"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="formatLang(l.real_ant_acum, digits=2)"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="formatLang(l.real_acum, digits=2)"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="l.percentage_real_obj"
+                                                  t-att-style="'color:%s' % l.color_real_obj "/>
+                                        </td>
+                                        <td>
+                                            <span t-field="l.percentage_real_obj_acum"
+                                                  t-att-style="'color:%s' % l.color_real_obj_acum "/>
+                                        </td>
+                                        <td>
+                                            <span t-field="l.percentage_real_ant"
+                                                  t-att-style="'color:%s' % l.color_real_ant "/>
+                                        </td>
+                                        <td>
+                                            <span t-field="l.percentage_real_ant_acum"
+                                                  t-att-style="'color:%s' % l.color_real_ant_acum "/>
+                                        </td>
+
+                                    </tr>
+
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

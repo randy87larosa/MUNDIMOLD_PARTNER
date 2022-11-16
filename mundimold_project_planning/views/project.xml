@@ -1,0 +1,255 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+
+    <record id="stock_picking_mundimold_form" model="ir.ui.view">
+        <field name="name">stock.picking.mundimold.form</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+        
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="project_id" />
+				<field name="escandallo_project_id" />
+				<field name="albaran_proveedor" />
+            </xpath>
+            
+        </field>
+    </record>
+
+
+
+    <record id="project_mundimold_planification_form" model="ir.ui.view">
+        <field name="name">project.project.mundimold.planification.plan</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.edit_project"/>
+        <field name="arch" type="xml">
+        
+            <xpath expr="//field[@name='user_id']" position="before">
+                <field name="sequence_name" />
+            </xpath>
+		
+			<xpath expr="//div[@name='options_active']" position="inside">
+              <div>
+                <field name="en_planificacion" class="oe_inline" string="En planificación?"/>
+                <label for="en_planificacion"/>
+              </div>
+            </xpath>
+			
+			<xpath expr="//field[@name='subtask_project_id']" position="after">
+				<!--<group string="Cargar proyecto" name="copiar">-->
+                    <field name="project_original_id" />
+					<field name="date_inicio" />
+					<field name="date_t1" />
+					<field name="date_entrega" />
+					<field name="load_project_id" />
+					
+				<!--</group>-->
+            </xpath>
+            
+            <xpath expr="//header" position="inside">
+                <button name="cargar_plantilla_tareas" string="Cargar tareas" type="object"></button>
+            </xpath>
+            
+        </field>
+    </record>
+	
+	
+	
+	
+	<record id="project_mundimold_planification_tree" model="ir.ui.view">
+        <field name="name">project.project.mundimold.planification.tree</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.view_project"/>
+        <field name="arch" type="xml">
+        
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="date_entrega" />
+				<field name="date_t1" widget="date"/>
+            </xpath>
+		
+        </field>
+    </record>
+	
+	
+	<record model="ir.actions.act_window" id="action_wizard_subcontratar_tarea">
+		<field name="name">Subcontratar tareas</field>
+		<field name="res_model">wizard.subcontratar.tarea</field>
+		<field name="view_type">form</field>
+		<field name="view_mode">form</field>
+		<field name="target">new</field>
+	</record>
+	
+
+    <record id="project_task_subco_plan_form" model="ir.ui.view">
+        <field name="name">project.task.subco.plan</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_form2"/>
+        <field name="arch" type="xml">
+
+        
+            <xpath expr="//button[@name='action_assign_to_me']" position="after">
+
+				<button name="%(action_wizard_subcontratar_tarea)d" string="Subcontratar tarea" type="action"></button>
+
+            </xpath>
+
+        </field>
+    </record>
+	
+	
+    
+    
+    <record model="ir.ui.view" id="wizard_subcontratar_tarea_form_view">
+		<field name="name">wizard.subcontratar.tarea.form</field>
+		<field name="model">wizard.subcontratar.tarea</field>
+		<field name="arch" type="xml">
+			<form string="Crear solicitudes de presupuesto">
+				<group>
+					<group>
+						<field name="task_id" />
+						<field name="partner_id"/>
+					</group>
+				</group>
+
+				<footer>
+					<button name="subcontratar_tareas" type="object"
+							string="Subcontratar tareas" class="oe_highlight"/>
+					
+					<button special="cancel" string="Cancelar"/>
+				</footer>
+			</form>
+		</field>
+	</record>
+	
+	
+	
+	
+	
+	
+	
+	<record id="view_project_resource_report_form" model="ir.ui.view" >
+        <field name="name">project.resource.report.form</field>
+        <field name="model">project.resource.report</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+              <header>
+                <button name="update_report"
+                        type="object"
+                        string="Actualizar informe"/>
+              </header>
+
+              <sheet>
+                
+                <group col="6">
+                  <group colspan='2'>
+                    <field name="date_from"/>
+                    <field name="date_to"/>
+					<field name="mostrar"/>
+					<field name="departamentos"/>
+                    
+                  </group>
+                </group>
+
+
+
+                <notebook>
+                    <page name='month' string="Mensual">
+						<field name="html_mensual"/>
+                    </page>
+					
+					<page name='week' string="Semanal">
+						<field name="html_semanal"/>
+                    </page>
+                    
+                    <page name='resources' string="Recursos">
+                      <field name="resource_ids">
+                      </field>
+                    </page>
+                    
+                    
+                </notebook>
+              </sheet>
+            </form>
+        </field>
+    </record>
+	
+    
+    <record id="view_project_task_planning_tree" model="ir.ui.view" >
+        <field name="name">project.task.planning.tree</field>
+        <field name="model">project.task</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Treasury planning" editable="top">
+				<field name="project_id"/>
+				<field name="name"/>
+                <field name="schedule_mode"/>
+                <field name="constrain_type"/>
+                <field name="constrain_date"/>
+                <field name="duartion_convert"/>
+                <field name="plan_duration" />
+				<field name="duration_calc" />
+            </tree>
+        </field>
+    </record>
+	
+	
+	<record id="view_project_resource_report_tree" model="ir.ui.view" >
+        <field name="name">project.resource.report.tree</field>
+        <field name="model">project.resource.report</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Treasury planning">
+				<field name="date_from"/>
+				<field name="date_to"/>
+            </tree>
+        </field>
+    </record>
+	
+	
+	<record id="view_project_resource_report_dates_tree" model="ir.ui.view" >
+        <field name="name">project.resource.report.dates.tree</field>
+        <field name="model">project.resource.report.dates</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Treasury planning" editable="top">
+				<field name="name"/>
+				<field name="date_from"/>
+				<field name="date_to"/>
+				<field name="type"/>
+            </tree>
+        </field>
+    </record>
+	
+	
+	
+	<act_window id="action_project_resource_report"
+        name="Informe de recursos"
+        res_model="project.resource.report"
+        view_mode="tree,form"/>
+
+    <menuitem id='menu_project_resource_report'
+        string='Informe de recursos'
+        parent="project_native.project_resource_menu"
+        action="action_project_resource_report"
+        sequence='15'/>
+		
+		
+		
+		
+	<act_window id="action_project_resource_report_dates"
+        name="Fechas informe"
+        res_model="project.resource.report.dates"
+        view_mode="tree"/>
+
+    <menuitem id='menu_project_resource_report_dates'
+        string='Fechas informe'
+        parent="project_native.project_resource_menu"
+        action="action_project_resource_report_dates"
+        sequence='16'/>
+        
+        
+
+</odoo>

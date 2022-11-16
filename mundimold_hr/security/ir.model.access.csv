@@ -1,0 +1,5 @@
+"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
+"access_hr_employee_laboral","hr_employee_laboral manager","model_hr_employee_laboral","project.group_project_manager",1,1,1,1
+"access_hr_employee_formacion","hr_employee_formacion manager","model_hr_employee_formacion","project.group_project_manager",1,1,1,1
+"access_hr_horas_extra","hr_horas_extra manager","model_hr_horas_extra","project.group_project_manager",1,1,1,1
+"access_hr_job_category","hr_job_category manager","model_hr_job_category","project.group_project_manager",1,1,1,1

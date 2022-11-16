@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<record model="ir.ui.view" id="checklist_activities_mass_approve_reject_form">
+	    <field name="name">checklist.activities.approve.reject.form</field>
+	    <field name="model">checklist.activities.approve.reject</field>
+	    <field name="arch" type="xml">
+	        <form string="Approve / Reject Bulk Checklist Activity">
+	            <!--<label string="Approve / Reject Bulk Checklist Activity"/>-->
+	            <group string="Approve / Reject Bulk Checklist Activity">
+	                <field name="skip_complete_cancel"/>
+	            </group>
+	            <footer>
+	                <button string="Mark Completed" name="approve_activity" type="object" class="text-success" icon="fa-check-circle"/>
+	                <button string="Mark Canceled" name="refuse_activity" type="object" class="text-danger" icon="fa-times"/>
+	                <button string="Cancel" class="btn-secondary" special="cancel"/>
+	            </footer>
+	        </form>
+	    </field>
+	</record>
+	
+	<act_window id="action_approve_reject_bulk_activity"
+	            key2="client_action_multi"
+	            res_model="checklist.activities.approve.reject"
+	            name="Complete/Cancel Activity"
+	            src_model="checklist.activities"
+	            view_mode="form"
+	            target="new"
+	            view_type="form"/>
+
+</odoo>

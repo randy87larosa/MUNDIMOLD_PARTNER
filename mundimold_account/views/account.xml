@@ -1,0 +1,29 @@
+﻿<openerp>
+    <data>
+        
+        
+
+        <record id="view_mundimold_move_line_due_list" model="ir.ui.view">
+            <field name="name">account.move.line.mundimold.due.inherit</field>
+            <field name="model">account.move.line</field>
+            <field name="inherit_id" ref="account_due_list.view_payments_tree"/>
+            <field name="arch" type="xml">
+            
+                <xpath expr="//field[@name='partner_id']" position="after">
+                
+                    
+					<field name="partner_vat"/>
+					<field name="bank_account_number"/>
+
+                </xpath>
+			
+                                
+                
+
+            </field>
+        </record>
+ 
+        
+
+    </data>
+</openerp>

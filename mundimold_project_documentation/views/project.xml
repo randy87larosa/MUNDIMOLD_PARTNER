@@ -1,0 +1,978 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    
+
+    <record id="action_project_documentacion_line_project" model="ir.actions.act_window">
+      <field name="name">Documentación</field>
+      <field name="res_model">project.document.line</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">kanban,tree</field>
+      <field name="context">{'search_default_project_id': active_id}</field>
+    </record>
+    
+    
+    <record id="project_task_mundimold_documentation_form" model="ir.ui.view">
+        <field name="name">project.task.mundimold.documentation</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_form2"/>
+        <field name="arch" type="xml">
+		
+			<xpath expr="//field[@name='user_id']" position="after">
+                <field name="document_line_id" domain="[('project_id','=',project_id), ]"/>
+            </xpath>
+        
+            
+
+        </field>
+    </record>
+    
+    
+    
+    <record id="project_mundimold_documentation_form" model="ir.ui.view">
+        <field name="name">project.project.mundimold.documentation</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.edit_project"/>
+        <field name="arch" type="xml">
+		
+			<xpath expr="//button[@name='toggle_active']" position="after">
+                <button class="oe_stat_button"
+                    string="Documentación"
+                    type="action"
+                    name="%(action_project_documentacion_line_project)d"
+                    icon="fa-bars"/>
+            </xpath>
+        
+            <xpath expr="//page[@name='settings']" position="after">
+                <page string="Documentación" groups="project.group_project_manager">
+                    <group>
+                        <field name='document_lines_ids' context="{'default_project_id': active_id, }">
+                            
+                            <tree string="Facturación" create="false" editable="top">
+                                <field name="project_id" invisible="1"/>
+                                <field name="name"/>
+                                <field name="date_ini"/>
+                                <field name="date_fin"/>
+                                <field name="state"/>
+								<field name="attachment_file" widget="many2many_binary"/>
+                                <button string="VER" 
+                                name="action_view_form_documentation_form" 
+                                type="object" 
+                                class="oe_highlight"/>
+                            </tree>
+                        </field>
+                    </group>
+                    
+                    <group>
+                        <button name="crear_fases_documentacion" type="object"
+											string="Crear fases" class="oe_highlight" />
+                    </group>
+
+                </page>
+            </xpath>
+
+        </field>
+    </record>
+    
+    
+    
+    <record model="ir.ui.view" id="view_project_document_line_kanban">
+        <field name="name">project.document.line.kanban</field>
+        <field name="model">project.document.line</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_mobile">
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_content oe_kanban_global_click">
+                            <div class="row">
+                                <div class="col-12">
+                                    <strong><field name="name"/></strong>
+                                </div>
+                                
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                
+                                    Inicio: <span class="float-right"><field name="date_ini"/></span><br/>
+                                    Fin: <span class="float-right"><field name="date_fin"/></span>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+    
+    
+    <record model="ir.ui.view" id="view_project_project_doc_01_form">
+        <field name="name">project.project.doc.01</field>
+        <field name="model">project.project</field>
+        <field name="priority" eval="50"></field>
+        <field name="arch" type="xml">
+            <form string="Gastos fijos">
+                 <header>
+
+                    <button name="action_01_empezar" string="Empezar fase" type="object" attrs="{'invisible': [('state_01', 'not in', ['PEN'])]}"/>
+                    <button name="action_01_finalizar" string="Finalizar fase" type="object" attrs="{'invisible': [('state_01', 'not in', ['EJE'])]}"/>
+                    <button name="action_01_validar" string="Validar fase" type="object" attrs="{'invisible': [('state_01', 'not in', ['VAL'])]}"/>
+                    <button name="action_01_reabrir" string="Reabrir fase" type="object" attrs="{'invisible': [('state_01', 'not in', ['FIN'])]}"/>
+					<button name="action_01_recoger_datos_pedido" string="Cargar datos de pedido" type="object" />
+                    <field name="state_01" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group col="10">
+                        <group string="Pieza" colspan="3">
+                            <field name="category_moldrent_id" domain="[('parent_id','=',False), ]"/>
+                            <field name="subcategory_moldrent_id" domain="[('parent_id','=',category_moldrent_id), ]"/>
+                            <field name="denominacion_pieza"/>
+                            <field name="uso_especifico" style="background-color:#bff5ff;"/>
+                            <field name="dimensiones_nominales" invisible="1"/>
+							<field name="dimensiones_x"/>
+							<field name="dimensiones_y"/>
+							<field name="dimensiones_z"/>
+                            <field name="peso_nominal"/>
+                            <field name="material1_pieza_id" domain="[('categ_id','like', 'MATERIAL PLÁSTICO')]"/>
+                            <field name="otro_material_pieza_id" domain="[('categ_id','like', 'MATERIAL PLÁSTICO')]"/>
+                            <field name="peso_otro_material" style="background-color:#bff5ff;"/>
+                            <field name="material_reciclado"/>
+                            <field name="compatibles_otras"/>
+                            <field name="carga_estatica"/>
+                            <field name="carga_dinamica"/>
+                            <field name="detalles_funcionales" style="background-color:#bff5ff;"/>
+                            <field name="limitaciones_funcionales" style="background-color:#bff5ff;"/>
+                            <field name="volumen_interno_contenido" style="background-color:#bff5ff;"/>
+                            <field name="producto_contener" style="background-color:#bff5ff;"/>
+                            <field name="otro_pieza" style="background-color:#bff5ff;"/>
+                            <field name="analisis_moldflow"/>
+                            <field name="analisis_estructural"/>
+                        </group>
+                        
+                        <group colspan="3">
+                        
+                            <group string="Molde general" colspan="3">
+                                <field name="contraccion_material" style="background-color:#bff5ff;"/>
+                                <field name="tipo_molde_id" />
+                                <field name="clase_molde_id"/>
+                                <field name="tecnologia_aplicada_id"/>
+                                <field name="num_cavidades"/>
+                                <field name="plazo_molde"/>
+                                <field name="ciclo_produccion"/>
+                                <field name="colectores"/>
+                                <field name="tonelaje_recomendado_maquina" style="background-color:#bff5ff;"/>
+                            </group>
+                            
+                            <group string="Materiales" colspan="3">
+                                <field name="fija_material_piezas_figura_ids" widget="many2many_tags" options="{'no_create_edit': True}" string="Material piezas de figura"/>
+                                <field name="fija_material_base_fija_ids" widget="many2many_tags" options="{'no_create_edit': True}" string="Material base fija del molde"/>
+                                <field name="fija_material_piezas_moviles_ids" widget="many2many_tags" options="{'no_create_edit': True}" string="Material Piezas móviles"/>
+                                <field name="fija_aleacines_ids" widget="many2many_tags" options="{'no_create_edit': True}" string="Fija Aleaciones especiales"/>
+                            </group>
+                            
+                            <group string="Tratamientos" colspan="3">
+                                <field name="tratamientos_piezas_figura_ids" widget="many2many_tags" options="{'no_create_edit': True}" string="Piezas de figura" style="background-color:#bff5ff;"/>
+                                <field name="tratamientos_piezas_especificas_ids" widget="many2many_tags" options="{'no_create_edit': True}" string="Piezas específicas" style="background-color:#bff5ff;"/>
+                                <field name="tratamientos_piezas_moviles_ids" widget="many2many_tags" options="{'no_create_edit': True}" string="Piezas móviles"/>
+                            </group>
+                            
+                        </group>
+                        
+                        
+                        
+                        <group colspan="3">
+                        
+                            <group string="Sistema de inyección" colspan="3">
+                                <field name="numero_puntos_inyeccion"></field>
+                                <field name="tipo_inyeccion_ids" widget="many2many_tags"></field>
+                                <field name="valvula_gate_obt_ids" widget="many2many_tags"></field>
+                                <field name="pro_diff_inyec_ids" widget="many2many_tags"></field>
+                                <field name="filtro_en_camara"></field>
+                                <field name="comments_sistema_inyeccion" ></field>
+
+                            </group>
+                            
+                             <group string="Acabados" colspan="3">
+                                <field name="acabados_macho_ids" widget="many2many_tags" options="{'no_create_edit': True}" />
+                                <field name="acabados_hembra_ids" widget="many2many_tags" options="{'no_create_edit': True}" />
+                            </group>
+                            
+                            <group string="Textura" colspan="3">
+                                <field name="tipo_textura" />
+                                <field name="proveedor_textura" style="background-color:#bff5ff;"/>
+								<field name="attachment_texturas" widget="many2many_binary"/>
+                            </group>
+                            
+                            <group string="Otros accionamientos" colspan="3">
+                                <field name="accionamientos_correderas_mecanicas"/>
+                                <field name="accionamientos_correderas_hidraulicas"/>
+                                <field name="accionamientos_cilindros_hidraulicas"/>
+                                <field name="accionamientos_cilindros_aire"/>
+                                <field name="accionamientos_muelles"/>
+                                <field name="accionamientos_cilindros_gas"/>
+                                <field name="accionamientos_telescopicos"/>
+                                <field name="accionamientos_otros"/>
+                            </group>
+                            
+                        </group>
+                        
+                        
+                        <group colspan="3">
+                        
+                            <group string="Expulsión" colspan="3">
+                                <field name="tipo_expulsion_ids" widget="many2many_tags"></field>
+                                <field name="expulsion_piezas_ids" widget="many2many_tags"></field>
+                                <field name="expulsion_acontecimientos_ids" widget="many2many_tags"></field>
+                                <field name="comments_expulsion" ></field>
+                                <field name="barras_expulsion_maquina" style="background-color:#bff5ff;"></field>
+
+                            </group>
+                            
+                             <group string="Elementos especiales" colspan="3">
+                                <field name="elementos_date_codes" style="background-color:#bff5ff;"/>
+                                <field name="elementos_shift_codes" style="background-color:#bff5ff;"/>
+                                <field name="elementos_material" style="background-color:#bff5ff;"/>
+                                <field name="elementos_floating_plates" style="background-color:#bff5ff;"/>
+                                <field name="elementos_transducers" style="background-color:#bff5ff;"/>
+                                <field name="elementos_switches" style="background-color:#bff5ff;"/>
+                                <field name="elementos_engraving" style="background-color:#bff5ff;"/>
+                                <field name="elementos_qmc_plates" style="background-color:#bff5ff;"/>
+                                <field name="elementos_cycle_counter" style="background-color:#bff5ff;"/>
+                                <field name="elementos_mold_samples" />
+                                <field name="elementos_repuestos" style="background-color:#bff5ff;"/>
+                                <field name="elementos_otros" style="background-color:#bff5ff;"/>
+                            </group>
+                            
+                            
+                            
+                            
+                        </group>
+                        
+                        
+                        
+                        <group colspan="15" string="Parque maquinaria">
+                        
+                            <field name="parque_maquinaria_ids" nolabel="1">
+                                <tree editable="bottom">
+                                    <field name="project_id" invisible="1"></field>
+                                    <field name="fabricante"></field>
+                                    <field name="modelo"></field>
+                                    <field name="tonelaje"></field>
+                                    <field name="plato_anc"></field>
+                                    <field name="paso_columnas"></field>
+                                    <field name="columnas"></field>
+                                    <field name="espesor_min_max"></field>
+                                    <field name="centrador_parte_fija"></field>
+                                    <field name="centrador_parte_movil"></field>
+                                    <field name="apoyo_maquina"></field>
+                                    <field name="paso"></field>
+                                    <field name="attachment_file" widget="many2many_binary"/>
+                                </tree>
+                            </field>
+                        
+                        </group>
+                        
+
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    
+    
+    
+    
+    
+    
+    <record model="ir.ui.view" id="view_project_project_doc_02_form">
+        <field name="name">project.project.doc.02</field>
+        <field name="model">project.project</field>
+        <field name="priority" eval="50"></field>
+        <field name="arch" type="xml">
+            <form string="Doc proyecto">
+                 <header>
+                    <button name="action_02_empezar" string="Empezar fase" type="object" attrs="{'invisible': [('state_02', 'not in', ['PEN'])]}"/>
+                    <button name="action_02_finalizar" string="Finalizar fase" type="object" attrs="{'invisible': [('state_02', 'not in', ['EJE'])]}"/>
+                    <button name="action_02_validar" string="Validar fase" type="object" attrs="{'invisible': [('state_02', 'not in', ['VAL'])]}"/>
+                    <button name="action_02_reabrir" string="Reabrir fase" type="object" attrs="{'invisible': [('state_02', 'not in', ['FIN'])]}"/>
+                    <field name="state_02" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <h3>Diagrama de gantt</h3>
+                    <p>Validar este documento una vez se ha generado el diagrama de Gantt</p>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    
+    
+    
+    <record model="ir.ui.view" id="view_project_project_doc_03_form">
+        <field name="name">project.project.doc.03</field>
+        <field name="model">project.project</field>
+        <field name="priority" eval="50"></field>
+        <field name="arch" type="xml">
+            <form string="Gastos fijos">
+                 <header>
+
+                    <button name="action_03_empezar" string="Empezar fase" type="object" attrs="{'invisible': [('state_03', 'not in', ['PEN'])]}"/>
+                    <button name="action_03_finalizar" string="Finalizar fase" type="object" attrs="{'invisible': [('state_03', 'not in', ['EJE'])]}"/>
+                    <button name="action_03_validar" string="Validar fase" type="object" attrs="{'invisible': [('state_03', 'not in', ['VAL'])]}"/>
+                    <button name="action_03_reabrir" string="Reabrir fase" type="object" attrs="{'invisible': [('state_03', 'not in', ['FIN'])]}"/>
+                    <field name="state_03" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group col="10">
+                        <group colspan="3">
+                        
+                        
+                            <group string="Info Molde" colspan="3">
+                                <field name="ciclo_produccion"/>
+                                <field name="num_cavidades"/>
+                                <field name="numero_puntos_inyeccion" />
+                            </group>
+                        
+                        
+                            <group string="Pieza" colspan="3">
+                                <field name="category_moldrent_id" domain="[('parent_id','=',False), ]"/>
+                                <field name="subcategory_moldrent_id" domain="[('parent_id','=',category_moldrent_id), ]"/>
+                                <field name="denominacion_pieza"/>
+                                <field name="uso_especifico"/>
+                                <field name="dimensiones_nominales" invisible="1"/>
+								<field name="dimensiones_x"/>
+								<field name="dimensiones_y"/>
+								<field name="dimensiones_z"/>
+                                <field name="peso_nominal"/>
+                                <field name="material1_pieza_id" domain="[('categ_id','like', 'MATERIAL PLÁSTICO')]"/>
+								<field name="otro_material_pieza_id" domain="[('categ_id','like', 'MATERIAL PLÁSTICO')]"/>
+                                <field name="peso_otro_material"/>
+                                <field name="material_reciclado"/>
+                                <field name="compatibles_otras"/>
+                                <field name="carga_estatica"/>
+                                <field name="carga_dinamica"/>
+                                <field name="detalles_funcionales"/>
+                                <field name="limitaciones_funcionales"/>
+                                <field name="volumen_interno_contenido"/>
+                                <field name="producto_contener"/>
+                                <field name="otro_pieza"/>
+                                <field name="analisis_moldflow"/>
+                                <field name="analisis_estructural"/>
+                            </group>
+                            
+                            <group string="Cálculo Moldflow" colspan="3">
+                                <field name="moldflow_nombre_comercial"/>
+                                <field name="moldflow_marca"/>
+                                <field name="moldflow_mfi" />
+                                <field name="moldflow_temp_masa_fundida" />
+                                <field name="moldflow_temp_molde" />
+                            </group>
+                            
+                            <group string="Cálculo estructural" colspan="3">
+                                <field name="estructural_altura"/>
+                                <field name="estructural_tiempo"/>
+                                <field name="estructural_temp_exterior" />
+                                <field name="estructural_temp_uso" />
+                            </group>
+                            
+                            <group string="Análisis de holguras" colspan="3">
+                                <field name="holgura_maxima"/>
+                                <field name="holgura_link"/>
+                            </group>
+                            
+                        </group>
+                        
+                        <group colspan="3">
+                            
+                            <group colspan="3">
+                              <field name="disenador_asignado_id"/>
+                            </group>
+                            
+                            <group>
+                        
+                                <field name="diseno_pieza_ids" nolabel="1">
+                                    <tree editable="bottom">
+                                        <field name="project_id" invisible="1"></field>
+                                        <field name="enviado"></field>
+                                        <field name="is_ok"></field>
+                                        <field name="name"></field>
+                                        <field name="links"></field>
+                                        <field name="observaciones"></field>
+                                        <field name="llenado_ok"></field>
+                                        <field name="deformacion_ok"></field>
+                                        <field name="archivo_stl"></field>
+                                        <field name="material"></field>
+                                        <field name="nombre"></field>
+                                        <field name="marca"></field>
+                                        <field name="mfi"></field>
+                                        <field name="fecha_cierre_lim"></field>
+                                        <field name="temp_masa_fundida"></field>
+                                        <field name="temp_molde"></field>
+                                        <field name="ref_disenada"></field>
+                                        <field name="puntos_inyeccion"></field>
+                                        <field name="presion_maxima_inyeccion"></field>
+                                        <field name="ciclo_limitado"></field>
+                                        <field name="tiempo_real_llenado"></field>
+                                        <field name="presion_llenado"></field>
+                                        <field name="f_cierre_max"></field>
+                                        <field name="defelexion_nominal"></field>
+                                        <field name="attachment_file" widget="many2many_binary"/>
+                                    </tree>
+                                </field>
+                            </group>
+
+                            
+                        </group>
+
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    
+    
+    
+    <record model="ir.ui.view" id="view_project_project_doc_04_form">
+        <field name="name">project.project.doc.04</field>
+        <field name="model">project.project</field>
+        <field name="priority" eval="50"></field>
+        <field name="arch" type="xml">
+            <form string="Doc proyecto">
+                 <header>
+                    <button name="action_04_empezar" string="Empezar fase" type="object" attrs="{'invisible': [('state_04', 'not in', ['PEN'])]}"/>
+                    <button name="action_04_finalizar" string="Finalizar fase" type="object" attrs="{'invisible': [('state_04', 'not in', ['EJE'])]}"/>
+                    <button name="action_04_validar" string="Validar fase" type="object" attrs="{'invisible': [('state_04', 'not in', ['VAL'])]}"/>
+                    <button name="action_04_reabrir" string="Reabrir fase" type="object" attrs="{'invisible': [('state_04', 'not in', ['FIN'])]}"/>
+                    <field name="state_04" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <h3>Info diseño de pieza</h3>
+                    <p>Validar este documento una vez se ha realizado la información de diseño de pieza</p>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    
+    
+    
+    <record model="ir.ui.view" id="view_project_project_doc_05_form">
+        <field name="name">project.project.doc.05</field>
+        <field name="model">project.project</field>
+        <field name="priority" eval="50"></field>
+        <field name="arch" type="xml">
+            <form string="Gastos fijos">
+                 <header>
+
+                    <button name="action_05_empezar" string="Empezar fase" type="object" attrs="{'invisible': [('state_05', 'not in', ['PEN'])]}"/>
+                    <button name="action_05_finalizar" string="Finalizar fase" type="object" attrs="{'invisible': [('state_05', 'not in', ['EJE'])]}"/>
+                    <button name="action_05_validar" string="Validar fase" type="object" attrs="{'invisible': [('state_05', 'not in', ['VAL'])]}"/>
+                    <button name="action_05_reabrir" string="Reabrir fase" type="object" attrs="{'invisible': [('state_05', 'not in', ['FIN'])]}"/>
+                    <field name="state_05" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group col="10">
+                        
+                        
+                        <group colspan="10">
+                            
+                            <group colspan="3">
+                              <field name="disenador_asignado_id"/>
+                            </group>
+                            
+                            <group>
+                        
+                                <field name="diseno_pieza_ids" nolabel="1">
+                                    <tree editable="bottom">
+                                        <field name="project_id" invisible="1"></field>
+                                        <field name="name"></field>
+                                        <field name="llenado_ok"></field>
+                                        <field name="deformacion_ok"></field>
+                                        <field name="archivo_stl"></field>
+                                        <field name="material"></field>
+                                        <field name="nombre"></field>
+                                        <field name="marca"></field>
+                                        <field name="mfi"></field>
+                                        <field name="fecha_cierre_lim"></field>
+                                        <field name="temp_masa_fundida"></field>
+                                        <field name="temp_molde"></field>
+                                        <field name="ref_disenada"></field>
+                                        <field name="puntos_inyeccion"></field>
+                                        <field name="presion_maxima_inyeccion"></field>
+                                        <field name="ciclo_limitado"></field>
+                                        <field name="tiempo_real_llenado"></field>
+                                        <field name="presion_llenado"></field>
+                                        <field name="f_cierre_max"></field>
+                                        <field name="defelexion_nominal"></field>
+                                        <field name="attachment_file" widget="many2many_binary"/>
+                                    </tree>
+                                </field>
+                            </group>
+                        </group>
+                            
+                         <group string="Info Molde" colspan="3">
+                            <field name="ciclo_produccion"/>
+                            <field name="num_cavidades"/>
+                            <field name="numero_puntos_inyeccion" />
+                        </group>
+                        
+                        <group string="Pieza" colspan="3">
+                            <field name="category_moldrent_id" domain="[('parent_id','=',False), ]"/>
+                            <field name="subcategory_moldrent_id" domain="[('parent_id','=',category_moldrent_id), ]"/>
+                            <field name="denominacion_pieza"/>
+                            <field name="uso_especifico"/>
+                            <field name="dimensiones_nominales" invisible="1"/>
+							<field name="dimensiones_x"/>
+							<field name="dimensiones_y"/>
+							<field name="dimensiones_z"/>
+                            <field name="peso_nominal"/>
+                            <field name="material1_pieza_id" domain="[('categ_id','like', 'MATERIAL PLÁSTICO')]"/>
+                            <field name="otro_material_pieza_id" domain="[('categ_id','like', 'MATERIAL PLÁSTICO')]"/>
+                            <field name="peso_otro_material"/>
+                            <field name="material_reciclado"/>
+                            <field name="compatibles_otras"/>
+                            <field name="carga_estatica"/>
+                            <field name="carga_dinamica"/>
+                            <field name="detalles_funcionales"/>
+                            <field name="limitaciones_funcionales"/>
+                            <field name="volumen_interno_contenido"/>
+                            <field name="producto_contener"/>
+                            <field name="otro_pieza"/>
+                            <field name="analisis_moldflow"/>
+                            <field name="analisis_estructural"/>
+                        </group>
+                        
+                        
+                        <group string="Cálculo Moldflow" colspan="3">
+                            <field name="moldflow_nombre_comercial"/>
+                            <field name="moldflow_marca"/>
+                            <field name="moldflow_mfi" />
+                            <field name="moldflow_temp_masa_fundida" />
+                            <field name="moldflow_temp_molde" />
+                        </group>
+                        
+                        <group string="Cálculo estructural" colspan="3">
+                            <field name="estructural_altura"/>
+                            <field name="estructural_tiempo"/>
+                            <field name="estructural_temp_exterior" />
+                            <field name="estructural_temp_uso" />
+                        </group>
+                        
+                        
+
+                            
+
+
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+        
+        
+        
+    <record model="ir.ui.view" id="view_project_project_doc_06_form">
+        <field name="name">project.project.doc.06</field>
+        <field name="model">project.project</field>
+        <field name="priority" eval="50"></field>
+        <field name="arch" type="xml">
+            <form string="Gastos fijos">
+                 <header>
+
+                    <button name="action_06_empezar" string="Empezar fase" type="object" attrs="{'invisible': [('state_06', 'not in', ['PEN'])]}"/>
+                    <button name="action_06_finalizar" string="Finalizar fase" type="object" attrs="{'invisible': [('state_06', 'not in', ['EJE'])]}"/>
+                    <button name="action_06_validar" string="Validar fase" type="object" attrs="{'invisible': [('state_06', 'not in', ['VAL'])]}"/>
+                    <button name="action_06_reabrir" string="Reabrir fase" type="object" attrs="{'invisible': [('state_06', 'not in', ['FIN'])]}"/>
+                    <field name="state_06" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group col="10">
+                        
+                        
+                        <group colspan="10">
+                            
+                            <group colspan="3">
+                              <field name="disenador_asignado_id"/>
+                            </group>
+                            
+                            <group>
+                        
+                                <field name="diseno_pieza_ids" nolabel="1">
+                                    <tree editable="bottom">
+                                        <field name="project_id" invisible="1"></field>
+                                        <field name="name"></field>
+                                        <field name="llenado_ok"></field>
+                                        <field name="deformacion_ok"></field>
+                                        <field name="archivo_stl"></field>
+                                        <field name="material"></field>
+                                        <field name="nombre"></field>
+                                        <field name="marca"></field>
+                                        <field name="mfi"></field>
+                                        <field name="fecha_cierre_lim"></field>
+                                        <field name="temp_masa_fundida"></field>
+                                        <field name="temp_molde"></field>
+                                        <field name="ref_disenada"></field>
+                                        <field name="puntos_inyeccion"></field>
+                                        <field name="presion_maxima_inyeccion"></field>
+                                        <field name="ciclo_limitado"></field>
+                                        <field name="tiempo_real_llenado"></field>
+                                        <field name="presion_llenado"></field>
+                                        <field name="f_cierre_max"></field>
+                                        <field name="defelexion_nominal"></field>
+                                        <field name="attachment_file" widget="many2many_binary"/>
+                                    </tree>
+                                </field>
+                            </group>
+                        </group>
+                            
+                         <group string="Info Molde" colspan="3">
+                            <field name="ciclo_produccion"/>
+                            <field name="num_cavidades"/>
+                            <field name="numero_puntos_inyeccion" />
+                        </group>
+                        
+                        <group string="Pieza" colspan="3">
+                            <field name="category_moldrent_id" domain="[('parent_id','=',False), ]"/>
+                            <field name="subcategory_moldrent_id" domain="[('parent_id','=',category_moldrent_id), ]"/>
+                            <field name="denominacion_pieza"/>
+                            <field name="uso_especifico"/>
+                            <field name="dimensiones_nominales" invisible="1"/>
+							<field name="dimensiones_x"/>
+							<field name="dimensiones_y"/>
+							<field name="dimensiones_z"/>
+                            <field name="peso_nominal"/>
+                            <field name="material1_pieza_id" domain="[('categ_id','like', 'MATERIAL PLÁSTICO')]"/>
+                            <field name="otro_material_pieza_id" domain="[('categ_id','like', 'MATERIAL PLÁSTICO')]"/>
+                            <field name="peso_otro_material"/>
+                            <field name="material_reciclado"/>
+                            <field name="compatibles_otras"/>
+                            <field name="carga_estatica"/>
+                            <field name="carga_dinamica"/>
+                            <field name="detalles_funcionales"/>
+                            <field name="limitaciones_funcionales"/>
+                            <field name="volumen_interno_contenido"/>
+                            <field name="producto_contener"/>
+                            <field name="otro_pieza"/>
+                            <field name="analisis_moldflow"/>
+                            <field name="analisis_estructural"/>
+                        </group>
+                        
+                        <group string="Cálculo estructural" colspan="3">
+                            <field name="estructural_altura"/>
+                            <field name="estructural_tiempo"/>
+                            <field name="estructural_temp_exterior" />
+                            <field name="estructural_temp_uso" />
+                        </group>
+                        
+
+
+                            
+
+
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    
+    
+    <record model="ir.ui.view" id="view_project_project_doc_07_form">
+        <field name="name">project.project.doc.07</field>
+        <field name="model">project.project</field>
+        <field name="priority" eval="50"></field>
+        <field name="arch" type="xml">
+            <form string="Doc proyecto">
+                 <header>
+                    <button name="action_07_empezar" string="Empezar fase" type="object" attrs="{'invisible': [('state_07', 'not in', ['PEN'])]}"/>
+                    <button name="action_07_finalizar" string="Finalizar fase" type="object" attrs="{'invisible': [('state_07', 'not in', ['EJE'])]}"/>
+                    <button name="action_07_validar" string="Validar fase" type="object" attrs="{'invisible': [('state_07', 'not in', ['VAL'])]}"/>
+                    <button name="action_07_reabrir" string="Reabrir fase" type="object" attrs="{'invisible': [('state_07', 'not in', ['FIN'])]}"/>
+                    <field name="state_07" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <h3>Info diseño de cliente</h3>
+                    <p>Validar este documento una vez se ha realizado la información de diseño de cliente</p>
+                </sheet>
+            </form>
+        </field>
+    </record>
+   
+   
+   <record model="ir.ui.view" id="view_project_project_doc_08_form">
+        <field name="name">project.project.doc.08</field>
+        <field name="model">project.project</field>
+        <field name="priority" eval="50"></field>
+        <field name="arch" type="xml">
+            <form string="Doc proyecto">
+                 <header>
+                    <button name="action_08_empezar" string="Empezar fase" type="object" attrs="{'invisible': [('state_08', 'not in', ['PEN'])]}"/>
+                    <button name="action_08_finalizar" string="Finalizar fase" type="object" attrs="{'invisible': [('state_08', 'not in', ['EJE'])]}"/>
+                    <button name="action_08_validar" string="Validar fase" type="object" attrs="{'invisible': [('state_08', 'not in', ['VAL'])]}"/>
+                    <button name="action_08_reabrir" string="Reabrir fase" type="object" attrs="{'invisible': [('state_08', 'not in', ['FIN'])]}"/>
+                    <field name="state_08" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <h3>Informe</h3>
+                    <p>Validar este documento una vez se ha realizado el informe</p>
+                </sheet>
+            </form>
+        </field>
+    </record>
+   
+   
+   
+   <record model="ir.ui.view" id="view_project_project_doc_09_form">
+        <field name="name">project.project.doc.09</field>
+        <field name="model">project.project</field>
+        <field name="priority" eval="50"></field>
+        <field name="arch" type="xml">
+            <form string="Doc proyecto">
+                 <header>
+                    <button name="action_09_empezar" string="Empezar fase" type="object" attrs="{'invisible': [('state_09', 'not in', ['PEN'])]}"/>
+                    <button name="action_09_finalizar" string="Finalizar fase" type="object" attrs="{'invisible': [('state_09', 'not in', ['EJE'])]}"/>
+                    <button name="action_09_validar" string="Validar fase" type="object" attrs="{'invisible': [('state_09', 'not in', ['VAL'])]}"/>
+                    <button name="action_09_reabrir" string="Reabrir fase" type="object" attrs="{'invisible': [('state_09', 'not in', ['FIN'])]}"/>
+                    <field name="state_09" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <h3>Ok del cliente</h3>
+                    <p>Validar este documento una vez se reciba el ok del cliente</p>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    
+    
+    
+    <record model="ir.ui.view" id="view_project_project_doc_10_form">
+        <field name="name">project.project.doc.10</field>
+        <field name="model">project.project</field>
+        <field name="priority" eval="50"></field>
+        <field name="arch" type="xml">
+            <form string="Doc proyecto">
+                 <header>
+
+                    <button name="action_10_empezar" string="Empezar fase" type="object" attrs="{'invisible': [('state_10', 'not in', ['PEN'])]}"/>
+                    <button name="action_10_finalizar" string="Finalizar fase" type="object" attrs="{'invisible': [('state_10', 'not in', ['EJE'])]}"/>
+                    <button name="action_10_validar" string="Validar fase" type="object" attrs="{'invisible': [('state_10', 'not in', ['VAL'])]}"/>
+                    <button name="action_10_reabrir" string="Reabrir fase" type="object" attrs="{'invisible': [('state_10', 'not in', ['FIN'])]}"/>
+                    <field name="state_10" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group col="10">
+                    
+                        <!--COLUMNA 1 -->
+                        <group colspan="3">
+                        
+                            <group string="Molde general" colspan="3">
+                                <field name="contraccion_material"/>
+                                <field name="category_moldrent_id" domain="[('parent_id','=',False), ]"/>
+                                <field name="subcategory_moldrent_id" domain="[('parent_id','=',category_moldrent_id), ]"/>
+                                <field name="denominacion_pieza"/>
+                                <field name="uso_especifico"/>
+                                <field name="ciclo_produccion"/>
+                                <field name="colectores"/>
+                                <field name="material1_pieza_id" domain="[('categ_id','like', 'MATERIAL PLÁSTICO')]"/>
+								<field name="otro_material_pieza_id" domain="[('categ_id','like', 'MATERIAL PLÁSTICO')]"/>
+                                <field name="peso_otro_material"/>
+                                <field name="material_reciclado"/>
+                                <field name="info_largo"/>
+                                <field name="info_ancho"/>
+                                <field name="info_grueso"/>
+                                <field name="info_apertura"/>
+                                <field name="info_aro_fijo"/>
+                                <field name="info_aro_movil"/>
+                            </group>
+
+                            <group string="Materiales" colspan="3">
+                                <field name="fija_material_piezas_figura_ids" widget="many2many_tags" options="{'no_create_edit': True}" string="Material piezas de figura"/>
+                                <field name="fija_material_base_fija_ids" widget="many2many_tags" options="{'no_create_edit': True}" string="Material base fija del molde"/>
+                                <field name="fija_material_piezas_moviles_ids" widget="many2many_tags" options="{'no_create_edit': True}" string="Material Piezas móviles"/>
+                                <field name="fija_aleacines_ids" widget="many2many_tags" options="{'no_create_edit': True}" string="Fija Aleaciones especiales"/>
+                            </group>
+                            
+                            <group string="Tratamientos" colspan="3">
+                                <field name="tratamientos_piezas_figura_ids" widget="many2many_tags" options="{'no_create_edit': True}" string="Piezas de figura"/>
+                                <field name="tratamientos_piezas_especificas_ids" widget="many2many_tags" options="{'no_create_edit': True}" string="Piezas específicas"/>
+                                <field name="tratamientos_piezas_moviles_ids" widget="many2many_tags" options="{'no_create_edit': True}" string="Piezas móviles"/>
+                            </group>
+                            
+                        </group>
+                        
+                        
+                        <!--COLUMNA 2 -->
+                        <group colspan="3">
+                        
+                            <group string="Sistema de inyección" colspan="3">
+                                <field name="numero_puntos_inyeccion"></field>
+                                <field name="tipo_inyeccion_ids" widget="many2many_tags"></field>
+                                <field name="valvula_gate_obt_ids" widget="many2many_tags"></field>
+                                <field name="pro_diff_inyec_ids" widget="many2many_tags"></field>
+                                <field name="filtro_en_camara"></field>
+                                <field name="comments_sistema_inyeccion" ></field>
+                                
+                                <field name="info_zonas_calefaccion"></field>
+                                <field name="info_num_boquillas"></field>
+                                <field name="info_potencia_maxima"></field>
+                                <field name="info_conector_resistencia"></field>
+                                <field name="info_conector_termopares"></field>
+                                <field name="info_conector_secuencial"></field>
+                                <field name="info_finales_carrera"></field>
+                                <field name="info_peso_inyeccion"></field>
+                                <field name="info_peso_expulsion"></field>
+                                <field name="info_peso_total"></field>
+                                <field name="info_asiento_tipo"></field>
+                                <field name="info_asiento_angulo"></field>
+
+                            </group>
+                            
+
+                            <group string="Acabados" colspan="3">
+                                <field name="acabados_macho_ids" widget="many2many_tags" options="{'no_create_edit': True}" />
+                                <field name="acabados_hembra_ids" widget="many2many_tags" options="{'no_create_edit': True}" />
+                            </group>
+                            
+                            <group string="Textura" colspan="3">
+                                <field name="tipo_textura" />
+                                <field name="proveedor_textura" />
+                            </group>
+                            
+                            
+                            
+                        </group>
+                        
+                        
+                        <!--COLUMNA 3 -->
+                        <group colspan="3">
+                        
+                        
+                            <group string="Expulsión" colspan="3">
+                                <field name="tipo_expulsion_ids" widget="many2many_tags"></field>
+                                <field name="expulsion_piezas_ids" widget="many2many_tags"></field>
+                                <field name="expulsion_acontecimientos_ids" widget="many2many_tags"></field>
+                                <field name="comments_expulsion" ></field>
+                                <field name="barras_expulsion_maquina"></field>
+                                <field name="info_barras_expulsion" ></field>
+                                <field name="info_carrera_expulsion" ></field>
+                                <field name="info_expulsion_abrochada" ></field>
+                                <field name="info_distancia_barras_a" ></field>
+                                <field name="info_distancia_barras_b" ></field>
+                                <field name="info_distancia_barras_c" ></field>
+                                <field name="info_distancia_barras_d" ></field>
+                                <field name="info_metrica_rosca" ></field>
+                                <field name="info_ras_enroscada" ></field>
+                                <field name="info_agujero_molde" ></field>
+
+                            </group>
+                            
+               
+                            <group string="Elementos especiales" colspan="3">
+                                <field name="elementos_date_codes"/>
+                                <field name="elementos_shift_codes"/>
+                                <field name="elementos_material"/>
+                                <field name="elementos_floating_plates"/>
+                                <field name="elementos_transducers"/>
+                                <field name="elementos_switches"/>
+                                <field name="elementos_engraving"/>
+                                <field name="elementos_qmc_plates"/>
+                                <field name="elementos_cycle_counter"/>
+                                <field name="elementos_mold_samples"/>
+                                <field name="elementos_repuestos"/>
+                                <field name="elementos_otros"/>
+                            </group>
+                            
+                            
+                             
+                            
+                            
+                            
+                        </group>
+                        
+                        <!--COLUMNA 4-->
+                        <group colspan="3">
+                        
+                            <group string="Sistema hidráulico (Aceite)" colspan="3">
+                            
+                                
+                                <p><u>Parte fija</u></p>
+                            
+                                <field name="info_fijo_tipo_tomas"/>
+                                <field name="info_fijo_num_accionamientos"/>
+                                <field name="info_fijo_presion_requerida"/>
+                                <field name="info_fijo_tipo_contactor"/>
+                                
+                                <p><u>Parte móvil</u></p>
+                                
+                                <field name="info_movil_tipo_tomas"/>
+                                <field name="info_movil_num_accionamientos"/>
+                                <field name="info_movil_presion_requerida"/>
+                                <field name="info_movil_tipo_contactor"/>
+                                
+                                
+                            </group>
+                            
+                            
+                            <group string="Sistema hidráulico (Refrigeración)" colspan="3">
+                                
+                                <p><u>Colectores</u></p>
+                            
+                                <field name="info_colectores_circuitos"/>
+                                <field name="info_colectores_rosca"/>
+                                <field name="info_colectores_acople"/>
+                                <field name="info_colectores_temperatura"/>
+                                
+                                <p><u>Mangueras</u></p>
+                                
+                                <field name="info_mangueras_circuitos"/>
+                                <field name="info_mangueras_acople"/>
+                                <field name="info_mangueras_temperatura"/>
+                                
+                            </group>
+                            
+                        
+                            <group string="Otros accionamientos" colspan="3">
+                                <field name="accionamientos_correderas_mecanicas"/>
+                                <field name="accionamientos_correderas_hidraulicas"/>
+                                <field name="accionamientos_cilindros_hidraulicas"/>
+                                <field name="accionamientos_cilindros_aire"/>
+                                <field name="accionamientos_muelles"/>
+                                <field name="accionamientos_cilindros_gas"/>
+                                <field name="accionamientos_telescopicos"/>
+                                <field name="accionamientos_otros"/>
+                            </group>
+                            
+
+                            
+                        </group>
+                        
+                        
+                        
+                        <group colspan="15" string="Parque maquinaria">
+                        
+                            <field name="parque_maquinaria_ids" nolabel="1">
+                                <tree editable="bottom">
+                                    <field name="project_id" invisible="1"></field>
+                                    <field name="fabricante"></field>
+                                    <field name="modelo"></field>
+                                    <field name="tonelaje"></field>
+                                    <field name="plato_anc"></field>
+                                    <field name="paso_columnas"></field>
+                                    <field name="columnas"></field>
+                                    <field name="espesor_min_max"></field>
+                                    <field name="centrador_parte_fija"></field>
+                                    <field name="centrador_parte_movil"></field>
+                                    <field name="apoyo_maquina"></field>
+                                    <field name="paso"></field>
+                                    <field name="attachment_file" widget="many2many_binary"/>
+                                </tree>
+                            </field>
+                        
+                        </group>
+                        
+
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+   
+        
+
+</odoo>

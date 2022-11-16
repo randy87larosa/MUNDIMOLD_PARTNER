@@ -1,0 +1,238 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+<template id="report_noconformidad">
+    <t t-call="web.html_container">
+        <t t-foreach="docs" t-as="doc">
+            <t t-call="web.external_layout">
+            
+                <t t-set="color1" t-value="doc.company_id.color1_qweb"/>
+                <t t-set="color2" t-value="doc.company_id.color2_qweb"/>
+                
+                <t t-set="doc" t-value="doc.with_context(lang=lang)"/>
+				
+				
+                <div class="page">
+                    
+                    
+                  <style>
+                      .cabinv {
+                      background-color: #<t t-esc="color1"/>;
+                      }
+                      
+                      p {
+                        font-size:11pt!important;
+						text-align: justify;
+                        text-justify: inter-word;
+                      }
+                      li p {
+                        padding:0px!important;
+                        margin:0px!important;
+                        font-size:11pt!important;
+                      }
+                      ul li {
+                        font-size:11pt!important;
+                      }
+                      ol li {
+                        font-size:11pt!important;
+                      }
+                      h3 {
+                        font-size:14pt;
+                        padding: 20px 0px 20px 0px;
+                      }
+                      h4 {
+                        font-size:12pt;
+                        padding: 20px 0px 20px 0px;
+                      }
+					  
+                  </style>
+                
+                  <div style="width:100%; color:#FFF; text-align: center; padding:7px;" class="cabinv">
+                    <strong><span style="text-transform: uppercase; font-size: 13pt; font-weight: bold;">
+                    
+                        <t t-if="doc.assigned_partner_id.lang == 'en_US'">
+                            NO CONFORMIDAD <span t-field="doc.sequence_name"/>:
+                         </t>
+                         <t t-elif="doc.assigned_partner_id.lang == 'fr_FR'">
+                            NO CONFORMIDAD <span t-field="doc.sequence_name"/>:
+                         </t>
+                         <t t-elif="doc.assigned_partner_id.lang == 'it_IT'">
+                            NO CONFORMIDAD <span t-field="doc.sequence_name"/>:
+                         </t>
+                         <t t-else="">
+                            NO CONFORMIDAD <span t-field="doc.sequence_name"/>:
+                         </t>
+                    
+                         <span t-field="doc.name"/>
+                    </span></strong>
+                  </div>
+                  
+                  
+                  
+                  
+                  
+
+                  <t t-if="doc.project_id"><br/>
+					  <p><strong>
+						<t t-if="doc.assigned_partner_id.lang == 'en_US'">
+							Project:
+						 </t>
+						 <t t-elif="doc.assigned_partner_id.lang == 'fr_FR'">
+							Project:
+						 </t>
+						 <t t-elif="doc.assigned_partner_id.lang == 'it_IT'">
+							Project:
+						 </t>
+						 <t t-else="">
+							Proyecto:
+						 </t>
+					  </strong> <span t-field="doc.project_id.name"/></p>
+				  </t>
+				  
+				  <p><strong>
+					<t t-if="doc.assigned_partner_id.lang == 'en_US'">
+						Date:
+					 </t>
+					 <t t-elif="doc.assigned_partner_id.lang == 'fr_FR'">
+						Date:
+					 </t>
+					 <t t-elif="doc.assigned_partner_id.lang == 'it_IT'">
+						Date:
+					 </t>
+					 <t t-else="">
+						Fecha:
+					 </t>
+				  </strong> <span t-field="doc.date_open"/></p>
+				  
+				  
+				  
+				  <t t-if="doc.assigned_partner_id">
+					  <p><strong>
+						<t t-if="doc.assigned_partner_id.lang == 'en_US'">
+							Assigned to:
+						 </t>
+						 <t t-elif="doc.assigned_partner_id.lang == 'fr_FR'">
+							Assigned to:
+						 </t>
+						 <t t-elif="doc.assigned_partner_id.lang == 'it_IT'">
+							Assigned to:
+						 </t>
+						 <t t-else="">
+							Asignado a:
+						 </t>
+					  </strong> <span t-field="doc.assigned_partner_id.name"/></p>
+				  </t>
+				  
+				  
+				  <p><strong>
+					<t t-if="doc.assigned_partner_id.lang == 'en_US'">
+						Cost:
+					 </t>
+					 <t t-elif="doc.assigned_partner_id.lang == 'fr_FR'">
+						Cost:
+					 </t>
+					 <t t-elif="doc.assigned_partner_id.lang == 'it_IT'">
+						Cost:
+					 </t>
+					 <t t-else="">
+						Coste:
+					 </t>
+				  </strong> <span t-field="doc.coste_total"/></p>
+				  
+				  
+				  
+				  
+				  <div style="width:100%; color:#FFF; text-align: center; padding:7px;" class="cabinv">
+                    <strong><span style="text-transform: uppercase; font-size: 13pt; font-weight: bold;">
+                    
+                        <t t-if="doc.assigned_partner_id.lang == 'en_US'">
+                            DESCRIPCIÓN DE LA NO CONFORMIDAD
+                         </t>
+                         <t t-elif="doc.assigned_partner_id.lang == 'fr_FR'">
+                            DESCRIPCIÓN DE LA NO CONFORMIDAD
+                         </t>
+                         <t t-elif="doc.assigned_partner_id.lang == 'it_IT'">
+                            DESCRIPCIÓN DE LA NO CONFORMIDAD
+                         </t>
+                         <t t-else="">
+                            DESCRIPCIÓN DE LA NO CONFORMIDAD
+                         </t>
+                    </span></strong>
+                  </div>
+				  <span t-field="doc.description"/>
+				  <br/><br/>
+				  
+				  <div style="width:100%; color:#FFF; text-align: center; padding:7px;" class="cabinv">
+                    <strong><span style="text-transform: uppercase; font-size: 13pt; font-weight: bold;">
+                    
+                        <t t-if="doc.assigned_partner_id.lang == 'en_US'">
+                            CAUSA DE LA NO CONFORMIDAD
+                         </t>
+                         <t t-elif="doc.assigned_partner_id.lang == 'fr_FR'">
+                            CAUSA DE LA NO CONFORMIDAD
+                         </t>
+                         <t t-elif="doc.assigned_partner_id.lang == 'it_IT'">
+                            CAUSA DE LA NO CONFORMIDAD
+                         </t>
+                         <t t-else="">
+                            CAUSA DE LA NO CONFORMIDAD
+                         </t>
+                    </span></strong>
+                  </div>
+				  <span t-field="doc.causas"/>
+				  <br/><br/>
+				  
+				  
+				  <div style="width:100%; color:#FFF; text-align: center; padding:7px;" class="cabinv">
+                    <strong><span style="text-transform: uppercase; font-size: 13pt; font-weight: bold;">
+                    
+                        <t t-if="doc.assigned_partner_id.lang == 'en_US'">
+                            ACCIÓN CORRECTIVA
+                         </t>
+                         <t t-elif="doc.assigned_partner_id.lang == 'fr_FR'">
+                            ACCIÓN CORRECTIVA
+                         </t>
+                         <t t-elif="doc.assigned_partner_id.lang == 'it_IT'">
+                            ACCIÓN CORRECTIVA
+                         </t>
+                         <t t-else="">
+                            ACCIÓN CORRECTIVA
+                         </t>
+                    </span></strong>
+                  </div>
+				  <span t-field="doc.accion_correctiva"/>
+				  <br/><br/>
+				  
+				  
+				  <div style="width:100%; color:#FFF; text-align: center; padding:7px;" class="cabinv">
+                    <strong><span style="text-transform: uppercase; font-size: 13pt; font-weight: bold;">
+                    
+                        <t t-if="doc.assigned_partner_id.lang == 'en_US'">
+                            ACCIÓN PREVENTIVA
+                         </t>
+                         <t t-elif="doc.assigned_partner_id.lang == 'fr_FR'">
+                            ACCIÓN PREVENTIVA
+                         </t>
+                         <t t-elif="doc.assigned_partner_id.lang == 'it_IT'">
+                            ACCIÓN PREVENTIVA
+                         </t>
+                         <t t-else="">
+                            ACCIÓN PREVENTIVA
+                         </t>
+                    </span></strong>
+                  </div>
+				  <span t-field="doc.accion_preventiva"/>
+				  <br/>
+                    
+                  
+						
+
+
+                </div>
+                
+            </t>
+        </t>
+    </t>
+</template>
+</data>
+</openerp>

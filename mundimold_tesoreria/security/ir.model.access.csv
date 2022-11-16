@@ -1,0 +1,8 @@
+"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
+"access_report_tesoreria_mundimold","report_tesoreria_mundimold manager","model_report_tesoreria_mundimold","project.group_project_manager",1,1,1,1
+"access_report_tesoreria_mundimold_line","report_tesoreria_mundimold_line manager","model_report_tesoreria_mundimold_line","project.group_project_manager",1,1,1,1
+"access_report_tesoreria_mundimold_saldos","report_tesoreria_mundimold_saldos manager","model_report_tesoreria_mundimold_saldos","project.group_project_manager",1,1,1,1
+"access_report_tesoreria_mundimold_financiacion","report_tesoreria_mundimold_financiacion manager","model_report_tesoreria_mundimold_financiacion","project.group_project_manager",1,1,1,1
+"access_report_tesoreria_mundimold_saldos_acumulados","report_tesoreria_mundimold_saldos_acumulados manager","model_report_tesoreria_mundimold_saldos_acumulados","project.group_project_manager",1,1,1,1
+"access_report_tesoreria_mundimold_resumen","report_tesoreria_mundimold_resumen manager","model_report_tesoreria_mundimold_resumen","project.group_project_manager",1,1,1,1
+"access_report_tesoreria_mundimold_pagares","report_tesoreria_mundimold_pagares manager","model_report_tesoreria_mundimold_pagares","project.group_project_manager",1,1,1,1

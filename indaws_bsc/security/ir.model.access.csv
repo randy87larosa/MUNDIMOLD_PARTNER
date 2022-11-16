@@ -1,0 +1,7 @@
+"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
+"access_bsc_config_group","bsc_config group","model_bsc_config","indaws_bsc.group_bsc_manager",1,1,1,1
+"access_bsc_categ_group","bsc_categ group","model_bsc_categ","indaws_bsc.group_bsc_manager",1,1,1,1
+"access_bsc_uom_group","bsc_uom group","model_bsc_uom","indaws_bsc.group_bsc_manager",1,1,1,1
+"access_bsc_period_group","bsc_period group","model_bsc_period","indaws_bsc.group_bsc_manager",1,1,1,1
+"access_bsc_kpi_group","bsc_kpi group","model_bsc_kpi","indaws_bsc.group_bsc_manager",1,1,1,1
+"access_bsc_kpi_line_group","bsc_kpi_line group","model_bsc_kpi_line","indaws_bsc.group_bsc_manager",1,1,1,1

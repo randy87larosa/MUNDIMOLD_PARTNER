@@ -1,0 +1,4 @@
+"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
+"access_project_escandallo","project_escandallo manager","model_project_escandallo","project.group_project_manager",1,1,1,1
+"access_project_escandallo_subcontratista","project_escandallo_subcontratista manager","model_project_escandallo_subcontratista","project.group_project_manager",1,1,1,1
+"access_product_pesos","product_pesos manager","model_product_pesos","sales_team.group_sale_salesman",1,1,1,1

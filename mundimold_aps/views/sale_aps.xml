@@ -1,0 +1,384 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+	<record model="ir.ui.view" id="view_wizard_aps_line_form">
+		<field name="name">wizard.aps.line.form</field>
+		<field name="model">wizard.aps.line</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form string="My Form">
+				<sheet>		                	
+					<group> 
+
+						<field name="aps_id" invisible="1"/>
+						<field name="area_id" widget="radio"/>
+						<field name="actividad_id" widget="radio" domain="[('template_id','=',area_id)]"/>
+						<field name="precio_materiales" />
+						<field name="precio_subcontratacion"/>
+						<field name="num_horas"/>
+
+					</group>
+					
+				</sheet>
+				<footer>
+					<button name="create_line" type="object" string="Añadir" class="oe_highlight"/>
+						or
+					<button special="cancel" string="Cancel"/>
+				</footer>
+
+			</form>
+		</field>
+	</record>
+	
+	
+	<record model="ir.actions.act_window" id="action_wizard_aps_line">
+		<field name="name">Añadir actividades</field>
+		<field name="res_model">wizard.aps.line</field>
+		<field name="view_type">form</field>
+		<field name="view_mode">form</field>
+		<field name="target">new</field>
+	</record>
+		
+		
+	
+
+    <record model="ir.ui.view" id="view_sale_aps_tree">
+            <field name="name">sale.aps.tree</field>
+            <field name="model">sale.aps</field>
+            <field name="priority" eval="16"/>
+            <field name="arch" type="xml">
+                <tree string="Producto">
+                    <field name="date"/>
+                    <field name="partner_id"/>
+                    <field name="user_id"/>                    
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+        
+        
+        <record model="ir.ui.view" id="view_sale_aps_form">
+            <field name="name">sale.aps.form</field>
+            <field name="model">sale.aps</field>
+            <field name="arch" type="xml">
+                <form string="Ofertas">
+                    <header>
+                        <button name="bor_to_gen" type="object" string="Generar presupuesto" states="BOR"/>
+                        <button name="gen_to_bor" type="object" string="Cancelar presupuesto" states="GEN"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="partner_id"/>
+                                <field name="date"/>
+                                <field name="user_id"/>
+                                <field name="mostrar_detalles"/>
+                                <field name="hora_id" widget="radio"/>
+								<field name="observaciones"/>
+								<field name="sale_id"/>
+								<field name="opportunity_id"/>
+                            </group>
+                        </group>
+						
+						<group>
+                            <group>
+								<button name="%(action_wizard_aps_line)d" string="Añadir actividades" class="oe_edit_only" type="action"></button>
+							</group>
+                        </group>
+						
+                        <notebook>
+                            <page string="Información económica" name="cot_c123">
+                                <field name="line_ids" mode="tree,kanban" options="{'no_create': True}">
+                                    <tree string="Líneas" editable="bottom">
+                                        <field name="sequence" widget="handle"/>
+                                        <field name="aps_id" invisible="1"/>
+										<field name="area_id"/>
+										<field name="actividad_id"/>
+										<field name="precio_materiales"/>
+										<field name="precio_subcontratacion"/>
+										<field name="num_horas"/>
+                                    </tree>
+                                    <kanban class="o_kanban_mobile">
+                                      <field name="area_id"/>
+                                      <field name="actividad_id"/>
+                                      <field name="precio_materiales"/>
+                                      <field name="precio_subcontratacion"/>
+                                      <field name="num_horas"/>
+                                      <templates>
+                                          <t t-name="kanban-box">
+                                              <div t-attf-class="oe_kanban_card oe_kanban_global_click">
+                                                  <div class="row">
+                                                      <div class="col-12">
+                                                          <strong>
+                                                              <span>
+                                                                  <field name="area_id"/>
+                                                              </span>
+                                                              <br/>
+                                                              <span>
+                                                                  <field name="actividad_id"/>
+                                                              </span>
+                                                              <br/>
+                                                          </strong>
+                                                      </div>
+                                                      
+                                                  </div>
+                                                  <div class="row">
+                                                      <div class="col-12 text-muted">
+                                                          <span>
+                                                              Precio materiales:
+                                                              <field name="precio_materiales"/>
+                                                          </span>
+                                                      </div>
+                                                  </div>
+                                                  <div class="row">
+                                                      <div class="col-12 text-muted">
+                                                          <span>
+                                                              Precio subcontratación:
+                                                              <field name="precio_subcontratacion"/>
+                                                          </span>
+                                                      </div>
+                                                  </div>
+                                                  <div class="row">
+                                                      <div class="col-12 text-muted">
+                                                          <span>
+                                                              Nª horas:
+                                                              <field name="num_horas"/>
+                                                          </span>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                          </t>
+                                      </templates>
+                                  </kanban>
+                                </field>
+								<group>
+									<h2>Precio: <field name="precio_total"/></h2><br/>
+									<h2>Horas: <field name="horas_total"/></h2>
+								</group>
+                            </page>
+                            
+                        </notebook>
+                        
+
+
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+        
+        <record model="ir.ui.view" id="view_sale_aps_search">
+            <field name="name">sale.aps.search</field>
+            <field name="model">sale.aps</field>
+            <field name="arch" type="xml">
+                <search string="Ofertas">
+                    <field name="partner_id"/>
+                    <field name="user_id"/>
+                    <field name="date"/>
+                    <field name="state"/>
+                </search>
+            </field>
+        </record>
+		
+		
+		<record model="ir.ui.view" id="view_sale_aps_line_form">
+            <field name="name">sale.aps.line.form</field>
+            <field name="model">sale.aps.line</field>
+            <field name="arch" type="xml">
+                <form string="Ofertas">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="sequence" invisible="1"/>
+								<field name="aps_id" invisible="1"/>
+								<field name="area_id"/>
+								<field name="actividad_id"/>
+								<field name="precio_materiales"/>
+								<field name="precio_subcontratacion"/>
+								<field name="num_horas"/>
+                            </group>
+                        </group>
+                        
+
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+				
+        <record model="ir.actions.act_window" id="action_sale_aps">
+            <field name="name">Ofertas APS</field>
+            <field name="res_model">sale.aps</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+		
+        <menuitem id='menu_sale_aps'
+			string='Ofertas APS'
+			parent="sale.sale_order_menu"
+			action="action_sale_aps"
+			sequence='38'/>
+        
+        
+		
+		<!--CONFIG-->
+		
+		<record model="ir.ui.view" id="view_sale_aps_template_tree">
+            <field name="name">sale.aps.template.tree</field>
+            <field name="model">sale.aps.template</field>
+            <field name="priority" eval="16"/>
+            <field name="arch" type="xml">
+                <tree string="Producto">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+        
+		
+		
+		<record model="ir.ui.view" id="view_sale_aps_template_form">
+            <field name="name">sale.aps.template.form</field>
+            <field name="model">sale.aps.template</field>
+            <field name="arch" type="xml">
+                <form string="Ofertas">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Actividades" name="cot_c123">
+                                <field name="line_ids" context="{'template_id': active_id, }">
+                                    <tree string="Líneas" editable='bottom'>
+                                        <field name='template_id' invisible='1' />
+                                        <field name='name' />
+										<field name='product_id' />
+                                    </tree>
+                                </field>   
+                            </page>
+                            
+                        </notebook>
+
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+		
+		<record model="ir.ui.view" id="view_sale_aps_template_search">
+            <field name="name">sale.aps.template.search</field>
+            <field name="model">sale.aps.template</field>
+            <field name="arch" type="xml">
+                <search string="Ofertas">
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+		
+		
+		<record model="ir.actions.act_window" id="action_sale_aps_template">
+            <field name="name">Plantilla actividades</field>
+            <field name="res_model">sale.aps.template</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+		<menuitem id='menu_sale_aps_template'
+			string='Plantillas actividades'
+			parent="sale.menu_sale_config"
+			action="action_sale_aps_template"
+			sequence='38'/>
+   
+   
+   
+		<record model="ir.ui.view" id="view_sale_aps_horas_tree">
+			<field name="name">sale.aps.horas.tree</field>
+			<field name="model">sale.aps.horas</field>
+			<field name="priority" eval="16"/>
+			<field name="arch" type="xml">
+				<tree string="Producto">
+					<field name="name"/>
+					<field name="num_horas"/>
+					<field name="precio_hora"/>
+				</tree>
+			</field>
+		</record>
+		
+		
+		
+		<record model="ir.ui.view" id="view_sale_aps_horas_form">
+			<field name="name">sale.aps.horas.form</field>
+			<field name="model">sale.aps.horas</field>
+			<field name="arch" type="xml">
+				<form string="Ofertas">
+					<sheet>
+						<group>
+							<group>
+								<field name="name"/>
+								<field name="num_horas"/>
+								<field name="precio_hora"/>
+							</group>
+						</group>
+
+					</sheet>
+				</form>
+			</field>
+		</record>
+		
+		
+		<record model="ir.ui.view" id="view_sale_aps_horas_search">
+			<field name="name">sale.aps.horas.search</field>
+			<field name="model">sale.aps.horas</field>
+			<field name="arch" type="xml">
+				<search string="Ofertas">
+					<field name="name"/>
+				</search>
+			</field>
+		</record>
+		
+		
+		<record model="ir.actions.act_window" id="action_sale_aps_horas">
+			<field name="name">Plantilla horas</field>
+			<field name="res_model">sale.aps.horas</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+		
+		<menuitem id='menu_sale_aps_horas'
+			string='Plantillas horas'
+			parent="sale.menu_sale_config"
+			action="action_sale_aps_horas"
+			sequence='39'/>
+    
+
+
+	<!--CRM-->
+	<record id="sale_action_oferta_new" model="ir.actions.act_window">
+        <field name="name">Oferta APS</field>
+        <field name="res_model">sale.aps</field>
+        <field name="view_mode">form,tree</field>
+        <field name="domain">[('opportunity_id', '=', active_id)]</field>
+        <field name="context">{'default_opportunity_id': active_id}</field>
+    </record>
+    
+	
+	<record id="crm_aps_oferta_form_view_oppor" model="ir.ui.view">
+		<field name="name">crm.lead.aps_oferta.crm</field>
+		<field name="model">crm.lead</field>
+		<field name="inherit_id" ref="crm.crm_case_form_view_oppor"/>
+		<field name="arch" type="xml">
+			<xpath expr="//button[@name='action_set_won_rainbowman']" position="before">
+				<button string="Nueva oferta APS" name="%(sale_action_oferta_new)d" type="action" class="oe_highlight"
+					attrs="{'invisible': ['&amp;', ('probability', '=', 0), ('active', '=', False)]}"
+					context="{'search_default_partner_id': partner_id,
+							  'default_partner_id': partner_id}"/>
+			</xpath>
+			
+		</field>
+	</record>
+
+</odoo>

@@ -1,0 +1,242 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<record id="mis_report_instance_type_form" model="ir.ui.view">
+        <field name="name">mis.report.instance.type.form</field>
+        <field name="model">mis.report.instance</field>
+        <field name="inherit_id" ref="mis_builder.mis_report_instance_view_form"/>
+        <field name="arch" type="xml">
+			<field name="report_id" position="after">
+				<field name="type_name"/>
+			</field>
+		</field>
+	</record>
+	
+	
+	<record id="mis_report_instance_type_tree" model="ir.ui.view">
+        <field name="name">mis.report.instance.type.tree</field>
+        <field name="model">mis.report.instance</field>
+        <field name="inherit_id" ref="mis_builder.mis_report_instance_view_tree"/>
+        <field name="arch" type="xml">
+			<field name="report_id" position="after">
+				<field name="type_name"/>
+			</field>
+		</field>
+	</record>
+    
+
+    <record id="project_mundimold_invoice_plan_form" model="ir.ui.view">
+        <field name="name">project.project.mundimold.invoice.plan</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.edit_project"/>
+        <field name="arch" type="xml">
+		
+			<field name="partner_id" position="after">
+				<field name="product_facturacion_id" domain="[('sale_ok','=',True)]"/>
+				<field name="oc_cliente"/>
+				<field name="num_oferta"/>
+			</field>
+        
+            <xpath expr="//page[@name='settings']" position="after">
+            
+                <page string="Facturación" groups="project.group_project_manager">
+
+                
+                <field name='invoice_plan_ids' context="{'default_project_id': active_id, }">
+                    <form string="Facturación">
+                        <sheet>
+                            <group>
+                                <group string="Facturación del proyecto">
+                                    <field name="project_id" invisible="1"/>
+									<field name="permite_crear_forecast" invisible="1"/>
+									<field name="permite_borrar_forecast" invisible="1"/>
+                                    <field name="product_id" domain="[('sale_ok','=',True)]"/>
+                                    <field name="name" attrs="{'readonly': [('permite_crear_forecast', '=', False)]}"/>
+                                    <field name="quantity" attrs="{'readonly': [('permite_crear_forecast', '=', False)]}"/>
+									<field name="price_unit_base" attrs="{'readonly': [('permite_crear_forecast', '=', False)]}"/>
+                                    <field name="price_unit" attrs="{'readonly': [('permite_crear_forecast', '=', False)]}"/>
+									<field name="tax" attrs="{'readonly': [('permite_crear_forecast', '=', False)]}"/>
+									
+                                    <field name="price_subtotal"/>
+                                    <field name="invoice_id"/>
+									<field name="forecast_id"/>
+                                </group>
+                                <group string="Fechas reales">
+                                    <field name="date_invoice"/>
+                                    <field name="date_forecast" />
+                                </group>
+                                <group string="Fechas estimadas">
+                                    <field name="date_invoice_manual"/>
+                                    <field name="date_forecast_manual" attrs="{'readonly': [('permite_crear_forecast', '=', False)]}"/>
+                                </group>
+								
+								<group></group>
+								
+								<group string="Acciones">
+									
+									<button name="create_forecast_bank_line" type="object"
+											string="Crear previsión tesorería" class="oe_highlight" attrs="{'invisible': [('permite_crear_forecast', '=', False)]}"/>
+									<br/>
+									<button name="delete_forecast_bank_line" type="object"
+											string="Borrar previsión tesorería" class="oe_highlight" attrs="{'invisible': [('permite_borrar_forecast', '=', False)]}"/>
+                                    <br/>
+                                    <button name="create_invoice_line" type="object"
+											string="Crear factura" class="oe_highlight" />
+								</group>
+								
+                            </group>
+                            
+                        </sheet>
+                    </form>
+                    <tree string="Facturación" >
+                        <field name="project_id" invisible="1"/>
+                        <field name="product_id"/>
+                        <field name="name"/>
+                        <field name="quantity"/>
+						<field name="price_unit_base" sum="Precio base"/>
+                        <field name="price_unit" sum="Precio unit"/>
+                        <field name="price_subtotal" sum="Precio subtotal"/>
+                        <field name="date_invoice"/>
+                        <field name="date_forecast"/>
+                        <field name="invoice_id"/>
+                    </tree>
+                </field>
+                
+                <group>
+                    <group>
+                        <field name="invoice_plan_base_amount"/>
+						<field name="comments_facturacion"/>
+                    </group>
+                </group>
+
+                </page>
+                
+                
+                
+                <page string="Proveedores" groups="project.group_project_manager">
+
+                
+                <field name='invoice_supplier_ids' context="{'default_project_id': active_id, }">
+                    <form string="Facturación">
+                        <sheet>
+                            <group>
+                                <group string="Facturación de proveedores">
+                                    <field name="project_id" invisible="1"/>
+									<field name="permite_crear_forecast" invisible="1"/>
+									<field name="permite_borrar_forecast" invisible="1"/>
+                                    <field name="name" attrs="{'readonly': [('permite_crear_forecast', '=', False)]}"/>
+                                    <field name="partner_id"/>
+                                    <field name="price_subtotal"/>
+                                    <field name="invoice_id"/>
+									<field name="forecast_id"/>
+                                </group>
+                                <group string="Fechas">
+                                    <field name="date_invoice"/>
+                                    <field name="date_forecast" />
+                                </group>
+                                
+								
+								<group></group>
+								
+								<group string="Acciones">
+									<button name="create_forecast_bank_line" type="object"
+											string="Crear previsión tesorería" class="oe_highlight" attrs="{'invisible': [('permite_crear_forecast', '=', False)]}"/>
+									<br/>
+									<button name="delete_forecast_bank_line" type="object"
+											string="Borrar previsión tesorería" class="oe_highlight" attrs="{'invisible': [('permite_borrar_forecast', '=', False)]}"/>
+                                    <br/>
+								</group>
+                            </group>
+                            
+                        </sheet>
+                    </form>
+                    <tree string="Facturación" >
+                        <field name="project_id" invisible="1"/>
+                        <field name="name"/>
+                        <field name="partner_id"/>
+                        <field name="price_subtotal"/>
+                        <field name="date_invoice"/>
+                        <field name="date_forecast"/>
+                        <field name="invoice_id"/>
+                    </tree>
+                </field>
+                
+                <group>
+                    <group>
+                        <field name="invoice_supplier_base_amount"/>
+                    </group>
+                </group>
+
+                </page>
+                
+                
+                
+                
+            
+            </xpath>
+
+        </field>
+    </record>
+    
+    
+    <!-- ############################################
+                     ESCANDALLO
+        ############################################# -->
+        
+        
+        
+        <record model="ir.ui.view" id="view_project_invoice_plan_tree">
+            <field name="name">project.invoice.plan.tree</field>
+            <field name="model">project.invoice.plan</field>
+            <field name="priority" eval="16"/>
+            <field name="arch" type="xml">
+                <tree string="Escandallo" >
+                    
+                    <field name="project_id" />
+                    <field name="product_id"/>
+                    <field name="name"/>
+                    <field name="quantity"/>
+                    <field name="price_unit"/>
+                    <field name="price_subtotal"/>
+                    <field name="date_invoice"/>
+                    <field name="date_forecast"/>
+                    <field name="invoice_id"/>
+                </tree>
+            </field>
+        </record>
+        
+        
+        <record model="ir.ui.view" id="view_project_invoice_plan_form">
+            <field name="name">project.invoice.plan.form</field>
+            <field name="model">project.invoice.plan</field>
+            <field name="arch" type="xml">
+                <form string="Gastos fijos">
+                    <sheet>
+                        <group>
+                            <group string="Escandallo">
+                                <field name="project_id" invisible="1"/>
+                                <field name="product_id"/>
+                                <field name="name"/>
+                                <field name="quantity"/>
+                                <field name="price_unit"/>
+                                <field name="price_subtotal"/>
+                                <field name="invoice_id"/>
+                            </group>
+                            <group string="Fechas reales">
+                                <field name="date_invoice"/>
+                                <field name="date_forecast"/>
+                            </group>
+                            <group string="Fechas estimadas">
+                                <field name="date_invoice_manual"/>
+                                <field name="date_forecast_manual"/>
+                            </group>
+                        </group>
+                        
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+        
+
+</odoo>

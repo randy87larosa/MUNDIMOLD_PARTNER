@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="plaid_bank_account_ept_form" model="ir.ui.view">
+            <field name="name">plaid.bank.account.ept.from</field>
+            <field name="model">plaid.bank.account</field>
+            <field name="arch" type="xml">
+                <form string="Plaid Bank Account" create="false">
+                    <header>
+                        <button name="manual_sync" string="Manual Sync" type="object" class="oe_highlight o_wow"/>
+                        <button name="update_credentials" string="Update Credentials" type="object"
+                                attrs="{'invisible':[('update_credentials_required','=',False)]}" class="oe_highlight o_wow"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" required="1"/>
+                            </h1>
+                        </div>
+                        <group string="Plaid Bank Account Details">
+                            <group>
+                                <field name="official_name" readonly="1"/>
+                                <field name="last_sync_date" readonly="0"/>
+                                <field name="next_synchronization" readonly="1"/>
+                                <field name="update_credentials_required" readonly="1"/>
+                            </group>
+                            <group>
+                                <field name="number" readonly="1"/>
+                                <field name="institute_name" readonly="1"/>
+                                <field name="institute_id" readonly="1"/>
+                                <field name="account_id" invisible="1"/>
+                                <field name="balance" readonly="1"/>
+                                <field name="company_id" readonly="1" groups="base.group_multi_company"/>
+                                <field name="access_token" invisible="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

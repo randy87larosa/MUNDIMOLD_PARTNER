@@ -1,0 +1,60 @@
+﻿<openerp>
+    <data>
+        
+        
+
+        <record id="view_mundimold_account_invoice_form" model="ir.ui.view">
+            <field name="name">account.invoice.mundimold.form.inherit</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+			
+
+                <field name="date_due" position="after">
+                    <field name="oc_cliente"/>
+                    <field name="notas_internas"/>
+				</field>
+                
+                <xpath expr="//page[@name='other_info']" position="after">
+                
+                    <page string="Packing list" name="packing_list">
+                        <group>
+                            <group>
+                
+                                <field name="num_bultos"/>
+                                <field name="peso_bruto"/>
+                                <field name="comentario_contenido"/>
+                                <field name="partida_arancelaria"/>
+                                <field name="medidas_caja"/>
+                                
+                            </group>
+                        </group>
+                    </page>
+                            
+                </xpath>
+                
+                
+
+            </field>
+        </record>
+		
+		
+		<record id="view_mundimold_account_invoice_supplier_form" model="ir.ui.view">
+            <field name="name">accont.invoice.supplier.mundimold.form.inherit</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form"/>
+            <field name="arch" type="xml">
+			
+
+                <field name="date_due" position="after">
+                    <field name="notas_internas"/>
+				</field>
+                
+
+            </field>
+        </record>
+		
+
+
+    </data>
+</openerp>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_account_config_plaid_import_ept" model="ir.ui.view">
+        <field name="name">res.config.settings.ept</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="40"/>
+        <field name="inherit_id" ref="account.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@id='bank_cash']" position="inside">
+                <div class="col-xs-12 col-md-6 o_setting_box" id="account_invoicing_config_plaid_import">
+                    <div class="o_setting_left_pane">
+                        <field name="sync_with_plaid"/>
+                    </div>
+                    <div class="o_setting_right_pane">
+                        <label for="sync_with_plaid"/>
+                        <div class="text-muted">
+                            Import your bank statements automatically
+                        </div>
+                        <div class="content-group" attrs="{'invisible': [('sync_with_plaid', '!=', True)]}">
+                            <div class="mt16 row">
+                                <label for="plaid_client_id" string="Client ID" class="col-xs-3 col-md-3 o_light_label"/>
+                                <field name="plaid_client_id" nolabel="1" attrs="{'required': [('sync_with_plaid', '!=', False)]}"/>
+
+                                <label for="plaid_secret" string="Secret" class="col-xs-3 col-md-3 o_light_label"/>
+                                <field name="plaid_secret" nolabel="1" attrs="{'required': [('sync_with_plaid', '!=', False)]}"/>
+
+                                <label for="plaid_public_key" string="Public Key" class="col-xs-3 col-md-3 o_light_label"/>
+                                <field name="plaid_public_key" nolabel="1" attrs="{'required': [('sync_with_plaid', '!=', False)]}"/>
+
+                                <label for="plaid_env" string="Environment" class="col-xs-3 col-md-3 o_light_label"/>
+                                <field name="plaid_env" widget="radio" attrs="{'required': [('sync_with_plaid', '!=', False)]}"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,34 @@
+.o_pivot {
+  
+  table thead {
+    
+    //reset:
+        .o_pivot_header_cell_closed::before {
+            content: none;
+        }
+
+        .o_pivot_header_cell_opened::before {
+            content: none;
+        }
+  
+    // set  
+        span.stick-left {
+          pointer-events: none;
+        }
+        .o_pivot_header_cell_closed {
+            .stick-left::before {
+                font-family: FontAwesome;
+                content: "";
+                margin-right: 8px;
+            }
+        }
+
+        .o_pivot_header_cell_opened {
+            .stick-left::before {
+                font-family: FontAwesome;
+                content: "";
+                margin-right: 8px;
+            }
+        }
+  }  
+}

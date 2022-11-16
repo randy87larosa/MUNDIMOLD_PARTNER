@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="assets_backend" name="stickify_pivot backend assets" inherit_id="web.assets_backend" priority="91">
+
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" type="text/scss" href="/unicoding_fixed_top_left_pivot/static/src/scss/stickify_pivot.scss"  t-ignore="true"/>            
+            
+            <script type="text/javascript" src="/unicoding_fixed_top_left_pivot/static/src/js/jquery.ba-resize.js"></script>
+            <script type="text/javascript" src="/unicoding_fixed_top_left_pivot/static/src/js/stickify_pivot.js"></script>
+        </xpath>                
+                
+    </template>    
+
+
+    <template id="sticky_th_shadow" name="stickify_pivot th shadow" inherit_id="web.assets_backend" priority="92">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" type="text/scss" href="/unicoding_fixed_top_left_pivot/static/src/scss/stickify_pivot-shadow.scss"  t-ignore="true"/>
+        </xpath>
+    </template>    
+
+    <template id="sticky_th_shift" name="stickify_pivot th shift" inherit_id="web.assets_backend" priority="93">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" type="text/scss" href="/unicoding_fixed_top_left_pivot/static/src/scss/stickify_pivot-header_shift.scss"  t-ignore="true"/>
+            <script type="text/javascript" src="/unicoding_fixed_top_left_pivot/static/src/js/stickify_pivot-header_shift.js" t-ignore="true"></script>
+        </xpath>
+    </template>    
+
+    <template id="sticky_th_overlay" name="stickify_pivot th overlay" inherit_id="web.assets_backend" active="False" priority="93">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/unicoding_fixed_top_left_pivot/static/src/js/stickify_pivot-header_overlay.js" t-ignore="true"></script>
+        </xpath>
+    </template>
+
+</odoo>

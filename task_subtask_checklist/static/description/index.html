@@ -1,0 +1,198 @@
+<head>
+    <meta name="description" content="Added CheckList And CheckList Related Features Into Project">
+    <meta name="keywords" content="project checklist, task checklist, subtask checklist, checklist features, odoo checklist,
+    odoo task checklist divide task to checklist, checklist functionality, task subtask checklist">
+    <meta name="author" content="Freelancerapps">
+</head>
+
+<section class="oe_container">
+    <div>
+        <h2 class="oe_slogan" style="color:#875A7B;">Project Task SubTask Checklist</h2>
+        <h3 class="oe_slogan">With the help of this module you can divide task or sub task into list of activities, 
+        so task and subtask progress will easily control in Odoo project management
+        </h3>
+    </div>
+</section>
+
+<section class="oe_container">
+    <div class="oe_spaced" style="padding-left: 64px; padding-right: 64px; font-size: 18px;">
+        <div style="background: white">
+            <div class="alert alert-info" style="padding:8px;font-weight: 300; font-size: 20px;">
+                <i class="fa fa-hand-o-right"></i><b> Key features: </b>
+                <ul class="list-unstyled">
+                    <li>
+                        <i class="fa fa-check-square-o text-primary"></i>
+                        Any Number Of Configurable Checklist(General or Project Specific)
+                    </li>
+                    <li>
+                        <i class="fa fa-check-square-o text-primary"></i>
+                        Configurable Checklist Stages(Default 3 Stages you can add more stages).
+                    </li>
+                    <li>
+                        <i class="fa fa-check-square-o text-primary"></i>
+                        Only Admin And Manager Can Add Remove Checklist.
+                    </li>
+                    <li>
+                        <i class="fa fa-check-square-o text-primary"></i>
+                        Any Number Of Checklist Activities.
+                    </li>
+                    <li>
+                        <i class="fa fa-check-square-o text-primary"></i>
+                        Set Color Depend Checklist Activity Stage.
+                    </li>
+                    <li>
+                        <i class="fa fa-check-square-o text-primary"></i>
+                        Separate Checklist Activity Menu With Different Filter Group By Options.
+                    </li>
+                    <li>
+                        <i class="fa fa-check-square-o text-primary"></i>
+                        Complete / Cancel CheckList Activity In Bulk .
+                    </li>
+                    <li>
+                        <i class="fa fa-check-square-o text-primary"></i>
+                        Check list Progress In Task Kanban And Form View.
+                    </li>
+                    <li>
+                        <i class="fa fa-check-square-o text-primary"></i>
+                        Activities Can Checked From Project Kanban And Form View.
+                    </li>
+                    <li>
+                        <i class="fa fa-check-square-o text-primary"></i>
+                        Restrict Task Progress(change stage) Before All Checklist Either Canceled Or Completed.
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="oe_container">
+    <div class="oe_spaced" style="padding-left: 64px; padding-right: 64px; font-size: 18px;">
+        <div style="background: white">
+            <div class="alert alert-info">
+                <b>Task Progress Restriction Setting</b><br/>
+                <i class="fa fa-hand-o-down"> If user select <b>Restrict Task Progress Before All Checklist Activity Completion</b> option from project setting, there will be one checkbox will visible into Task Stages.
+                If That checkbox is selected for perticular taskt stage then user can not change task to taht stage until all checklist activities are either completed or cancelled.</i>
+            </div>
+            <img src="1_checklist_setting.png" style="width: 100%; margin-bottom: 18px; border: 1px solid lightslategray"/>
+        </div>
+
+        <div class="alert alert-info">
+            <i class="fa fa-hand-o-down"> Suppose user set <b>Checklist Task Progress Restriction</b> checkbox for stage <b>Done</b> then task will not goto Done stage until all checklist activities are 
+            either calcelled or completed. This setting can be applied to any task stage.</i>
+        </div>
+        <img src="2_task_stage_restriction.png" style="width: 100%; margin-bottom: 18px; border: 1px solid lightslategray"/>
+
+        <div class="alert alert-info">
+        	<b>Checklist Activity Stages</b><br/>
+            <i class="fa fa-hand-o-down"> Default activity stages are 1.TODO 2.Completed 3.Canceled.<br/>You can create upto 20 more custom stages with sequence in between 2 to 21</i>
+        </div>
+        <img src="3_default_activity_stages.png" style="width: 100%; margin-bottom: 18px; border: 1px solid lightslategray"/>
+
+        <div class="alert alert-info">
+            <b>Checklist Master</b><br/>
+            <i class="fa fa-hand-o-down"> You need to Add checklist name, description, list activities for that checklist and project. If project is set then this checklist will only available to selected project tasks.</i>
+        </div>
+        <img src="4_checklist_master.png" style="width: 100%; margin-bottom: 18px; border: 1px solid lightslategray"/>
+
+        <div class="alert alert-info">
+			<i class="fa fa-hand-o-down"> Need to select checklist to task. New Checklist page will visible. All checklist activities will auto populate. Different colours for different activity stages. You can see overall checklist progress.</i>            
+        </div>
+        <img src="5_task_checklist_form.png" style="width: 100%; margin-bottom: 18px; border: 1px solid lightslategray"/>
+
+        <div class="alert alert-info">
+            <i class="fa fa-hand-o-down"> Checklist activity form view.</i>
+        </div>
+        <img src="6_task_checklist_activity_form.png" style="width: 100%; margin-bottom: 18px; border: 1px solid lightslategray"/>
+
+        <div class="alert alert-info">
+            <i class="fa fa-hand-o-down"> Checklist progress in task kanban view.</i>
+        </div>
+        <img src="7_task_checklist_kanban.png" style="width: 100%; margin-bottom: 18px; border: 1px solid lightslategray"/>
+
+        <div class="alert alert-info">
+            <i class="fa fa-hand-o-down"> Checklist progress in task list view.</i>
+        </div>
+        <img src="8_task_checklist_list.png" style="width: 100%; margin-bottom: 18px; border: 1px solid lightslategray"/>
+        
+        <div class="alert alert-info">
+            <i class="fa fa-hand-o-down"> Checklist activity count in project kanban view.</i>
+        </div>
+        <img src="9_activities_project_kanban.png" style="width: 100%; margin-bottom: 18px; border: 1px solid lightslategray"/>
+        
+        <div class="alert alert-info">
+            <i class="fa fa-hand-o-down"> List of cativity count in project form view.</i>
+        </div>
+        <img src="10_activities_project_form.png" style="width: 100%; margin-bottom: 18px; border: 1px solid lightslategray"/>
+        
+        <div class="alert alert-info">
+            <i class="fa fa-hand-o-down"> If user try to change stage to Done(Restricted) stage and some activities are not canclled or completed then system will raise warning message.</i>
+        </div>
+        <img src="11_restrict_task_progress_error.png" style="width: 100%; margin-bottom: 18px; border: 1px solid lightslategray"/>
+        
+        <div class="alert alert-info">
+            <i class="fa fa-hand-o-down">Create separate Checklist activity menu for bulk operation of cancel or complete<br/>Added different filters and groups so user can easily work on specific activities.</i>
+        </div>
+        <img src=12_checklist_activities_list.png style="width: 100%; margin-bottom: 18px; border: 1px solid lightslategray"/>
+        
+        <div class="alert alert-info">
+        <b>Mass Approve / Cancel Activities</b><br/>
+            <i class="fa fa-hand-o-down">Select single or multiple activities from list view --> Action --> Complete / Cancel Activity.<br/>
+            If user click on skip checkbox system will skip cancelled and completed activity otherwise system will perform calcellation or completion operation on all selected records.</i>
+        </div>
+        <img src="13_checklist_activities_bulk_operation.png" style="width: 100%; margin-bottom: 18px; border: 1px solid lightslategray"/>
+    </div>
+</section>
+
+<section class="oe_container">
+    <div class="oe_row" style="text-align: center;">
+        <h2 class="oe_slogan" style="color:#875A7B;">You would love to have our other Apps!</h2>
+        <div>
+            <div class="oe_bg_img" style="margin-bottom: 20px">
+                <a href="https://www.odoo.com/apps/modules/12.0/hide_any_menu/" target="new">
+                    <img src="hide_any_menu_banner_small.png" style="width:45%;margin-left:3%;border: solid;">
+                </a>
+                <a href="https://www.odoo.com/apps/modules/12.0/set_read_only_user/" target="new">
+                    <img src="set_read_only_user_banner_small.png" style="width:45%;margin-left:3%;border: solid">
+                </a>
+            </div>
+            <div class="oe_bg_img" style="margin-bottom: 20px">
+                <a href="https://apps.odoo.com/apps/modules/12.0/clear_shopping_cart/" target="new">
+                    <img src="clear_shopping_cart_banner_small.png" style="width:45%;border:solid;margin-left:3%;">
+                </a>
+                <a href="https://www.odoo.com/apps/modules/12.0/import_image_fromurl/" target="new">
+                    <img src="import_from_url_banner_small.png" style="width:45%;margin-left:3%;border: solid">
+                </a>
+            </div>
+            <div class="oe_bg_img" style="margin-bottom: 20px">
+                <a href="https://apps.odoo.com/apps/modules/12.0/auto_generate_ean13/" target="new">
+                    <img src="auto_generate_ean13_banner_small.png" style="width:45%;border:solid;margin-left:3%;">
+                </a>
+                <a href="https://apps.odoo.com/apps/modules/12.0/manual_cron/" target="new">
+                    <img src="manual_cron_banner_small.png" style="width:45%;margin-left:3%;border: solid">
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class='oe_container oe_dark'>
+    <h2 class='oe_slogan' style="color:#875A7B;">Supports</h2>
+    <div class='oe_spaced' style="padding-left: 64px; padding-right: 64px; font-size: 18px; text-align: center;">
+        <p class="oe_mt16">
+            For any supports or questions, please contact me via:
+        </p>
+        <div class="oe_mt16" style="display: flex; flex-flow: row; justify-content: center">
+            <div>
+                <i class="fa fa-envelope fa-1x" style="color:#875A7B;"></i>
+                <a href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;tf=1&amp;to=freelancerapps5@gmail.com" target="_blank">
+                    <b style="color: #875A7B">freelancerapps5@gmail.com</b></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="oe_container oe_spaced">
+    <h3 class="oe_slogan">Thank you!</h3>
+</section>
+

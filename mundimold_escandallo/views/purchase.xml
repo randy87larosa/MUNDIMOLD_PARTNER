@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+
+    <record id="view_purchase_order_escandallo_form" model="ir.ui.view">
+        <field name="name">purchase.order.escandallo.form</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+        
+            <xpath expr="//field[@name='partner_ref']" position="after">
+                <field name="no_es_pieza"/>
+            </xpath>
+        
+		
+			<xpath expr="//field[@name='order_line']/tree/field[@name='product_id']" position="before">
+				<field name="cod_pieza" />
+			</xpath>
+        
+			<xpath expr="//field[@name='order_line']/tree/field[@name='date_planned']" position="after">
+				
+                <field name="dimensiones" />
+				<field name="peso" />
+				<field name="aleacion" />
+				<field name="entregar_a_id" />
+				<field name="cuadreado"/>
+            </xpath>
+		</field>
+	</record>
+	
+	
+	
+	
+	<act_window id="launch_wizard_purchase_add_pieza"
+		name="Añadir pieza escandallo"
+		src_model="purchase.order"
+		res_model="wizard.purchase.add.pieza"
+		view_mode="form"
+		target="new"
+		key2="client_action_multi"/>
+		
+		
+	<record model="ir.ui.view" id="wizard_purchase_add_pieza_form_view">
+		<field name="name">wizard.purchase.add.pieza.form</field>
+		<field name="model">wizard.purchase.add.pieza</field>
+		<field name="arch" type="xml">
+			<form string="Crear solicitudes de presupuesto">
+
+
+				<group>
+					<group>
+						<field name="purchase_id"/>
+						<field name="project_id"/>
+						<field name="escandallo_id" domain="[('project_id','=',project_id)]"/>
+						<field name="fecha_prevista"/>
+						<field name="entregar_a_id"/>
+					</group>
+				</group>
+
+
+				<footer>
+					<button name="add_line_wizard" type="object"
+							string="Añadir pieza" class="oe_highlight"/>
+					
+					<button special="cancel" string="Cancelar"/>
+				</footer>
+			</form>
+		</field>
+	</record>
+	
+	
+	
+    
+
+</odoo>

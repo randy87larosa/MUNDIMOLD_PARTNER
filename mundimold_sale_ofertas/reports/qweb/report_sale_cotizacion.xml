@@ -1,0 +1,597 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+<template id="report_sale_order_cotizacion">
+    <t t-call="web.html_container">
+        <t t-foreach="docs" t-as="doc">
+            <t t-call="web.external_layout">
+            
+                <t t-set="color1" t-value="doc.company_id.color1_qweb"/>
+                <t t-set="color2" t-value="doc.company_id.color2_qweb"/>
+                
+                <t t-set="doc" t-value="doc.with_context(lang=lang)"/>
+                
+				<div class="header" style="font-size:8pt">
+                    <div class="row">
+                        <div class="col-6 mb6">
+                            <img t-if="doc.company_id.logo" t-att-src="image_data_uri(doc.company_id.logo)" style="max-height: 70px;" alt="Logo"/>
+                        </div>
+                        <div class="col-3 mb3">
+                            <span t-field="doc.company_id.street"/>
+                            <br/>
+                            <span t-field="doc.company_id.street2"/>
+                            <br/>
+                            <span t-field="doc.company_id.zip"/>
+                            <span t-field="doc.company_id.city"/>
+                            <span t-field="doc.company_id.state_id.name"/>
+                            (<span t-field="doc.company_id.country_id.name"/>)
+                        </div>
+                        <div class="col-3 mb3">
+                            <span>Tel:</span>
+                            <span t-field="doc.company_id.phone"/>
+                            <br/>
+                            <span>Fax:</span>
+                            <span t-field="doc.company_id.partner_id.fax"/>
+                            <br/>
+                            <span>Email:</span>
+                            <span t-field="doc.company_id.email"/>
+                            <br/><br/>
+                            <span t-field="doc.company_id.website" style="background-color:#4287f5;padding:5px;color:white"/>
+                        </div>
+                    </div>
+                </div>
+				
+				
+                <div class="page">
+                    
+                    
+                  <style>
+                      .cabinv {
+                      background-color: #<t t-esc="color1"/>;
+                      }
+                      
+                      p {
+                        font-size:10pt!important;
+						text-align: justify;
+                        text-justify: inter-word;
+                        margin:5px!important;
+                      }
+                      li p {
+                        padding:0px!important;
+                        margin:0px!important;
+                        font-size:10pt!important;
+                      }
+                      
+                      ul li {
+                        font-size:10pt!important;
+                      }
+                      ol li {
+                        font-size:10pt!important;
+                        margin-left:20px;
+                      }
+                      h3 {
+                        font-size:12pt;
+                        padding: 20px 0px 20px 0px;
+                      }
+                      h4 {
+                        font-size:12pt;
+                        padding: 20px 0px 20px 0px;
+                      }
+					  
+                  </style>
+                
+                  <div style="width:100%; color:#FFF; text-align: center; padding:4px;" class="cabinv">
+                    <strong><span style="text-transform: uppercase; font-size: 13pt; font-weight: bold;">
+                    
+                        <t t-if="doc.partner_id.lang == 'en_US'">
+                            Project:
+                         </t>
+                         <t t-elif="doc.partner_id.lang == 'fr_FR'">
+                            PROJET:
+                         </t>
+                         <t t-elif="doc.partner_id.lang == 'it_IT'">
+                            Progetto:
+                         </t>
+                         <t t-else="">
+                            Proyecto:
+                         </t>
+                    
+                         <span t-field="doc.project_name"/>
+                    </span></strong>
+                  </div>
+                  
+                  
+                  <h3 style="padding: 12px 0px 0px 0px; font-size:12pt"><strong>
+                  
+                    <t t-if="doc.partner_id.lang == 'en_US'">
+                        Offer:
+                     </t>
+                     <t t-elif="doc.partner_id.lang == 'fr_FR'">
+                        Offer:
+                     </t>
+                     <t t-elif="doc.partner_id.lang == 'it_IT'">
+                        Offerta:
+                     </t>
+                     <t t-else="">
+                        Oferta:
+                     </t>
+                  </strong> <span t-field="doc.name"/></h3>
+                  
+                  <h3 style="padding: 4px 0px 0px 0px; font-size:12pt"><strong>
+                  
+                    <t t-if="doc.partner_id.lang == 'en_US'">
+                        Client:
+                     </t>
+                     <t t-elif="doc.partner_id.lang == 'fr_FR'">
+                        CLIENT:
+                     </t>
+                     <t t-elif="doc.partner_id.lang == 'it_IT'">
+                        Cliente:
+                     </t>
+                     <t t-else="">
+                        Cliente:
+                     </t>
+                  </strong> <span t-field="doc.partner_id.name"/></h3>
+                  <h3 style="padding: 4px 0px 0px 0px; font-size:12pt"><strong>
+                    <t t-if="doc.partner_id.lang == 'en_US'">
+                        Attention:
+                     </t>
+                     <t t-elif="doc.partner_id.lang == 'fr_FR'">
+                        A L’ATTENTION DE:
+                     </t>
+                     <t t-elif="doc.partner_id.lang == 'it_IT'">
+                        Att:
+                     </t>
+                     <t t-else="">
+                        Att:
+                     </t>
+
+                  </strong> <span t-field="doc.contacto_id.name"/></h3>
+                  <h3 style="padding: 4px 0px 12px 0px; font-size:12pt"><strong>
+                    <t t-if="doc.partner_id.lang == 'en_US'">
+                        Date:
+                     </t>
+                     <t t-elif="doc.partner_id.lang == 'fr_FR'">
+                        DATE:
+                     </t>
+                     <t t-elif="doc.partner_id.lang == 'it_IT'">
+                        Data:
+                     </t>
+                     <t t-else="">
+                        Fecha:
+                     </t>
+                  </strong> <span t-field="doc.date_order" t-options="{&quot;format&quot;: &quot;dd/MM/yyyy&quot;}"/></h3>
+                  
+                  
+                  <div style="width:100%; color:#FFF; text-align: center; padding:4px;" class="cabinv">
+                    <strong><span style="text-transform: uppercase; font-size: 13pt; font-weight: bold;">
+                        <t t-if="doc.partner_id.lang == 'en_US'">
+                            OFFER'S DESCRIPTION:
+                         </t>
+                         <t t-elif="doc.partner_id.lang == 'fr_FR'">
+                            Description de l’offre:
+                         </t>
+                         <t t-elif="doc.partner_id.lang == 'it_IT'">
+                            DESCRIZIONE DELL`OFFERTA:
+                         </t>
+                         <t t-else="">
+                            DESCRIPCIÓN DE LA OFERTA
+                         </t>
+                    </span></strong>
+                  </div>
+                  
+                  <h3><strong>
+                    <t t-if="doc.partner_id.lang == 'en_US'">
+                        A.- Denomination of the article:
+                     </t>
+                     <t t-elif="doc.partner_id.lang == 'fr_FR'">
+                        A.- Denomination de l’article:
+                     </t>
+                     <t t-elif="doc.partner_id.lang == 'it_IT'">
+                        A.- Nome articolo:
+                     </t>
+                     <t t-else="">
+                        A.- Denominación del artículo:
+                     </t>
+                  </strong> <span t-field="doc.description"/></h3>
+                  
+                  <span t-field="doc.a1"/>
+                  
+                  <h3><strong>
+                  <t t-if="doc.partner_id.lang == 'en_US'">
+                        B.- QUOTATION:
+                     </t>
+                     <t t-elif="doc.partner_id.lang == 'fr_FR'">
+                        B.- PRIX:
+                     </t>
+                     <t t-elif="doc.partner_id.lang == 'it_IT'">
+                        B.- QUOTAZIONE:
+                     </t>
+                     <t t-else="">
+                        B.- COTIZACIÓN:
+                     </t>
+                  </strong></h3>
+                  
+                  <span t-field="doc.b1"/>
+                  
+                  <h3 style="padding-bottom:0px"><strong>
+                  <t t-if="doc.partner_id.lang == 'en_US'">
+                        C.- ECONOMICAL INFORMATION AND DELIVERY TIME:
+                     </t>
+                     <t t-elif="doc.partner_id.lang == 'fr_FR'">
+                        C.- INFORMATION ECONOMIQUE:
+                     </t>
+                     <t t-elif="doc.partner_id.lang == 'it_IT'">
+                        C.- INFORMAZIONI ECONOMICHE E TEMPISTICA:
+                     </t>
+                     <t t-else="">
+                        C.- INFORMACIÓN ECONÓMICA:
+                     </t>
+                  </strong></h3>
+                  
+                  <h4><strong>
+                  <t t-if="doc.partner_id.lang == 'en_US'">
+                        C.1.- General characteristics of the project:
+                     </t>
+                     <t t-elif="doc.partner_id.lang == 'fr_FR'">
+                        C.1.- Caractéristiques générales:
+                     </t>
+                     <t t-elif="doc.partner_id.lang == 'it_IT'">
+                        C.1.- Caratteristiche generali del progetto:
+                     </t>
+                     <t t-else="">
+                        C.1.- CARACTERÍSTICAS GENERALES:
+                     </t>
+                  </strong></h4>
+                  
+                  <span t-field="doc.c1"/>
+				  
+				  
+				  <style>
+                    .table thead tr {
+                        background-color: #<t t-esc="color1"/>;
+                    }
+                  </style>
+				  <table class="table table-sm o_main_table" name="invoice_line_table" style="font-size: 10pt;">
+                    <thead>
+                        <tr style="color: #FFF; padding:6px;">
+                            <!-- TODO: remove in master -->
+                            <t t-set="colspan" t-value="6"/>
+                            <th class="text-left" style="padding:8px !important; vertical-align:middle"><span>
+                            <t t-if="doc.partner_id.lang == 'en_US'">
+                                PRODUCT
+                             </t>
+                             <t t-elif="doc.partner_id.lang == 'fr_FR'">
+                                PRODUCT
+                             </t>
+                             <t t-elif="doc.partner_id.lang == 'it_IT'">
+                                PRODOTTO
+                             </t>
+                             <t t-else="">
+                                PRODUCTO
+                             </t>
+                            </span></th>
+                            
+                            <th class="text-center" style="padding:8px !important; vertical-align:middle"><span>
+                            <t t-if="doc.partner_id.lang == 'en_US'">
+                                PRICE
+                             </t>
+                             <t t-elif="doc.partner_id.lang == 'fr_FR'">
+                                PRICE
+                             </t>
+                             <t t-elif="doc.partner_id.lang == 'it_IT'">
+                                Prezzo (ex-works)
+                             </t>
+                             <t t-else="">
+                                PRECIO
+                             </t>
+                            </span></th>
+                            
+                            <th t-attf-class="text-center" style="padding:8px !important; vertical-align:middle"><span>
+                            <t t-if="doc.partner_id.lang == 'en_US'">
+                                PRODUCTION CICLE
+                             </t>
+                             <t t-elif="doc.partner_id.lang == 'fr_FR'">
+                                PRODUCTION CICLE
+                             </t>
+                             <t t-elif="doc.partner_id.lang == 'it_IT'">
+                                CICLO PRODUTTIVO
+                             </t>
+                             <t t-else="">
+                                CICLO PRODUCCIÓN (SEGUNDOS)
+                             </t>
+                            </span></th>
+							
+							
+							<th class="text-center" style="padding:8px !important; vertical-align:middle"><span>
+                            <t t-if="doc.partner_id.lang == 'en_US'">
+                                DELIVERY TIME (WEEKS)
+                             </t>
+                             <t t-elif="doc.partner_id.lang == 'fr_FR'">
+                                PLAZO ENTREGA (WEEKS)
+                             </t>
+                             <t t-elif="doc.partner_id.lang == 'it_IT'">
+                                TEMPI DI CONSEGNA (SETTIMANE)
+                             </t>
+                             <t t-else="">
+                                PLAZO ENTREGA (SEMANAS)
+                             </t>
+                            </span></th>
+							
+							
+                            
+                            
+                        </tr>
+                    </thead>
+                    
+                    
+                    
+                    
+                    <tbody class="invoice_tbody">
+                        
+
+                        <t t-foreach="doc.line_oferta_ids" t-as="line">
+
+                            
+
+                            <tr>
+                                
+                                    <td style="width:46%">
+                                      <span t-field="line.name"/>
+                                    </td>
+									<td class="text-right" style="width:10%">
+                                      <span t-field="line.precio"  t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.currency_id}"/>
+                                    </td>
+									<td class="text-center" style="width:22%">
+                                      <span t-field="line.ciclo_produccion"/>
+                                    </td>
+									<td class="text-center" style="width:22%">
+                                      <span t-field="line.plazo_entrega"/>
+                                    </td>
+
+                            </tr>
+
+
+                        </t>
+                        
+                        <tr>
+                            <td><strong>Total</strong></td>
+                            <td class="text-right"><strong><span t-esc="doc.total_oferta_extensa"  t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.currency_id}"/></strong></td>
+                            <td/>
+                            <td/>
+                        </tr>
+                    </tbody>
+                </table>
+				  
+				        <p t-if="doc.incoterm"><strong>Incoterm: <span t-field="doc.incoterm.code"/></strong></p>  
+				  
+				  
+				  
+				  
+				  
+				  
+				  
+				  
+				  
+				  
+				  
+                  
+                  <h4><strong>
+                  <t t-if="doc.partner_id.lang == 'en_US'">
+                        C.2.- PAYMENT TERM:
+                     </t>
+                     <t t-elif="doc.partner_id.lang == 'fr_FR'">
+                        C.2.- Délai et conditions de paiement:
+                     </t>
+                     <t t-elif="doc.partner_id.lang == 'it_IT'">
+                        C.2.-TERMINI E CONDIZIONI DI PAGAMENTO:
+                     </t>
+                     <t t-else="">
+                        C.2.- FORMA DE PAGO:
+                     </t>
+                  </strong></h4>
+                  
+                  <span t-field="doc.c2"/>
+                  
+                  <h4><strong>
+                  <t t-if="doc.partner_id.lang == 'en_US'">
+                        C.3.- MOULD TEST
+                     </t>
+                     <t t-elif="doc.partner_id.lang == 'fr_FR'">
+                        C.3.- TEST DU MOULE
+                     </t>
+                     <t t-elif="doc.partner_id.lang == 'it_IT'">
+                        C.3.- COLLAUDO DELLO STAMPO
+                     </t>
+                     <t t-else="">
+                        C.3.- PRUEBA DEL MOLDE
+                     </t>
+                  </strong></h4>
+                  
+                  <span t-field="doc.c3"/>
+                  
+                  <h4><strong>
+                  <t t-if="doc.partner_id.lang == 'en_US'">
+                        C.4.- PHASES OF THE PROJECT
+                     </t>
+                     <t t-elif="doc.partner_id.lang == 'fr_FR'">
+                        C.4.- ETAPES DU PROJET
+                     </t>
+                     <t t-elif="doc.partner_id.lang == 'it_IT'">
+                        C.4.- FASI DEL PROGETTO
+                     </t>
+                     <t t-else="">
+                        C.4.- FASES DEL PROYECTO
+                     </t>
+                  
+                  </strong></h4>
+                  
+                  <span t-field="doc.c4"/>
+                  
+                  <h4><strong>
+                  <t t-if="doc.partner_id.lang == 'en_US'">
+                        C.5.- PRODUCTION CYCLES
+                     </t>
+                     <t t-elif="doc.partner_id.lang == 'fr_FR'">
+                        C.5.- CYCLES DE PRODUCTION
+                     </t>
+                     <t t-elif="doc.partner_id.lang == 'it_IT'">
+                        C.5.- CICLO DI PRODUZIONE
+                     </t>
+                     <t t-else="">
+                        C.5.- CICLOS DE PRODUCCIÓN
+                     </t>
+                  </strong></h4>
+                  
+                  <span t-field="doc.c5"/>
+                  
+                  <h4><strong>
+                  <t t-if="doc.partner_id.lang == 'en_US'">
+                        C.6.- SAMPLE SENDING
+                     </t>
+                     <t t-elif="doc.partner_id.lang == 'fr_FR'">
+                        C.6.- ENVOI D’ECHANTILLONS
+                     </t>
+                     <t t-elif="doc.partner_id.lang == 'it_IT'">
+                        C.6.- SPEDIZIONE DEI CAMPIONI
+                     </t>
+                     <t t-else="">
+                        C.6.- ENVÍO DE MUESTRAS
+                     </t>
+                  </strong></h4>
+                  
+                  <span t-field="doc.c6"/>
+                  
+                  <h4><strong>
+                  <t t-if="doc.partner_id.lang == 'en_US'">
+                        C.7.- QUALITY CONTROL OF SAMPLES
+                     </t>
+                     <t t-elif="doc.partner_id.lang == 'fr_FR'">
+                        C.7.- CONTROLE DE QUALITE DES ECHANTILLONS
+                     </t>
+                     <t t-elif="doc.partner_id.lang == 'it_IT'">
+                        C.7.- CONTROLLO DI QUALITA’ SUI CAMPIONI
+                     </t>
+                     <t t-else="">
+                        C.7.- CONTROL DE CALIDAD DE LAS MUESTRAS
+                     </t>
+                  </strong></h4>
+                  
+                  <span t-field="doc.c7"/>
+                  
+                  <h4><strong>
+                  <t t-if="doc.partner_id.lang == 'en_US'">
+                        C.8.- DOCUMENTATION AND INSTRUCTIONS
+                     </t>
+                     <t t-elif="doc.partner_id.lang == 'fr_FR'">
+                        C.8.- DOCUMENTATION ET INSTRUCTIONS
+                     </t>
+                     <t t-elif="doc.partner_id.lang == 'it_IT'">
+                        C.8.- DOCUMENTAZIONE E ISTRUZIONI
+                     </t>
+                     <t t-else="">
+                        C.8.- DOCUMENTACIÓN E INSTRUCCIONES
+                     </t>
+                  </strong></h4>
+                  
+                  <span t-field="doc.c8"/>
+                  
+                  <h4><strong>
+                  <t t-if="doc.partner_id.lang == 'en_US'">
+                        C.9.- GUARANTEES
+                     </t>
+                     <t t-elif="doc.partner_id.lang == 'fr_FR'">
+                        C.9.- GARANTIES
+                     </t>
+                     <t t-elif="doc.partner_id.lang == 'it_IT'">
+                        C.9.- GARANZIE.
+                     </t>
+                     <t t-else="">
+                        C.9.- GARANTÍAS
+                     </t>
+                  </strong></h4>
+                  
+                  <span t-field="doc.c9"/>
+                  
+                  <h4><strong>
+                  <t t-if="doc.partner_id.lang == 'en_US'">
+                        C.10.- CONFIDENTIALITY
+                     </t>
+                     <t t-elif="doc.partner_id.lang == 'fr_FR'">
+                        C.10.- CONFIDENTIALITE
+                     </t>
+                     <t t-elif="doc.partner_id.lang == 'it_IT'">
+                        C.10.- RISERVATEZZA
+                     </t>
+                     <t t-else="">
+                        C.10.- CONFIDENCIALIDAD
+                     </t>
+                  </strong></h4>
+                  
+                  <span t-field="doc.c10"/>
+                  
+                  <h4><strong>
+                  <t t-if="doc.partner_id.lang == 'en_US'">
+                        C.11.- CONTACTS
+                     </t>
+                     <t t-elif="doc.partner_id.lang == 'fr_FR'">
+                        C.11.- CONTACTS
+                     </t>
+                     <t t-elif="doc.partner_id.lang == 'it_IT'">
+                        C.11.- CONTATATI
+                     </t>
+                     <t t-else="">
+                        C.11.- CONTACTOS
+                     </t>
+                  </strong></h4>
+                  
+                  <span t-field="doc.c11"/>
+                  
+                  <p class="texto-legal" style="font-size:6pt!important"><span t-field="doc.c12"/></p>
+                    
+                  
+						
+
+
+                </div>
+                <div class="footer" style="font-size:9pt">
+                  <div style="width:100%; text-align:center; padding:12px">
+                    Offerta <span t-field="doc.name"/>
+                  </div>
+                  <div style="text-align:left; width:49%; display: inline-block;"><span>
+                  <t t-if="doc.partner_id.lang == 'en_US'">
+                        Validation of the quotation: 3 months
+                     </t>
+                     <t t-elif="doc.partner_id.lang == 'fr_FR'">
+                        Validité du prix: 3 months
+                     </t>
+                     <t t-elif="doc.partner_id.lang == 'it_IT'">
+                        Validitá della quotazione: 3 mesi
+                     </t>
+                     <t t-else="">
+                        Validez de cotización: 3 meses
+                     </t>
+                   </span> <span t-field="doc.validez"/></div>
+                  <div style="text-align:right; width:49%; display: inline-block;"><span>
+                  
+                  
+                    <t t-if="doc.partner_id.lang == 'en_US'">
+                        Page
+                     </t>
+                     <t t-elif="doc.partner_id.lang == 'fr_FR'">
+                        Page
+                     </t>
+                     <t t-elif="doc.partner_id.lang == 'it_IT'">
+                        Pagina
+                     </t>
+                     <t t-else="">
+                        Página
+                     </t>
+                  </span> <span class="page"/>/<span class="topage"/></div>
+              </div>
+            </t>
+        </t>
+    </t>
+</template>
+</data>
+</openerp>

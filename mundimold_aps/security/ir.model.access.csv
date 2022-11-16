@@ -1,0 +1,6 @@
+"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
+"access_sale_aps","sale_aps group","model_sale_aps","sales_team.group_sale_salesman",1,1,1,1
+"access_sale_aps_line","sale_aps_line group","model_sale_aps_line","sales_team.group_sale_salesman",1,1,1,1
+"access_sale_aps_template","sale_aps_template group","model_sale_aps_template","sales_team.group_sale_salesman",1,1,1,1
+"access_sale_aps_template_line","sale_aps_template_line group","model_sale_aps_template_line","sales_team.group_sale_salesman",1,1,1,1
+"access_sale_aps_horas","sale_aps_horas group","model_sale_aps_horas","sales_team.group_sale_salesman",1,1,1,1

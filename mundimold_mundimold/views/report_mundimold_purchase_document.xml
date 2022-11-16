@@ -1,0 +1,696 @@
+﻿<?xml version="1.0"?>
+
+
+<openerp>
+<data>
+
+
+
+<template id="report_mundimold_purchaseorder_document">
+
+    <t t-name="mundimold_mundimold.report_mundimold_purchaseorder_document">
+        <t t-call="web.external_layout">
+        
+            
+    
+            <t t-set="o" t-value="o.with_context(lang=o.partner_id.lang)"/>
+            
+            <t t-set="color1" t-value="o.company_id.color1_qweb"/>
+            <t t-set="color2" t-value="o.company_id.color2_qweb"/>
+            
+            <style>
+              .cabaddress {
+                  background-color: #<t t-esc='color2'/>;
+              }
+            </style>
+            
+            <!--<t t-set="address">
+                <div style="font-size:10pt" class="cabaddress">
+                  <div style="padding:10px;">
+                    <address t-field="o.partner_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: True}"/>
+                    <div t-if="o.partner_id.vat" class="mt16">NIF: <span t-field="o.partner_id.vat"/></div>
+                  </div>
+                </div>
+            </t>-->
+            <div class="page">
+              <br/>
+              
+                <style>
+                  .cabinv {
+                      background-color: #<t t-esc='color1'/>;
+                  }
+                </style>
+              
+              
+              <div style="width:100%; color:#FFF; text-align: center; padding:7px;" class="cabinv">
+                <strong>
+                
+                    
+                    <span>
+                        <t t-if="o.partner_id.lang == 'en_US'">
+                            PURCHASE ORDER
+                         </t>
+                         <t t-elif="o.partner_id.lang == 'fr_FR'">
+                            PURCHASE ORDER
+                         </t>
+                         <t t-elif="o.partner_id.lang == 'it_IT'">
+                            PURCHASE ORDER
+                         </t>
+                         <t t-else="">
+                            PEDIDO DE COMPRA
+                         </t>
+                    </span>
+
+                    
+
+                
+                
+                    </strong>
+              </div>
+                
+                <t t-set="cod_proyecto" t-value="0"/>
+
+                  <t t-if="o.project_id">
+                    <t t-set="cod_proyecto" t-value="o.project_id.name.split(' ', 1)[0]"/>
+                  </t>
+
+                
+                <style>
+                  .invoicetop {
+                      width: 100%;
+                      border-spacing: 2px;
+                      font-size: 10pt;
+                  }
+                  .invoicetop th {
+                      background-color: #<t t-esc='color1'/>;
+                      color: #FFF;
+                      padding:6px;
+                      text-align:center
+                  }
+                  .invoicetop td {
+                      background-color: #<t t-esc='color2'/>;
+                      color: #000;
+                      padding:6px;
+                      text-align:center
+                  }
+                  .col-auto mw-100 mb-2 {
+                    padding:5px;
+                  }
+                  
+                </style>
+
+                <div id="informations" class="row mt32 mb32" style="margin-top:8px !important; margin-bottom:20px !important">
+                    <div class="col-auto mw-100 mb-2" t-if="o.name" name="name" style="padding:5px 5px 5px 15px !important; width:20% !important">
+                        <table class="invoicetop">
+                          <thead>
+                            <tr>
+                             <th><strong>
+                             <t t-if="o.partner_id.lang == 'en_US'">
+                                DOCUMENT NUM
+                             </t>
+                             <t t-elif="o.partner_id.lang == 'fr_FR'">
+                                DOCUMENT NO
+                             </t>
+                             <t t-elif="o.partner_id.lang == 'it_IT'">
+                                DOCUMENTO NUMERO
+                             </t>
+                             <t t-else="">
+                                Nº DE DOCUMENTO
+                             </t>
+                             </strong></th>
+                            </tr>
+                          </thead>
+                          <tr>
+                            <td><strong><p class="m-0" t-field="o.name"/></strong></td>
+                          </tr>
+                        </table>
+                    </div>
+                    <div class="col-auto mw-100 mb-2" t-if="o.date_order" name="invoice_date" style="padding:5px !important; width:20% !important">
+                        <table class="invoicetop">
+                          <thead>
+                            <tr>
+                             <th><strong>
+                             <t t-if="o.partner_id.lang == 'en_US'">
+                                DATE
+                             </t>
+                             <t t-elif="o.partner_id.lang == 'fr_FR'">
+                                DATE
+                             </t>
+                             <t t-elif="o.partner_id.lang == 'it_IT'">
+                                DATA
+                             </t>
+                             <t t-else="">
+                                FECHA
+                             </t>
+                             </strong></th>
+                            </tr>
+                          </thead>
+                          <tr>
+                            <td><strong><p class="m-0" t-field="o.date_order" t-options='{"format": "dd/MM/yyyy"}'/></strong></td>
+                          </tr>
+                        </table>
+                        
+                    </div>
+                    
+                    
+                    <div class="col-auto mw-100 mb-2" t-if="o.partner_ref" name="partner_ref" style="padding:5px !important; width:20% !important">
+                        <table class="invoicetop">
+                          <thead>
+                            <tr>
+                             <th><strong>
+                             <t t-if="o.partner_id.lang == 'en_US'">
+                                SUPPLIER REF
+                             </t>
+                             <t t-elif="o.partner_id.lang == 'fr_FR'">
+                                SUPPLIER REF
+                             </t>
+                             <t t-elif="o.partner_id.lang == 'it_IT'">
+                                SUPPLIER REF
+                             </t>
+                             <t t-else="">
+                                REFERENCIA
+                             </t>
+                             </strong></th>
+                            </tr>
+                          </thead>
+                          <tr>
+                            <td><strong><p class="m-0" t-field="o.partner_ref" /></strong></td>
+                          </tr>
+                        </table>
+                        
+                    </div>
+					
+					<div class="col-auto mw-100 mb-2" t-if="o.date_order" name="invoice_date" style="padding:5px !important; width:40% !important">
+					   <table class="invoicetop">
+                          <tr>
+                            <td>
+                              
+                              <address t-field="o.partner_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: True}"/>
+                                  <!--<t t-if="o.partner_id.vat" class="mt16">NIF: <span t-field="o.partner_id.vat"/></t>-->
+                              
+                            </td>
+                          </tr>
+                        </table>
+
+                    </div>
+                    
+                    
+
+                    
+                    <!--<div class="col-auto mw-100 mb-2" name="proyecto" style="padding:5px !important; width:33% !important">
+                        <table class="invoicetop">
+                          <thead>
+                            <tr>
+                             <th><strong>
+                             <t t-if="o.partner_id.lang == 'en_US'">
+                                PROJECT
+                             </t>
+                             <t t-elif="o.partner_id.lang == 'fr_FR'">
+                                PROJET
+                             </t>
+                             <t t-elif="o.partner_id.lang == 'it_IT'">
+                                BOZZA
+                             </t>
+                             <t t-else="">
+                                PROYECTO
+                             </t>
+                             </strong></th>
+                            </tr>
+                          </thead>
+                          <tr>
+                            <td><strong><p class="m-0" t-esc="cod_proyecto"/></strong></td>
+                          </tr>
+                        </table>
+                        
+                    </div>-->
+                    
+                    <!--<div class="col-auto mw-100 mb-2" name="ocompra" style="padding:5px !important; width:24% !important">
+                        <table class="invoicetop">
+                          <thead>
+                            <tr>
+                             <th><strong>ORDEN DE COMPRA</strong></th>
+                            </tr>
+                          </thead>
+                          <tr>
+                            <td><strong><p class="m-0" ><span t-esc="o.oc_cliente"/><![CDATA[&nbsp;]]></p></strong></td>
+                          </tr>
+                        </table>
+                        
+                    </div>-->
+                    
+                    <!--<div name="reference" class="col-auto mw-100 mb-2" t-if="o.reference" style="display:none;">
+                        <strong>Reference:</strong>
+                        <p class="m-0" t-field="o.reference"/>
+                    </div>-->
+                </div>
+
+               
+
+                <style>
+                  .table thead tr {
+                      background-color: #<t t-esc='color1'/>;
+                  }
+                </style>
+                
+                
+                
+                <table class="table table-sm o_main_table" name="invoice_line_table" style="font-size: 10pt;">
+                    <thead>
+                        <tr style="color: #FFF; padding:6px;">
+                            <!-- TODO: remove in master -->
+                            <t t-set="colspan" t-value="7"/>
+                            
+                            <th class="text-left" style="padding:8px !important"><span>
+                            <t t-if="o.partner_id.lang == 'en_US'">
+                                PROJECT
+                             </t>
+                             <t t-elif="o.partner_id.lang == 'fr_FR'">
+                                PROJECT
+                             </t>
+                             <t t-elif="o.partner_id.lang == 'it_IT'">
+                                PROJECT
+                             </t>
+                             <t t-else="">
+                                PROYECTO
+                             </t>
+                            </span></th>
+                            
+                            <t t-if="not o.no_es_pieza">
+                                <th class="text-left" style="padding:8px !important"><span>
+                                <t t-if="o.partner_id.lang == 'en_US'">
+                                    COD PIEZA
+                                 </t>
+                                 <t t-elif="o.partner_id.lang == 'fr_FR'">
+                                    COD PIEZA
+                                 </t>
+                                 <t t-elif="o.partner_id.lang == 'it_IT'">
+                                    COD PIEZA
+                                 </t>
+                                 <t t-else="">
+                                    COD PIEZA
+                                 </t>
+                                </span></th>
+                            </t>
+                            
+                            
+                            <th class="text-left" style="padding:8px !important"><span>
+                            <t t-if="o.partner_id.lang == 'en_US'">
+                                DESCRIPTION
+                             </t>
+                             <t t-elif="o.partner_id.lang == 'fr_FR'">
+                                DESCRIPTION
+                             </t>
+                             <t t-elif="o.partner_id.lang == 'it_IT'">
+                                DESCRIZIONE
+                             </t>
+                             <t t-else="">
+                                DESCRIPCIÓN
+                             </t>
+                            </span></th>
+                            
+                            <th class="text-left" style="padding:8px !important"><span>
+                            <t t-if="o.partner_id.lang == 'en_US'">
+                                QUANTITY
+                             </t>
+                             <t t-elif="o.partner_id.lang == 'fr_FR'">
+                                QUANTITÉ
+                             </t>
+                             <t t-elif="o.partner_id.lang == 'it_IT'">
+                                QUANTITÀ
+                             </t>
+                             <t t-else="">
+                                CANTIDAD
+                             </t>
+                            </span></th>
+                            
+                            
+							
+							
+							
+							<t t-if="not o.no_es_pieza">
+                                <th class="text-left" style="padding:8px !important"><span>
+                                <t t-if="o.partner_id.lang == 'en_US'">
+                                    DIMENSIONS
+                                 </t>
+                                 <t t-elif="o.partner_id.lang == 'fr_FR'">
+                                    DIMENSIONS
+                                 </t>
+                                 <t t-elif="o.partner_id.lang == 'it_IT'">
+                                    DIMENSIONS
+                                 </t>
+                                 <t t-else="">
+                                    DIMENSIONES
+                                 </t>
+                                </span></th>
+                                
+                                <th class="text-left" style="padding:8px !important"><span>
+                                <t t-if="o.partner_id.lang == 'en_US'">
+                                    ALEACIÓN
+                                 </t>
+                                 <t t-elif="o.partner_id.lang == 'fr_FR'">
+                                    ALEACIÓN
+                                 </t>
+                                 <t t-elif="o.partner_id.lang == 'it_IT'">
+                                    ALEACIÓN
+                                 </t>
+                                 <t t-else="">
+                                    ALEACIÓN
+                                 </t>
+                                </span></th>
+                                
+                                
+
+                                <th t-attf-class="text-left" style="padding:8px !important"><span>
+                                <t t-if="o.partner_id.lang == 'en_US'">
+                                    SUPPLIER
+                                 </t>
+                                 <t t-elif="o.partner_id.lang == 'fr_FR'">
+                                    SUPPLIER
+                                 </t>
+                                 <t t-elif="o.partner_id.lang == 'it_IT'">
+                                    SUPPLIER
+                                 </t>
+                                 <t t-else="">
+                                    PROVEEDOR PIEZA
+                                 </t>
+                                </span></th>
+                            
+							
+							
+                                <th t-attf-class="text-left" style="padding:8px !important"><span>
+                                <t t-if="o.partner_id.lang == 'en_US'">
+                                    RECEPTION DATE
+                                 </t>
+                                 <t t-elif="o.partner_id.lang == 'fr_FR'">
+                                    RECEPTION DATE
+                                 </t>
+                                 <t t-elif="o.partner_id.lang == 'it_IT'">
+                                    RECEPTION DATE
+                                 </t>
+                                 <t t-else="">
+                                    FECHA DE RECEPCIÓN
+                                 </t>
+                                </span></th>
+
+                                
+                                
+                                <th class="text-left" style="padding:8px !important"><span>
+                                <t t-if="o.partner_id.lang == 'en_US'">
+                                    ENTREGAR A
+                                 </t>
+                                 <t t-elif="o.partner_id.lang == 'fr_FR'">
+                                    ENTREGAR A
+                                 </t>
+                                 <t t-elif="o.partner_id.lang == 'it_IT'">
+                                    ENTREGAR A
+                                 </t>
+                                 <t t-else="">
+                                    ENTREGAR A
+                                 </t>
+                                </span></th>
+                            
+                            </t>
+                            
+                            
+                            <th t-attf-class="text-left" style="padding:8px !important"><span>
+                            <t t-if="o.partner_id.lang == 'en_US'">
+                                EXPECTED DATE
+                             </t>
+                             <t t-elif="o.partner_id.lang == 'fr_FR'">
+                                EXPECTED DATE
+                             </t>
+                             <t t-elif="o.partner_id.lang == 'it_IT'">
+                                EXPECTED DATE
+                             </t>
+                             <t t-else="">
+                                FECHA DE ENTREGA
+                             </t>
+                            </span></th>
+                            
+                            
+
+                                      
+                              
+                            
+                            
+                            
+                            
+                              
+
+                            
+                            
+                            <th t-attf-class="text-left" style="padding:8px !important"><span>
+                            <t t-if="o.partner_id.lang == 'en_US'">
+                                PRICE UNIT
+                             </t>
+                             <t t-elif="o.partner_id.lang == 'fr_FR'">
+                                PRICE UNIT
+                             </t>
+                             <t t-elif="o.partner_id.lang == 'it_IT'">
+                                PRICE UNIT
+                             </t>
+                             <t t-else="">
+                                PRECIO UD
+                             </t>
+                            </span></th>
+                            
+                            <th t-attf-class="text-left" style="padding:8px !important"><span>
+                            <t t-if="o.partner_id.lang == 'en_US'">
+                                AMOUNT
+                             </t>
+                             <t t-elif="o.partner_id.lang == 'fr_FR'">
+                                AMOUNT
+                             </t>
+                             <t t-elif="o.partner_id.lang == 'it_IT'">
+                                AMOUNT
+                             </t>
+                             <t t-else="">
+                                IMPORTE
+                             </t>
+                            </span></th>
+                            
+                            
+                        </tr>
+                    </thead>
+                    
+                    
+                    
+                    
+                    <tbody class="invoice_tbody">
+                        
+
+                        <t t-foreach="o.order_line" t-as="line">
+
+                            
+
+                            <tr>
+                                
+                                    <td>
+                                    
+                                        <t t-set="cod_proyecto" t-value="0"/>
+
+                                          <t t-if="line.account_analytic_id">
+                                            <t t-set="cod_proyecto" t-value="line.account_analytic_id.name.split(' ', 1)[0]"/>
+                                          </t>
+                                    
+                                      <span t-esc="cod_proyecto"/>
+                                    </td>
+                                    
+                                    
+                                    <t t-if="not o.no_es_pieza">
+                                        <td class="text-center">
+                                          <span t-field="line.cod_pieza"/>
+                                        </td>
+                                    </t>
+                                    
+                                    <td name="account_invoice_line_name">
+                                      <span t-field="line.name"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="line.product_uom_qty"/>
+                                        <span t-field="line.product_uom" groups="uom.group_uom"/>
+                                    </td>
+                                    
+                                    
+                                    <t t-if="not o.no_es_pieza">
+                                    
+                                        <td>
+                                          <span t-field="line.dimensiones"/>
+                                        </td>
+                                        <td>
+                                          <span t-field="line.aleacion"/>
+                                        </td>
+                                        
+                                        
+
+                                        <td>
+                                            <span t-field="line.supplier_pieza_id.name"/>
+                                        </td>
+
+                                            <td>
+                                            <span t-field="line.fecha_prevista_recepcion"/>
+                                        </td>
+                                          
+
+                                        
+                                        <td>
+                                          <span t-field="line.entregar_a_id"/>
+                                        </td>
+                                    </t>
+                                    
+                                    <td t-attf-class="text-center">
+                                        <span t-field="line.date_planned" t-options='{"format": "dd/MM/yyyy"}'/>
+                                    </td>
+                                    
+
+                                      
+                                  
+
+                                    
+                                    <td t-attf-class="text-right">
+                                        <span t-field="line.price_unit"/>
+                                    </td>
+
+                                    <td class="text-right">
+                                        <span t-field="line.price_subtotal"/>
+                                    </td>
+
+                            </tr>
+
+
+                        </t>
+                    </tbody>
+                </table>
+                
+                
+                <style>
+                  .invoicetotals {
+                      font-size: 10pt;
+                      border: 2px solid #FFF;
+                  }
+				  .invoicetotals td {
+                      padding:6px;
+                  }
+                  .invoicetop td {
+                      padding:6px;
+                  }
+                  
+                  .tdc1 {
+                     background-color: #<t t-esc='color1'/>;
+                  }
+                  
+                  .tdc2 {
+                     background-color: #<t t-esc='color2'/>;
+                     text-align: right;
+                  }
+                  
+                  
+                  </style>
+
+                <div class="clearfix">
+                    <div id="total" class="invoicetotals" style="font-size: 10pt;">
+                        <div t-attf-class="#{'col-4' if report_type != 'html' else 'col-sm-7 col-md-5'} ml-auto" style="padding-right:0px">
+                            <table class="table table-sm;page-break-inside: avoid;" style="border: 2px solid #FFF;">
+                                <tr>
+                                    <td style="text-transform: uppercase; color:#FFF;" class="tdc1"><strong>
+                                    <t t-if="o.partner_id.lang == 'en_US'">
+                                        SUBTOTAL
+                                     </t>
+                                     <t t-elif="o.partner_id.lang == 'fr_FR'">
+                                        SUBTOTAL
+                                     </t>
+                                     <t t-elif="o.partner_id.lang == 'it_IT'">
+                                        SUBTOTAL
+                                     </t>
+                                     <t t-else="">
+                                        SUBTOTAL
+                                     </t>
+                                    </strong></td>
+                                    <td class="tdc2">
+                                        <span t-field="o.amount_untaxed"/>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="text-transform: uppercase; color:#FFF;" class="tdc1"><strong>
+                                    <t t-if="o.partner_id.lang == 'en_US'">
+                                        TAXES
+                                     </t>
+                                     <t t-elif="o.partner_id.lang == 'fr_FR'">
+                                        TAXES
+                                     </t>
+                                     <t t-elif="o.partner_id.lang == 'it_IT'">
+                                        TAXES
+                                     </t>
+                                     <t t-else="">
+                                        IMPUESTOS
+                                     </t>
+                                    </strong></td>
+                                    <td class="tdc2">
+                                        <span t-field="o.amount_tax"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="text-transform: uppercase; color:#FFF;" class="tdc1"><strong>
+                                    <t t-if="o.partner_id.lang == 'en_US'">
+                                        TOTAL
+                                     </t>
+                                     <t t-elif="o.partner_id.lang == 'fr_FR'">
+                                        TOTAL
+                                     </t>
+                                     <t t-elif="o.partner_id.lang == 'it_IT'">
+                                        TOTAL
+                                     </t>
+                                     <t t-else="">
+                                        TOTAL
+                                     </t>
+                                    </strong></td>
+                                    <td class="tdc2">
+                                        <span t-field="o.amount_total"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                
+                
+                
+                <p t-field="o.notes"/>
+                
+                <br/><p align="justify" style="font-size:7pt">
+                        Según la Disposición Adicional Primera de la Ley 11/97 de Envases y Residuos de Envases, es responsabilidad del poseedor final la gestión de
+    los envases usados y los residuos de envases.
+                        <br/>
+                        De conformidad con lo establecido en la normativa vigente en Protección de Datos de Carácter Personal, le informamos que sus datos serán
+    incorporados al sistema de tratamiento titularidad de MUNDIMOLD SA con CIF A46329355 y domicilio social sito en CL Y POL. INDUSTRIAL EL
+    OLIVERAL 1 PARC. 7,3 46190, RIBA-ROJA DE TURIA (VALENCIA), con la finalidad de poder remitirle la correspondiente factura. En
+    cumplimiento con la normativa vigente, MUNDIMOLD SA informa que los datos serán conservados durante EL PLAZO LEGALMENTE
+    ESTABLECIDO.
+                        <br/>
+                        Con la presente cláusula queda informado de que sus datos serán comunicados en caso de ser necesario a: administraciones públicas y a todas
+aquellas entidades con las que sea necesaria la comunicación con la finalidad de cumplir con la prestación del servicio anteriormente
+mencionado. El hecho de no facilitar los datos a las entidades mencionadas implica que no se pueda cumplir con la prestación de los servicios. A
+su vez, le informamos que puede contactar con el Delegado de Protección de Datos de MUNDIMOLD SA, dirigiéndose por escrito a la dirección
+de correo dpo.cliente@conversia.es o al teléfono 902877192.MUNDIMOLD SA informa que procederá a tratar los datos de manera lícita, leal,
+transparente, adecuada, pertinente, limitada, exacta y actualizada. Es por ello que MUNDIMOLD SA se compromete a adoptar toda s las medidas
+razonables para que estos se supriman o rectifiquen dilación cuando sean inexactos. Podrá ejercer los derechos de acceso, rectificación,
+limitación de tratamiento, supresión, portabilidad y oposición/revocación, en los términos que establece la normativa vigente en materia de
+protección de datos, dirigiendo su petición a la dirección postal CL Y POL. INDUSTRIAL EL OLIVERAL 1 PARC. 7,3 46190, RIBAROJ A DE
+TURIA (VALENCIA) o bien a través de correo electrónico MUNDIMOLD@MUNDIMOLD.COM
+                        <br/>
+
+                        Sociedad Inscrita T. 1.089 General, 1.143 de Sec. 3a, F, 95. H. 11.719 Inscr. 1a R. M. Valencia – C.I.F. A-46329355
+
+                        </p>
+                
+                
+
+            </div>
+    
+        </t>
+    </t>
+
+</template>
+</data>
+</openerp>

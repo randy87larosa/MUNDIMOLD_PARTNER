@@ -1,0 +1,221 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        
+        
+        <record model="ir.ui.view" id="view_crm_lead_documentation_form">
+            <field name="name">crm.lead.documentation.form</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_case_form_view_oppor"/>
+            <field name="arch" type="xml">
+
+                
+                <xpath expr="//field[@name='partner_id']" position="after">
+					<field name="contact_id" domain="[('parent_id','=',partner_id), ]" />
+				</xpath>
+            
+                <xpath expr="//page[@name='lead']" position="after">
+                
+                    <page string="Datos molde" name="datos_molde" >
+						<group col="10">
+							<button name="cargar_datos_cliente" string="Cargar datos cliente" type="object"></button>
+							<button name="cargar_datos_oportunidad" string="Cargar datos oportunidad" type="object"></button>
+						</group>
+					
+                        <group col="10">
+                            <group string="Pieza" colspan="3">
+                                <field name="category_moldrent_id" domain="[('parent_id','=',False), ]" style="background-color:#bff5ff;"/>
+                                <field name="subcategory_moldrent_id" domain="[('parent_id','=',category_moldrent_id), ]" style="background-color:#bff5ff;"/>
+                                <field name="denominacion_pieza" style="background-color:#bff5ff;"/>
+                                <field name="uso_especifico"/>
+                                <field name="dimensiones_nominales" style="background-color:#bff5ff;" invisible="1"/>
+								<field name="dimensiones_x"/>
+								<field name="dimensiones_y"/>
+								<field name="dimensiones_z"/>
+                                <field name="peso_nominal" style="background-color:#bff5ff;"/>
+                                <field name="material1_pieza_id" style="background-color:#bff5ff;" domain="[('categ_id','like', 'MATERIAL PLÁSTICO')]"/>
+                                <field name="otro_material_pieza_id" style="background-color:#bff5ff;" domain="[('categ_id','like', 'MATERIAL PLÁSTICO')]"/>
+                                <field name="peso_otro_material" />
+                                <field name="material_reciclado" style="background-color:#bff5ff;"/>
+                                <field name="compatibles_otras" style="background-color:#bff5ff;"/>
+                                <field name="carga_estatica" style="background-color:#bff5ff;"/>
+                                <field name="carga_dinamica" style="background-color:#bff5ff;"/>
+                                <field name="detalles_funcionales"/>
+                                <field name="limitaciones_funcionales"/>
+                                <field name="volumen_interno_contenido"/>
+                                <field name="producto_contener"/>
+                                <field name="otro_pieza"/>
+                                <field name="analisis_moldflow" style="background-color:#bff5ff;"/>
+                                <field name="analisis_estructural" style="background-color:#bff5ff;"/>
+                            </group>
+                            
+                            <group colspan="3">
+                            
+                                <group string="Molde general" colspan="3">
+                                    <field name="contraccion_material"/>
+                                    <field name="tipo_molde_id"  style="background-color:#bff5ff;"/>
+                                    <field name="clase_molde_id" style="background-color:#bff5ff;"/>
+                                    <field name="tecnologia_aplicada_id" style="background-color:#bff5ff;"/>
+                                    <field name="num_cavidades" style="background-color:#bff5ff;"/>
+                                    <field name="plazo_molde" style="background-color:#bff5ff;"/>
+                                    <field name="ciclo_produccion" style="background-color:#bff5ff;"/>
+                                    <field name="colectores" style="background-color:#bff5ff;"/>
+                                    <field name="tonelaje_recomendado_maquina"/>
+                                </group>
+                                
+                                <group string="Materiales" colspan="3">
+                                    <field name="fija_material_piezas_figura_ids" widget="many2many_tags" options="{'no_create_edit': True}" string="Material piezas de figura" style="background-color:#bff5ff;"/>
+                                    <field name="fija_material_base_fija_ids" widget="many2many_tags" options="{'no_create_edit': True}" string="Material base fija del molde" style="background-color:#bff5ff;"/>
+                                    <field name="fija_material_piezas_moviles_ids" widget="many2many_tags" options="{'no_create_edit': True}" string="Material Piezas móviles" style="background-color:#bff5ff;"/>
+                                    <field name="fija_aleacines_ids" widget="many2many_tags" options="{'no_create_edit': True}" string="Fija Aleaciones especiales" style="background-color:#bff5ff;"/>
+                                </group>
+                                
+                                <group string="Tratamientos" colspan="3">
+                                    <field name="tratamientos_piezas_figura_ids" widget="many2many_tags" options="{'no_create_edit': True}" string="Piezas de figura"/>
+                                    <field name="tratamientos_piezas_especificas_ids" widget="many2many_tags" options="{'no_create_edit': True}" string="Piezas específicas"/>
+                                    <field name="tratamientos_piezas_moviles_ids" widget="many2many_tags" options="{'no_create_edit': True}" string="Piezas móviles" style="background-color:#bff5ff;"/>
+                                </group>
+                                
+                            </group>
+                            
+                            
+                            
+                            <group colspan="3">
+                            
+                                <group string="Sistema de inyección" colspan="3">
+                                    <field name="numero_puntos_inyeccion" style="background-color:#bff5ff;"></field>
+                                    <field name="tipo_inyeccion_ids" widget="many2many_tags" style="background-color:#bff5ff;"></field>
+                                    <field name="valvula_gate_obt_ids" widget="many2many_tags" style="background-color:#bff5ff;"></field>
+                                    <field name="pro_diff_inyec_ids" widget="many2many_tags" style="background-color:#bff5ff;"></field>
+                                    <field name="filtro_en_camara" style="background-color:#bff5ff;"></field>
+                                    <field name="comments_sistema_inyeccion"  style="background-color:#bff5ff;"></field>
+
+                                </group>
+                                
+                                 <group string="Acabados" colspan="3">
+                                    <field name="acabados_macho_ids" widget="many2many_tags" options="{'no_create_edit': True}" style="background-color:#bff5ff;" />
+                                    <field name="acabados_hembra_ids" widget="many2many_tags" options="{'no_create_edit': True}" style="background-color:#bff5ff;" />
+                                </group>
+                                
+                                <group string="Textura" colspan="3">
+                                    <field name="tipo_textura" style="background-color:#bff5ff;" />
+                                    <field name="proveedor_textura"/>
+									<field name="attachment_texturas" widget="many2many_binary"/>
+                                </group>
+                                
+                                <group string="Otros accionamientos" colspan="3">
+                                    <field name="accionamientos_correderas_mecanicas" style="background-color:#bff5ff;"/>
+                                    <field name="accionamientos_correderas_hidraulicas" style="background-color:#bff5ff;"/>
+                                    <field name="accionamientos_cilindros_hidraulicas" style="background-color:#bff5ff;"/>
+                                    <field name="accionamientos_cilindros_aire" style="background-color:#bff5ff;"/>
+                                    <field name="accionamientos_muelles" style="background-color:#bff5ff;"/>
+                                    <field name="accionamientos_cilindros_gas" style="background-color:#bff5ff;"/>
+                                    <field name="accionamientos_telescopicos" style="background-color:#bff5ff;"/>
+                                    <field name="accionamientos_otros" style="background-color:#bff5ff;"/>
+                                </group>
+                                
+                            </group>
+                            
+                            
+                            <group colspan="3">
+                            
+                                <group string="Expulsión" colspan="3">
+                                    <field name="tipo_expulsion_ids" widget="many2many_tags" style="background-color:#bff5ff;"></field>
+                                    <field name="expulsion_piezas_ids" widget="many2many_tags" style="background-color:#bff5ff;"></field>
+                                    <field name="expulsion_acontecimientos_ids" widget="many2many_tags" style="background-color:#bff5ff;"></field>
+                                    <field name="comments_expulsion" ></field>
+                                    <field name="barras_expulsion_maquina"></field>
+
+                                </group>
+                                
+                                 <group string="Elementos especiales" colspan="3">
+                                    <field name="elementos_date_codes"/>
+                                    <field name="elementos_shift_codes"/>
+                                    <field name="elementos_material"/>
+                                    <field name="elementos_floating_plates"/>
+                                    <field name="elementos_transducers"/>
+                                    <field name="elementos_switches"/>
+                                    <field name="elementos_engraving"/>
+                                    <field name="elementos_qmc_plates"/>
+                                    <field name="elementos_cycle_counter"/>
+                                    <field name="elementos_mold_samples"  style="background-color:#bff5ff;"/>
+                                    <field name="elementos_repuestos"/>
+                                    <field name="elementos_otros"/>
+                                </group>
+                                
+                                
+                                
+                                
+                            </group>
+                            
+                            
+                            
+                            <group colspan="15" string="Parque maquinaria">
+                            
+                                <field name="parque_maquinaria_ids" nolabel="1">
+                                    <tree editable="bottom">
+                                        <field name="lead_id" invisible="1"></field>
+                                        <field name="fabricante"></field>
+                                        <field name="modelo"></field>
+                                        <field name="tonelaje"></field>
+                                        <field name="plato_anc"></field>
+                                        <field name="paso_columnas"></field>
+                                        <field name="columnas"></field>
+                                        <field name="espesor_min_max"></field>
+                                        <field name="centrador_parte_fija"></field>
+                                        <field name="centrador_parte_movil"></field>
+                                        <field name="apoyo_maquina"></field>
+                                        <field name="paso"></field>
+                                        <field name="attachment_file" widget="many2many_binary"/>
+                                    </tree>
+                                </field>
+                            
+                            </group>
+                            
+
+                        </group>
+                    </page>
+                
+                    
+                
+        
+                </xpath>
+                
+                
+
+            </field>
+        </record>
+        
+        
+        <record model="ir.ui.view" id="view_sale_order_documentation_tree">
+            <field name="name">sale.order.cotizacion.tree</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_tree"/>
+            <field name="arch" type="xml">
+
+                <field name="partner_id" position="after">
+                    <field name="subcategory_moldrent_id" invisible="0"/>
+                </field>
+            </field>
+        </record>
+        
+        
+        
+        <record model="ir.ui.view" id="view_sale_quotation_documentation_tree">
+            <field name="name">sale.quotation.cotizacion.tree</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_quotation_tree"/>
+            <field name="arch" type="xml">
+
+                <field name="partner_id" position="after">
+                    <field name="subcategory_moldrent_id" invisible="0"/>
+                </field>
+            </field>
+        </record>
+        
+    
+   
+    
+    
+    
+</odoo>

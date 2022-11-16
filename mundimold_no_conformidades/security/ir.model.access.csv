@@ -1,0 +1,4 @@
+"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
+"access_project_noconformidad","project_noconformidad manager","model_project_noconformidad","project.group_project_user",1,1,1,1
+"access_project_noconformidad_type","project_noconformidad_type manager","model_project_noconformidad_type","project.group_project_user",1,1,1,1
+"access_project_noconformidad_causa","project_noconformidad_causa manager","model_project_noconformidad_causa","project.group_project_user",1,1,1,1

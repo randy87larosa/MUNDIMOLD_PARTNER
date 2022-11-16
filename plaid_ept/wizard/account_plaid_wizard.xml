@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_account_plaid_wizard_form" model="ir.ui.view">
+            <field name="name">account.plaid.wizard.form</field>
+            <field name="model">account.plaid.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Plaid Configuration">
+                    <a href="/plaid/authentication" target="_Blank" id="plaid_ept">
+                        <div class="alert alert-success text-center">
+                            <span class="fa fa fa-link fa-5x"/><br/>
+                            <h5>Click here for Linked Your Bank Account to Odoo.</h5>
+                        </div>
+                    </a>
+                    <div class="alert alert-warning text-center">
+                        <h5>After the process, you need to close this screen and select the appropriate plaid account in the Journal</h5>
+                    </div>
+                    <footer>
+                        <button string="Close" class="btn-primary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

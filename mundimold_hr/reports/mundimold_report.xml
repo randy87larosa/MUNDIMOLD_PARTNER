@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+		
+        <report 
+            id="rep_project_noconformidad"
+            string="Informe"
+            model="project.noconformidad" 
+            report_type="qweb-pdf"
+            file="mundimold_no_conformidades.report_noconformidad" 
+            name="mundimold_no_conformidades.report_noconformidad" 
+        />
+        
+		
+		
+
+    </data>
+</openerp>

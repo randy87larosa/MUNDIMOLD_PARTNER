@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="plaid_template_ept">
+        <html>
+            <head>
+                <meta charset="utf-8"/>
+                <title>Plaid Authentication</title>
+                <link rel="stylesheet" type="text/css" href="/plaid_ept/static/src/css/style.css"/>
+                <meta name="viewport" content="width=device-width, initial-scale=1"/>
+                <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+            </head>
+            <body>
+                <script>
+                    var plaid_environment = '<t t-raw="plaid_environment"/>';
+                    var plaid_public_key = '<t t-raw="plaid_public_key"/>';
+                    var webhook_url = '<t t-raw="webhook_url"/>';
+                </script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
+                <script src="https://cdn.plaid.com/link/v2/stable/link-initialize.js"></script>
+                <script>
+                    $(document).ready(function()
+                    {
+                        var handler = Plaid.create
+                        ({
+                            apiVersion: 'v2',
+                            clientName: 'Odoo',
+                            env: plaid_environment,
+                            product: ['transactions'],
+                            key: plaid_public_key,
+                            webhook: webhook_url,
+                            onSuccess: function(public_token, metadata)
+                            {
+                                $.post('/get_plaid_access_token', {public_token: public_token, accounts: metadata.accounts,
+                                institution: metadata.institution}, function(data)
+                                {
+                                    if (!data){
+                                        $('#AJAXErrorModal_ept').modal('show');
+                                    }
+                                    else{
+                                        window.top.close()
+                                    }
+                                });
+                            },
+                            onExit: function(err, metadata)
+                            {
+                                if (err != null)
+                                {
+                                    console.log(err);
+                                }
+                                window.top.close()
+                            },
+                        });
+                        handler.open();
+                        $("#close_ept").click(function(){ window.top.close() });
+                    });
+                </script>
+                <div class="clearfix"/>
+                <!-- Modal used to display error message, i.c.o. ajax error -->
+                <div class="modal fade" id="AJAXErrorModal_ept" role="dialog" aria-labelledby="AJAXErrorModal"
+                     aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                    &amp;times;
+                                </button>
+                                <h4 class="modal-title">Warning</h4>
+                            </div>
+                            <div class="modal-body">
+                                <p><strong class="alert alert-danger text-danger">Please Select only one Account either Customize Plaid Setting.
+                                </strong>
+                                </p>
+                                <br/>
+                                <img src="/plaid_ept/static/src/img/plaid_account_customize.png"/>
+                            </div>
+                            <div class="modal-footer">
+                                <a href="https://dashboard.plaid.com/link/account-select">
+                                    <button type="button" class="btn btn-primary">Go to Plaid Customize</button>
+                                </a>
+                                <button type="button" id="close_ept" class="btn btn-primary" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+                <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+            </body>
+        </html>
+    </template>
+
+    <!-- update credentials -->
+    <template id="plaid_template_update_credentials_ept">
+        <html>
+            <head>
+                <meta charset="utf-8"/>
+                <title>Plaid Update Credentials</title>
+                <link rel="stylesheet" type="text/css" href="/plaid_ept/static/src/css/style.css"/>
+                <meta name="viewport" content="width=device-width, initial-scale=1"/>
+            </head>
+            <body>
+                <script>
+                    var plaid_environment = '<t t-raw="plaid_environment"/>';
+                    var plaid_public_key = '<t t-raw="plaid_public_key"/>';
+                    var generated_public_token = '<t t-raw="generated_public_token"/>';
+                </script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
+                <script src="https://cdn.plaid.com/link/v2/stable/link-initialize.js"></script>
+                <script>
+                    $(document).ready(function()
+                    {
+                        var handler = Plaid.create
+                        ({
+                            apiVersion: 'v2',
+                            clientName: 'Odoo',
+                            env: plaid_environment,
+                            product: ['transactions'],
+                            key: plaid_public_key,
+                            token: generated_public_token,
+                            onSuccess: function(public_token, metadata)
+                            {
+                                $.post('/get_plaid_access_token', {public_token: public_token, accounts: metadata.accounts,
+                                institution: metadata.institution}, function()
+                                {
+                                    window.top.close()
+                                });
+                            },
+                            onExit: function(err, metadata)
+                            {
+                                if (err != null)
+                                {
+                                    console.log(err);
+                                }
+                                window.top.close()
+                            },
+                        });
+                        handler.open();
+                    });
+                </script>
+            </body>
+        </html>
+    </template>
+
+</odoo>

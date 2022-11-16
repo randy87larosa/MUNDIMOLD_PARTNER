@@ -1,0 +1,385 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<record id="product_template_moldrent_view_inherit" model="ir.ui.view">
+        <field name="name">product.template.moldrent.view.inherit</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='variants']" position="after">
+                <page string="Moldrent" name="moldrent">
+                
+                    <group>
+                        <group colspan="2" >
+                            <field name="date_moldrent" string="Fecha"/>
+                            <field name="caracteristicas_tecnicas"/>
+                            <field name="descripcion_corta"/>
+                            <field name="tipo_moldrent"/>
+                            <field name="formulario_moldrent"/>
+                            <!--<field name="lugar_envio"/>
+                            <field name="precio_asociado"/>-->
+                            
+                            <field name="envio_ids">
+                                <tree editable="bottom">
+                                    <field name="product_id" invisible="1"/>
+                                    <field name="envio_ids" />
+                                    <field name="precio" />
+                                </tree>
+                            </field>
+                            
+                            <field name="category_moldrent_id" domain="[('parent_id','=',False), ]"/>
+                            <field name="subcategory_moldrent_id" domain="[('parent_id','=',category_moldrent_id), ]"/>
+                        </group>
+                    </group>
+                    
+                    <group attrs="{'invisible': [('tipo_moldrent', '!=', 'M')]}" string="Molde">
+                        <group colspan="2" >
+                            <field name="meses_ids" widget="many2many_tags" options="{'no_create_edit': True}"/>
+                            <field name="precio_alquiler_dia"/>
+                            <field name="tiempo_ciclo"/>
+                            <field name="ubicacion_molde_id"/>
+                            <field name="precio_nuevo"/>
+                            <field name="precio_usado"/>
+                            <field name="pieza_asociada_id" domain="[('tipo_moldrent','=','P'), ]"/>
+                        </group>
+                    </group>
+                    
+                    <group attrs="{'invisible': [('tipo_moldrent', '!=', 'P')]}" string="Pieza">
+                        <group colspan="2" >
+                            <field name="precio_desde"/>
+                            <field name="muestras_contenedor"/>
+                            <field name="precio_contenedor"/>
+                            <field name="molde_asociado_id" domain="[('tipo_moldrent','=','M'), ]"/>
+                        </group>
+                    </group>
+                    
+                    <group>
+                        <group colspan="2" >
+                            <field name="csv_moldrent"/>
+                        </group>
+                    </group>
+                    
+                </page>
+                
+                <page string="Molde" name="molde">
+                
+                    <group string="Campos Molde">
+                        <group colspan="2" >
+                            <field name="estado_pieza_id"/>
+                            <field name="tonelaje_mquina_inyeccion"/>
+                            <field name="num_cavidades"/>
+                            <field name="num_puntos_inyeccion"/>
+                            <field name="anos_fabricacion"/>
+                            <field name="dimensiones_molde"/>
+                            <field name="peso_total"/>
+                            <field name="peso_parte_fija"/>
+                            <field name="peso_parte_movil"/>
+                            <field name="plazo_molde_nuevo"/>
+                            <field name="tipo_molde_id"/>
+                            <field name="clase_molde_id"/>
+                            <field name="tecnologia_aplicada_id"/>
+                            <field name="construccion_molde_id"/>
+                            <field name="tipo_extraccion_pieza_id"/>
+                        </group>
+                    </group>
+                
+                    
+                    
+                </page>
+                <page string="Pieza" name="pieza">
+                
+                    <group>
+                        <group colspan="2" >
+                            <field name="denominacion_pieza"/>
+                            <field name="uso_especifico"/>
+                            <field name="dimensiones_nominales"/>
+                            <field name="peso_nominal"/>
+                            <field name="material1_pieza_ids" widget="many2many_tags" options="{'no_create_edit': True}"/>
+                            <field name="otro_material_pieza_ids" widget="many2many_tags" options="{'no_create_edit': True}"/>
+                            <field name="peso_otro_material"/>
+                            <field name="material_reciclado"/>
+                            <field name="carga_estatica"/>
+                            <field name="carga_dinamica"/>
+                            <field name="detalles_funcionales"/>
+                            <field name="limitaciones_funcionales"/>
+                            <field name="volumen_interno_contenido"/>
+                            <field name="producto_contener"/>
+                            <field name="otro_pieza"/>
+                            <field name="analisis_moldflow"/>
+                            <field name="analisis_estructural"/>
+                        </group>
+                    </group>
+                
+                    
+                    
+
+                </page>
+                <page string="Materiales y aleaciones" name="materiales">
+                
+                    <group>
+                        <group string="Parte fija">
+                            <field name="fija_material_piezas_figura_ids" widget="many2many_tags" options="{'no_create_edit': True}" string="Material piezas de figura"/>
+                            <field name="fija_material_base_fija_ids" widget="many2many_tags" options="{'no_create_edit': True}" string="Material base fija del molde"/>
+                            <field name="fija_material_piezas_moviles_ids" widget="many2many_tags" options="{'no_create_edit': True}" string="Material Piezas móviles"/>
+                            <field name="fija_aleacines_ids" widget="many2many_tags" options="{'no_create_edit': True}" string="Fija Aleaciones especiales"/>
+                        </group>
+                        <group string="Parte móvil">
+                            <field name="movil_material_piezas_figura_ids" widget="many2many_tags" options="{'no_create_edit': True}" string="Material piezas de figura"/>
+                            <field name="movil_material_base_fija_ids" widget="many2many_tags" options="{'no_create_edit': True}" string="Material base fija del molde"/>
+                            <field name="movil_material_piezas_moviles_ids" widget="many2many_tags" options="{'no_create_edit': True}" string="Material Piezas móviles"/>
+                            <field name="movil_aleacines_ids" widget="many2many_tags" options="{'no_create_edit': True}" string="Fija Aleaciones especiales"/>
+                        </group>
+                    </group>
+                    
+                    <group>
+                        <group string="Más partes">
+                            <field name="mas_material_piezas_figura_ids" widget="many2many_tags" options="{'no_create_edit': True}" string="Material piezas de figura"/>
+                            <field name="mas_material_base_fija_ids" widget="many2many_tags" options="{'no_create_edit': True}" string="Material base fija del molde"/>
+                            <field name="mas_material_piezas_moviles_ids" widget="many2many_tags" options="{'no_create_edit': True}" string="Material Piezas móviles"/>
+                            <field name="mas_aleacines_ids" widget="many2many_tags" options="{'no_create_edit': True}" string="Fija Aleaciones especiales"/>
+                        </group>
+                        <group string="Tratamientos">
+                            <field name="tratamientos_piezas_figura_ids" widget="many2many_tags" options="{'no_create_edit': True}" string="Piezas de figura"/>
+                            <field name="tratamientos_piezas_especificas_ids" widget="many2many_tags" options="{'no_create_edit': True}" string="Piezas específicas"/>
+                            <field name="tratamientos_piezas_moviles_ids" widget="many2many_tags" options="{'no_create_edit': True}" string="Piezas móviles"/>
+                        </group>
+                    </group>
+                    
+                    <group>
+                        <group string="Textura">
+                            <field name="tipo_textura" />
+                            <field name="proveedor_textura" />
+                        </group>
+                        <group string="Acabados">
+                            <field name="acabados_macho_ids" widget="many2many_tags" options="{'no_create_edit': True}" />
+                            <field name="acabados_hembra_ids" widget="many2many_tags" options="{'no_create_edit': True}" />
+                        </group>
+                    </group>
+                    
+                    <group string="Elementos especiales">
+                        <group colspan="2" >
+                            <field name="elementos_date_codes"/>
+                            <field name="elementos_shift_codes"/>
+                            <field name="elementos_material"/>
+                            <field name="elementos_floating_plates"/>
+                            <field name="elementos_transducers"/>
+                            <field name="elementos_pl_locks"/>
+                            <field name="elementos_switches"/>
+                            <field name="elementos_engraving"/>
+                            <field name="elementos_qmc_plates"/>
+                            <field name="elementos_cycle_counter"/>
+                            <field name="elementos_mold_samples"/>
+                            <field name="elementos_gate_inserts"/>
+                            <field name="elementos_cavity_shut_off"/>
+                            <field name="elementos_split_rib_inserts"/>
+                        </group>
+                    </group>
+                    
+                </page>
+            </xpath>
+        </field>
+    </record>
+    
+
+
+		
+
+    <!-- #######################################################
+                 product.moldrent.meses
+    ######################################################## -->
+
+
+    <record model="ir.ui.view" id="view_product_moldrent_meses_tree">
+        <field name="name">product.moldrent.meses.tree</field>
+        <field name="model">product.moldrent.meses</field>
+        <field name="priority" eval="16"/>
+        <field name="arch" type="xml">
+            <tree string="Producto">
+                <field name="name"/>
+                <field name="sequence"/>
+            </tree>
+        </field>
+    </record>
+    
+    
+    <record model="ir.ui.view" id="view_product_moldrent_meses_form">
+        <field name="name">product.moldrent.meses.form</field>
+        <field name="model">product.moldrent.meses</field>
+        <field name="arch" type="xml">
+            <form string="Color">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="sequence"/>
+                    </group>
+                    
+                </sheet>
+            </form>
+        </field>
+    </record>
+    
+    
+    <record model="ir.ui.view" id="view_product_moldrent_meses_search">
+        <field name="name">product.moldrent.meses.search</field>
+        <field name="model">product.moldrent.meses</field>
+        <field name="arch" type="xml">
+            <search string="Color">
+                <field name="name"/>
+            </search>
+        </field>
+    </record>
+
+            
+    <record model="ir.actions.act_window" id="action_product_moldrent_meses">
+        <field name="name">Meses alquiler</field>
+        <field name="res_model">product.moldrent.meses</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    
+    
+    <menuitem name="Meses alquiler" parent="sale.prod_config_main" id="menu_product_moldrent_meses" action="action_product_moldrent_meses" sequence="33"/>
+    
+    
+    
+    <!-- #######################################################
+                 product.moldrent.category
+    ######################################################## -->
+
+
+    <record model="ir.ui.view" id="view_product_moldrent_category_tree">
+        <field name="name">product.moldrent.category.tree</field>
+        <field name="model">product.moldrent.category</field>
+        <field name="priority" eval="16"/>
+        <field name="arch" type="xml">
+            <tree string="Producto">
+                <field name="name"/>
+                <field name="parent_id"/>
+            </tree>
+        </field>
+    </record>
+    
+    
+    <record model="ir.ui.view" id="view_product_moldrent_category_form">
+        <field name="name">product.moldrent.category.form</field>
+        <field name="model">product.moldrent.category</field>
+        <field name="arch" type="xml">
+            <form string="Color">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="parent_id"/>
+                    </group>
+                    
+                </sheet>
+            </form>
+        </field>
+    </record>
+    
+    
+    <record model="ir.ui.view" id="view_product_moldrent_category_search">
+        <field name="name">product.moldrent.category.search</field>
+        <field name="model">product.moldrent.category</field>
+        <field name="arch" type="xml">
+            <search string="Color">
+                <field name="name"/>
+            </search>
+        </field>
+    </record>
+
+            
+    <record model="ir.actions.act_window" id="action_product_moldrent_category">
+        <field name="name">Categorías Moldrent</field>
+        <field name="res_model">product.moldrent.category</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    
+    
+    <menuitem name="Categorías Moldrent" parent="sale.prod_config_main" id="menu_product_moldrent_category" action="action_product_moldrent_category" sequence="33"/>
+
+    
+    
+    
+    
+    <record model="ir.actions.act_window" id="action_product_mundimold_material">
+        <field name="name">Material</field>
+        <field name="res_model">product.mundimold.material</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem name="Material" parent="sale.prod_config_main" id="menu_product_mundimold_material" action="action_product_mundimold_material" sequence="34"/>
+    
+    
+    <record model="ir.actions.act_window" id="action_product_mundimold_molde_tipo">
+        <field name="name">Tipo de molde</field>
+        <field name="res_model">product.mundimold.molde.tipo</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem name="Tipo de molde" parent="sale.prod_config_main" id="menu_product_mundimold_molde_tipo" action="action_product_mundimold_molde_tipo" sequence="35"/>
+    
+    <record model="ir.actions.act_window" id="action_product_mundimold_molde_clase">
+        <field name="name">Clase de molde</field>
+        <field name="res_model">product.mundimold.molde.clase</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem name="Clase de molde" parent="sale.prod_config_main" id="menu_product_mundimold_molde_clase" action="action_product_mundimold_molde_clase" sequence="36"/>
+    
+    
+    <record model="ir.actions.act_window" id="action_product_mundimold_molde_tecnologia">
+        <field name="name">Tecnología de molde</field>
+        <field name="res_model">product.mundimold.molde.tecnologia</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem name="Tecnología de molde" parent="sale.prod_config_main" id="menu_product_mundimold_molde_tecnologia" action="action_product_mundimold_molde_tecnologia" sequence="37"/>
+    
+    
+    <record model="ir.actions.act_window" id="action_product_mundimold_molde_extraccion">
+        <field name="name">Extracción de molde</field>
+        <field name="res_model">product.mundimold.molde.extraccion</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem name="Extracción de molde" parent="sale.prod_config_main" id="menu_product_mundimold_molde_extraccion" action="action_product_mundimold_molde_extraccion" sequence="38"/>
+    
+    
+    <record model="ir.actions.act_window" id="action_product_mundimold_estado_pieza">
+        <field name="name">Estado de pieza</field>
+        <field name="res_model">product.mundimold.estado.pieza</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem name="Estado de pieza" parent="sale.prod_config_main" id="menu_product_mundimold_estado_pieza" action="action_product_mundimold_estado_pieza" sequence="39"/>
+    
+    
+    <record model="ir.actions.act_window" id="action_product_mundimold_aleacion">
+        <field name="name">Aleación</field>
+        <field name="res_model">product.mundimold.aleacion</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem name="Aleación" parent="sale.prod_config_main" id="menu_product_mundimold_aleacion" action="action_product_mundimold_aleacion" sequence="40"/>
+    
+    
+    <record model="ir.actions.act_window" id="action_product_mundimold_tratamiento">
+        <field name="name">Tratamiento</field>
+        <field name="res_model">product.mundimold.tratamiento</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem name="Tratamiento" parent="sale.prod_config_main" id="menu_product_mundimold_tratamiento" action="action_product_mundimold_tratamiento" sequence="41"/>
+    
+    
+    <record model="ir.actions.act_window" id="action_product_mundimold_acabado">
+        <field name="name">Acabado</field>
+        <field name="res_model">product.mundimold.acabado</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem name="Acabado" parent="sale.prod_config_main" id="menu_product_mundimold_acabado" action="action_product_mundimold_acabado" sequence="34"/>
+
+
+</odoo>

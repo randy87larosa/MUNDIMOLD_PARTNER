@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <template id="external_layout_standard_custom" inherit_id="web.external_layout_standard">
+        <div expr="//div[@class='header']" position="replace">
+            <t t-if="compnay.id==1">
+                <div class="header">
+                    <div class="row">
+                        <div class="col-3 mb4">
+                            <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" style="max-height: 45px;" alt="Logo"/>
+                        </div>
+                        <div class="col-4 mb4">
+                            <span t-field="company.street"></span>
+                            <br/>
+                            <span t-field="company.street2"></span>
+                            <br/>
+                            <span t-field="company.zip"></span>
+                            <span t-field="company.city"></span>
+                            <span t-field="company.state_id.name"></span>
+                            (<span t-field="company.contry_id.name"></span>)
+                        </div>
+                        <div class="col-4 mb4">
+                            <span>Tel:</span>
+                            <span t-field="company.phone"></span>
+                            <br/>
+                            <span>Fax:</span>
+                            <span t-field="company.mabile"></span>
+                            <br/>
+                            <span>E-mail:</span>
+                            <span t-field="company.email"></span>
+                            <br/>
+                        </div>
+                    </div>
+                </div>
+            
+            </t>
+
+            <t t-if="compnay.id==3">
+                <div class="header">
+                
+                </div>
+            
+            </t>
+        
+        </div>
+    </template>
+
+
+
+
+    <!-- <template id="external_layout_standard">
+            
+            <div class="row">
+                <div class="col-3 mb4">
+                    <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" style="max-height: 45px;" alt="Logo"/>
+                </div>
+                <div class="col-9 text-right" style="margin-top:22px;" t-field="company.report_header" name="moto"/>
+            </div>
+            <div t-if="company.logo or company.report_header" class="row zero_min_height">
+                <div class="col-12">
+                    <div style="border-bottom: 1px solid black;"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6" name="company_address">
+                    <div t-field="company.partner_id"
+                        t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": true}'
+                    />
+                </div>
+            </div>
+        </div>
+
+        <div class="article o_report_layout_standard"  t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
+            <t t-call="web.address_layout"/>
+            <t t-raw="0"/>
+        </div>
+
+        <div class="footer o_standard_footer">
+            <div class="text-center" style="border-top: 1px solid black;">
+                <ul class="list-inline mb4">
+                    <li t-if="company.phone" class="list-inline-item">Phone: <span t-field="company.phone"/></li>
+                    <li t-if="company.email" class="list-inline-item">Email: <span t-field="company.email"/></li>
+                    <li t-if="company.website" class="list-inline-item">Web: <span t-field="company.website"/></li>
+                    <li t-if="company.vat" class="list-inline-item"><t t-esc="(company.country_id.vat_label or 'Tax ID').replace(' ','\N{NO-BREAK SPACE}')"/>: <span t-esc="company.vat.replace(' ','\N{NO-BREAK SPACE}')"/></li>
+                </ul>
+
+                <div name="financial_infos">
+                    <span t-field="company.report_footer"/>
+                </div>
+
+                <div t-if="report_type == 'pdf'" class="text-muted">
+                    Page: <span class="page"/> / <span class="topage"/>
+                </div>
+            </div>
+        </div>
+    </template> -->
+    
+
+</odoo>

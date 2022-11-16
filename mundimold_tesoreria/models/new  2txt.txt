@@ -1,0 +1,41 @@
+#BUSCAMOS APUNTES CLIENTES FACTURAS VENCIDAS
+            if record.incluir_vencidos_cliente == True:
+                for line in self.env['account.move.line'].search([('account_id', '=', record.customer_account_id.id),
+                                                                ('date_maturity', '<', record.date_ini),
+                                                                ('invoice_id', '!=', False),
+                                                                ('reconciled', '=', False),
+                                                                ('debit', '>', 0.0),
+                                                                ]):
+                    partner_id = None
+                    if line.partner_id:
+                        partner_id = line.partner_id.id
+                        
+                    journal_payment_id = None
+                    if line.journal_payment_id:
+                        journal_payment_id = line.journal_payment_id.id
+                    else:
+                        if line.payment_mode_id:
+                            if len(line.payment_mode_id.variable_journal_ids) <= 1:
+                                for bk in line.payment_mode_id.variable_journal_ids:
+                                    journal_payment_id = bk.id
+                    
+                    name = line.name
+                    if line.invoice_id:
+                        name = line.invoice_id.number + ' (VENCIDA)'
+                        
+                    account_analytic_id = None
+                    for apunte in line.move_id.line_ids:
+                        if apunte.analytic_account_id:
+                            account_analytic_id = apunte.analytic_account_id.id
+                            break
+                    
+                    line_id = self.env['report.tesoreria.mundimold.line'].create({'report_id': record.id, 
+                                                                                  'name': name, 
+                                                                                  'partner_id': partner_id, 
+                                                                                  'journal_id': journal_payment_id,
+                                                                                  'amount': line.amount_residual,
+                                                                                  'date': record.date_ini,
+                                                                                  'type': '00_FRA_COBRO',
+                                                                                  'account_analytic_id': account_analytic_id,
+                                                                                  'move_line_id': line.id,
+                                                                                 })

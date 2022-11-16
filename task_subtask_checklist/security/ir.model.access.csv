@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_task_checklist,task.checklist,model_task_checklist,base.group_user,1,1,1,1
+access_checklist_item,checklist.item,model_checklist_item,base.group_user,1,1,1,1
+access_checklist_activities_user,checklist.activities.user,model_checklist_activities,base.group_user,1,1,1,1
+access_checklist_activity_stages,checklist.activity.stages.user,model_checklist_activity_stages,project.group_project_manager,1,1,1,1

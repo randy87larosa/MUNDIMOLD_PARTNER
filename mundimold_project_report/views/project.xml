@@ -1,0 +1,253 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    
+	<record id="res_company_mundimold_hora_view_inherit" model="ir.ui.view">
+        <field name="name">res.company.mundimold.hora.view.inherit</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='company_registry']" position="after">
+                
+                <field name="coste_hora"/>
+                        
+            </xpath>
+        </field>
+    </record>
+    
+    
+    
+    <!-- ############################################
+                     REPORT
+        ############################################# -->
+        
+        
+        
+        <record model="ir.ui.view" id="view_project_project_rentabilidad_tree">
+            <field name="name">project.project.rentabilidad.tree</field>
+            <field name="model">project.project</field>
+            <field name="priority" eval="88"/>
+            <field name="arch" type="xml">
+                <tree string="Rentabilidad" default_order='sequence_name'>
+                    
+                    <field name="sequence_name"/>
+					<field name="name" />
+					<field name="product_facturacion_id" />
+					<field name="partner_id" invisible="1"/>
+					<field name="partner_name" />
+					
+                    <!--<field name="tag_ids" widget="many2many_tags"/>-->
+					<field name="precio_proyecto_estimado"/>
+					
+					<button string="+" 
+						name="action_view_list_7" 
+						type="object" 
+						class="oe_highlight"/>
+					
+                    <field name="coste_materiales"/>
+					<button string="+" 
+						name="action_view_list_601" 
+						type="object" 
+						class="oe_highlight"/>
+						
+                    <field name="coste_subco"/>
+					<button string="+" 
+						name="action_view_list_607" 
+						type="object" 
+						class="oe_highlight"/>
+                        
+                    <field name="coste_transporte"/>
+					<button string="+" 
+						name="action_view_list_624" 
+						type="object" 
+						class="oe_highlight"/>
+					
+                    <field name="coste_stock"/>
+					<field name="horas_diseno"/>
+					<field name="horas_presenciales"/>
+					<field name="horas_nopresenciales"/>
+					
+					<field name="horas_totales"/>
+					<button string="+" 
+						name="action_view_list_timesheet" 
+						type="object" 
+						class="oe_highlight"/>
+						
+                    <field name="coste_produccion"/>
+                    <field name="coste_total"/>
+                    <field name="beneficio_proyecto" options='{"bg_color": "lightgreen: beneficio_proyecto&gt;0.0; #ff6666:beneficio_proyecto&lt;0.0"}'/>
+					<field name="beneficio_proyecto_ptje" options='{"bg_color": "lightgreen: beneficio_proyecto&gt;0.0; #ff6666:beneficio_proyecto&lt;0.0"}'/>
+					<!--<button string="+" 
+						name="action_view_list_analytic_lines" 
+						type="object" 
+						class="oe_highlight"/>-->
+					<field name="facturado_proyecto" invisible="1"/>
+					
+					<field name="no_conformidad"/>
+					<button string="+" 
+						name="action_view_list_conformidad" 
+						type="object" 
+						class="oe_highlight"/>
+                </tree>
+            </field>
+        </record>
+		
+		
+		<record model="ir.ui.view" id="view_account_analytic_line_rentabilidad_tree">
+            <field name="name">account.analytic.line.rentabilidad.tree</field>
+            <field name="model">account.analytic.line</field>
+            <field name="priority" eval="99"/>
+            <field name="arch" type="xml">
+                <tree string="Rentabilidad" >
+                    
+					<field name="name" />
+					<field name="account_id" invisible="1"/>
+					<field name="num_factura" />
+					<field name="partner_id" />
+					<field name="unit_amount" sum="Quantity"/>
+                    <field name="amount" sum="Total"/>
+					
+					<button string="Ver factura" 
+						name="action_view_invoice_line" 
+						type="object" 
+						class="oe_highlight"/>
+                </tree>
+            </field>
+        </record>
+        
+		
+		
+        <record model="ir.actions.act_window" id="action_project_project_rentabilidad">
+            <field name="name">Rentabilidad proyectos</field>
+            <field name="res_model">project.project</field>
+            <field name="view_type">form</field>
+			<field name="view_id" ref="mundimold_project_report.view_project_project_rentabilidad_tree"/>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+        <menuitem name="Rentabilidad proyectos" parent="project.menu_project_report" id="menu_project_project_rentabilidad" action="action_project_project_rentabilidad" sequence="37"/>
+        
+		
+		
+		
+		<!-- ############################################
+                     REPORT ESTIMADA
+        ############################################# -->
+        
+        
+        
+        <record model="ir.ui.view" id="view_project_project_estimacion_tree">
+            <field name="name">project.project.estimacion.tree</field>
+            <field name="model">project.project</field>
+            <field name="priority" eval="88"/>
+            <field name="arch" type="xml">
+                <tree string="Rentabilidad" default_order='sequence_name' editable="top">
+                    
+                    <field name="sequence_name"/>
+					<field name="name" />
+					<field name="product_facturacion_id" />
+					<field name="partner_id" invisible="1"/>
+					<field name="partner_name" />
+					
+                    <!--<field name="tag_ids" widget="many2many_tags"/>-->
+					<field name="precio_proyecto_estimado"/>
+					
+					<field name="coste_estimado_escandallo" string="Material"/>
+					<field name="coste_escandallo" string="Material real" options='{"bg_color": "lightgreen: desviacion_escandallo&gt;0.0; #ff6666:desviacion_escandallo&lt;0.0"}'/>
+					<field name="desviacion_escandallo" options='{"bg_color": "lightgreen: desviacion_escandallo&gt;0.0; #ff6666:desviacion_escandallo&lt;0.0"}' invisible="1"/>
+					
+					<field name="coste_estimado_subcontratista" string="Subc"/>
+					<field name="coste_subcontratista" options='{"bg_color": "lightgreen: desviacion_subcontratacion&gt;0.0; #ff6666:desviacion_subcontratacion&lt;0.0"}' string="Subc real"/>
+					<field name="desviacion_subcontratacion" options='{"bg_color": "lightgreen: desviacion_subcontratacion&gt;0.0; #ff6666:desviacion_subcontratacion&lt;0.0"}' invisible="1"/>
+					
+					
+					<field name="horas_diseno_estimadas" string="Horas diseño"/>
+					<field name="horas_diseno" options='{"bg_color": "lightgreen: desviacion_horas_diseno&gt;0.0; #ff6666:desviacion_horas_diseno&lt;0.0"}' string="Horas real diseño"/>					
+					<field name="desviacion_horas_diseno" options='{"bg_color": "lightgreen: desviacion_horas_diseno&gt;0.0; #ff6666:desviacion_horas_diseno&lt;0.0"}' invisible="1"/>
+					
+					<field name="horas_totales_estimadas" string="Horas prod"/>
+					<field name="horas_totales" options='{"bg_color": "lightgreen: desviacion_horas&gt;0.0; #ff6666:desviacion_horas&lt;0.0"}' string="Horas real prod"/>					
+					<field name="desviacion_horas" options='{"bg_color": "lightgreen: desviacion_horas&gt;0.0; #ff6666:desviacion_horas&lt;0.0"}' invisible="1"/>
+					
+					<!--<field name="coste_produccion_estimado" />
+					<field name="coste_produccion" options='{"bg_color": "lightgreen: desviacion_produccion&gt;0.0; #ff6666:desviacion_produccion&lt;0.0"}'/>					
+					<field name="desviacion_produccion" options='{"bg_color": "lightgreen: desviacion_produccion&gt;0.0; #ff6666:desviacion_produccion&lt;0.0"}' invisible="1"/>-->
+					
+					<field name="coste_total_teorico" string="Coste total"/>
+					<field name="coste_total_real" options='{"bg_color": "lightgreen: desviacion_coste_total&gt;0.0; #ff6666:desviacion_coste_total&lt;0.0"}'/>		
+					<field name="desviacion_coste_total" invisible="1"/>
+					
+					<field name="b0"/>
+					<field name="beneficio_teorico" string="B"/>
+					<field name="beneficio_real" />
+					<field name="beneficio_real_ptje" options='{"bg_color": "lightgreen: beneficio_real_ptje&gt;10.0; #ff6666:beneficio_real_ptje&lt;0.0"}'/>
+					
+					<button string="+" 
+						name="action_view_form_project_project" 
+						type="object" 
+						class="oe_highlight"/>
+					
+                    
+                </tree>
+            </field>
+        </record>
+		
+        
+		
+		
+        <record model="ir.actions.act_window" id="action_project_project_estimacion">
+            <field name="name">Estimación proyectos</field>
+            <field name="res_model">project.project</field>
+            <field name="view_type">form</field>
+			<field name="view_id" ref="mundimold_project_report.view_project_project_estimacion_tree"/>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+        <menuitem name="Estimación proyectos" parent="project.menu_project_report" id="menu_project_project_estimacion" action="action_project_project_estimacion" sequence="38"/>
+		
+		
+		
+		
+		
+		
+		<!-- WIZARD -->
+		
+		<act_window id="launch_wizard_project_reparacion"
+            name="Calcular precio reparación"
+            src_model="project.project"
+            res_model="wizard.project.reparacion"
+            view_mode="form"
+            target="new"
+            key2="client_action_multi"/>
+            
+            
+        <record model="ir.ui.view" id="wizard_project_reparacion_form_view">
+            <field name="name">wizard.project.reparacion.form</field>
+            <field name="model">wizard.project.reparacion</field>
+            <field name="arch" type="xml">
+                <form string="Crear solicitudes de presupuesto">
+                    <group>
+                        <group>
+                            <field name="project_id" />
+							<field name="coste_escandallo"/>
+                            <field name="coste_subcontratista"/>
+							<field name="coste_produccion"/>
+							<field name="porcentaje_aplicado"/>
+							<field name="precio_venta"/>
+                        </group>
+                    </group>
+
+
+                    <footer>
+                        <button name="actualizar_precio_reparacion" type="object"
+                                string="Actualizar precio reparación" class="oe_highlight"/>
+                        
+                        <button special="cancel" string="Cancelar"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        
+        
+
+</odoo>

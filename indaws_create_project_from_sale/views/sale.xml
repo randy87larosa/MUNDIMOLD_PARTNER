@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_sale_order_form_create_project" model="ir.ui.view">
+        <field name="name">sale.order.form.create.project</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_unlock']" position="after">
+                <button name="action_project_create" type="object" string="Crear proyecto" attrs="{'invisible': [('sale_project_id', '!=', False)]}"/>
+            </xpath>	
+            <field name="payment_term_id" position="after">
+                <field name='project_name' attrs="{'invisible': [('sale_project_id', '!=', False)]}"/>
+                <field name='sale_project_id' attrs="{'readonly': True}"/>
+            </field>
+        </field>
+    </record>
+</odoo>

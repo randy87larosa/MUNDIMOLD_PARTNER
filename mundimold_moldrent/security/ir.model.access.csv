@@ -1,0 +1,15 @@
+"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
+"access_product_moldrent_meses","product_moldrent_meses group","model_product_moldrent_meses","sales_team.group_sale_salesman",1,1,1,1
+"access_product_moldrent_envios","product_moldrent_envios group","model_product_moldrent_envios","sales_team.group_sale_salesman",1,1,1,1
+"access_product_mundimold_material","product_mundimold_material group","model_product_mundimold_material","sales_team.group_sale_salesman",1,1,1,1
+"access_product_mundimold_molde_tipo","product_mundimold_molde_tipo group","model_product_mundimold_molde_tipo","sales_team.group_sale_salesman",1,1,1,1
+"access_product_mundimold_molde_clase","product_mundimold_molde_clase group","model_product_mundimold_molde_clase","sales_team.group_sale_salesman",1,1,1,1
+"access_product_mundimold_molde_tecnologia","product_mundimold_molde_tecnologia group","model_product_mundimold_molde_tecnologia","sales_team.group_sale_salesman",1,1,1,1
+"access_product_mundimold_molde_construccion","product_mundimold_molde_construccion group","model_product_mundimold_molde_construccion","sales_team.group_sale_salesman",1,1,1,1
+"access_product_mundimold_molde_extraccion","product_mundimold_molde_extraccion group","model_product_mundimold_molde_extraccion","sales_team.group_sale_salesman",1,1,1,1
+"access_product_mundimold_estado_pieza","product_mundimold_estado_pieza group","model_product_mundimold_estado_pieza","sales_team.group_sale_salesman",1,1,1,1
+"access_product_mundimold_aleacion","product_mundimold_aleacion group","model_product_mundimold_aleacion","sales_team.group_sale_salesman",1,1,1,1
+"access_product_mundimold_tratamiento","product_mundimold_tratamiento group","model_product_mundimold_tratamiento","sales_team.group_sale_salesman",1,1,1,1
+"access_product_mundimold_acabado","product_mundimold_acabado group","model_product_mundimold_acabado","sales_team.group_sale_salesman",1,1,1,1
+"access_product_moldrent_category","product_moldrent_category group","model_product_moldrent_category","sales_team.group_sale_salesman",1,1,1,1
+"access_product_moldrent","product_moldrent group","model_product_moldrent","sales_team.group_sale_salesman",1,1,1,1

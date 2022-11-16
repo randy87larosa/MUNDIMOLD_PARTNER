@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <template id="external_layout_standard_custom" inherit_id="web.external_layout_standard">
+        <xpath expr="//div[@class='header']" position="replace">
+            <t t-if="company.id==1">
+                <div class="header" style="font-size:7pt">
+                    <div class="row">
+                        <div class="col-6 mb6">
+                            <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" style="max-height: 75px;" alt="Logo"/>
+                        </div>
+                        <div class="col-3 mb3" style="padding-top:10px;">
+                            <span t-field="company.street"/>
+                            <br/>
+                            <span t-field="company.street2"/>
+                            <br/>
+                            <span t-field="company.zip"/>
+                            <span t-field="company.city"/>
+                            (<span t-field="company.state_id.name"/>), España
+                        </div>
+                        <div class="col-3 mb3" style="padding-top:10px">
+                            <span>Tel:</span>
+                            <span t-field="company.phone"/>
+                            <br/>
+                            <span>Fax:</span>
+                            <span t-field="company.partner_id.fax"/>
+                            <br/>
+                            <span t-field="company.email"/>
+                            <br/><br/>
+                            <t t-if="company.website"><span t-esc="company.website.replace('http://','')" style="background-color:#4287f5;padding:5px;color:white"/></t>
+                        </div>
+                    </div>
+                </div>
+            
+            </t>
+
+            <t t-elif="company.id==3">
+                <div class="header" style="font-size:9pt">
+                    <div class="row">
+                        <div class="col-6 mb6">
+                            <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" style="max-height: 80px;" alt="Logo"/>
+                        </div>
+                        <div class="col-3 mb3">
+                            <span t-field="company.street"/>
+                            <br/>
+                            <span t-field="company.street2"/>
+                            <br/>
+                            <span t-field="company.zip"/>
+                            <span t-field="company.city"/>
+                            <span t-field="company.state_id.name"/>
+                            (<span t-field="company.country_id.name"/>)
+                        </div>
+                        <div class="col-3 mb3">
+                            <span>Tel:</span>
+                            <span t-field="company.phone"/>
+                            <br/>
+                            <span t-field="company.email"/>
+                            <br/><br/>
+                            <span style="background-color:#e36c0a;padding:5px;color:white">www.aplasticsolutions.com</span>
+                        </div>
+                    </div>
+                </div>
+            
+            </t>
+            
+            <t t-elif="company.id==5">
+                <div class="header" style="font-size:9pt">
+                    <div class="row">
+                        <div class="col-12 mb12">
+                            <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" style="max-height: 70px;" alt="Logo"/>
+                        </div>
+
+                    </div>
+                    <div class="row">
+
+                        <div class="col-12 mb12">
+                            <br/><span t-field="company.street"></span>
+                            <br/>
+                            <span t-field="company.street2"></span>
+                            <br/>
+                            <!--<span t-field="company.zip"></span>
+                            <span t-field="company.city"></span>
+                            <span t-field="company.state_id.name"></span>-->
+                            <span t-field="company.country_id.name"></span>
+                            <br/>
+                            PHONE # <span t-field="company.phone"></span>
+                            <br/>
+                            FAX # (954) 206-6880
+                            <br/>
+                            VAT Number: <span t-field="company.vat"></span>
+                        </div>
+                    </div>
+                </div>
+              </t>
+
+            <t t-else="">
+                <div class="header">
+                    <div class="row">
+                        <div class="col-3 mb4">
+                            <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" style="max-height: 45px;" alt="Logo"/>
+                        </div>
+                        <div class="col-9 text-right" style="margin-top:22px;" t-field="company.report_header" name="moto"/>
+                    </div>
+                    <div t-if="company.logo or company.report_header" class="row zero_min_height">
+                        <div class="col-12">
+                            <div style="border-bottom: 1px solid black;"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6" name="company_address">
+                            <div t-field="company.partner_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: true}"/>
+                        </div>
+                    </div>
+                </div>
+
+            
+            </t>
+        
+        </xpath>
+
+        <xpath expr="//div[hasclass('footer')]" position="replace">
+            <t t-if="company.id==1">
+                <div class="footer">
+                    <div class="row">
+                      
+                      
+                        <p align="justify" style="font-size:6pt">
+                        Según la Disposición Adicional Primera de la Ley 11/97 de Envases y Residuos de Envases, es responsabilidad del poseedor final la gestión de
+    los envases usados y los residuos de envases.
+                        <br/>
+                        De conformidad con lo establecido en la normativa vigente en Protección de Datos de Carácter Personal, le informamos que sus datos serán
+    incorporados al sistema de tratamiento titularidad de MUNDIMOLD SA con CIF A46329355 y domicilio social sito en CL Y POL. INDUSTRIAL EL
+    OLIVERAL 1 PARC. 7,3 46190, RIBA-ROJA DE TURIA (VALENCIA), con la finalidad de poder remitirle la correspondiente factura. En
+    cumplimiento con la normativa vigente, MUNDIMOLD SA informa que los datos serán conservados durante EL PLAZO LEGALMENTE
+    ESTABLECIDO.
+                        <br/>
+                        Con la presente cláusula queda informado de que sus datos serán comunicados en caso de ser necesario a: administraciones públicas y a todas
+aquellas entidades con las que sea necesaria la comunicación con la finalidad de cumplir con la prestación del servicio anteriormente
+mencionado. El hecho de no facilitar los datos a las entidades mencionadas implica que no se pueda cumplir con la prestación de los servicios. A
+su vez, le informamos que puede contactar con el Delegado de Protección de Datos de MUNDIMOLD SA, dirigiéndose por escrito a la dirección
+de correo dpo.cliente@conversia.es o al teléfono 902877192.MUNDIMOLD SA informa que procederá a tratar los datos de manera lícita, leal,
+transparente, adecuada, pertinente, limitada, exacta y actualizada. Es por ello que MUNDIMOLD SA se compromete a adoptar toda s las medidas
+razonables para que estos se supriman o rectifiquen dilación cuando sean inexactos. Podrá ejercer los derechos de acceso, rectificación,
+limitación de tratamiento, supresión, portabilidad y oposición/revocación, en los términos que establece la normativa vigente en materia de
+protección de datos, dirigiendo su petición a la dirección postal CL Y POL. INDUSTRIAL EL OLIVERAL 1 PARC. 7,3 46190, RIBAROJ A DE
+TURIA (VALENCIA) o bien a través de correo electrónico MUNDIMOLD@MUNDIMOLD.COM
+                        <br/>
+
+                        Sociedad Inscrita T. 1.089 General, 1.143 de Sec. 3a, F, 95. H. 11.719 Inscr. 1a R. M. Valencia – C.I.F. A-46329355
+
+                        </p>
+                        
+                    </div>
+                </div>
+            </t>
+            <t t-elif="company.id==3">
+                <div class="footer">
+                    <div class="row">
+                        <p align="justify" style="font-size:6pt">
+                        Según la Disposición Adicional Primera de la Ley 11/97 de Envases y Residuos de Envases, es responsabilidad del poseedor final la gestión de los envases usados y los residuos de envases.
+                        <br/>
+Le informamos que los datos facilitados serán tratados de acuerdo con la Ley 15/1999, de Protección de Datos de Carácter Personal. Puede ejercer su derecho de acceso, rectificación, oposición o cancelación contactando con aps.
+                        <br/>
+Si en el periodo de 30 días no nos comunican lo contrario, entenderemos que sus datos no han sido modificados, que se compromete a notificarnos cualquier variación y que tenemos su consentimiento para tratarlos para la finalidad mencionada con anterioridad.
+                        <br/>
+                        Sociedad inscrita en el Registro Mercantil de Valencia, T 10109, libro 7391, folio 92 sección 8, m hoja V-170.314, con CIF:B-98.814.452
+                        </p>
+                    </div>
+                </div>
+            </t>
+            <t t-elif="company.id==5">
+                <div class="footer">
+                    <div class="row">
+                        <p align="justify" style="font-size:7pt">
+                        
+                        </p>
+                    </div>
+                </div>
+            </t>
+            <t t-else="">
+                <div class="footer">
+                    <div class="text-center" style="border-top: 1px solid black;">
+                        <ul class="list-inline mb4">
+                            <li t-if="company.phone" class="list-inline-item">Phone: <span t-field="company.phone"/></li>
+                            <li t-if="company.email" class="list-inline-item">Email: <span t-field="company.email"/></li>
+                            <li t-if="company.website" class="list-inline-item">Web: <span t-field="company.website"/></li>
+                            <li t-if="company.vat" class="list-inline-item"><t t-esc="(company.country_id.vat_label or 'Tax ID').replace(' ','\N{NO-BREAK SPACE}')"/>: <span t-esc="company.vat.replace(' ','\N{NO-BREAK SPACE}')"/></li>
+                        </ul>
+
+                        <div name="financial_infos">
+                            <span t-field="company.report_footer"/>
+                        </div>
+
+                        <div t-if="report_type == 'pdf'" class="text-muted">
+                            Page: <span class="page"/> / <span class="topage"/>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        
+        </xpath>
+    </template>
+
+
+
+
+    <!-- <template id="external_layout_standard">
+            
+            <div class="row">
+                <div class="col-3 mb4">
+                    <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" style="max-height: 45px;" alt="Logo"/>
+                </div>
+                <div class="col-9 text-right" style="margin-top:22px;" t-field="company.report_header" name="moto"/>
+            </div>
+            <div t-if="company.logo or company.report_header" class="row zero_min_height">
+                <div class="col-12">
+                    <div style="border-bottom: 1px solid black;"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6" name="company_address">
+                    <div t-field="company.partner_id"
+                        t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": true}'
+                    />
+                </div>
+            </div>
+        </div>
+
+        <div class="article o_report_layout_standard"  t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
+            <t t-call="web.address_layout"/>
+            <t t-raw="0"/>
+        </div>
+
+        <div class="footer o_standard_footer">
+            <div class="text-center" style="border-top: 1px solid black;">
+                <ul class="list-inline mb4">
+                    <li t-if="company.phone" class="list-inline-item">Phone: <span t-field="company.phone"/></li>
+                    <li t-if="company.email" class="list-inline-item">Email: <span t-field="company.email"/></li>
+                    <li t-if="company.website" class="list-inline-item">Web: <span t-field="company.website"/></li>
+                    <li t-if="company.vat" class="list-inline-item"><t t-esc="(company.country_id.vat_label or 'Tax ID').replace(' ','\N{NO-BREAK SPACE}')"/>: <span t-esc="company.vat.replace(' ','\N{NO-BREAK SPACE}')"/></li>
+                </ul>
+
+                <div name="financial_infos">
+                    <span t-field="company.report_footer"/>
+                </div>
+
+                <div t-if="report_type == 'pdf'" class="text-muted">
+                    Page: <span class="page"/> / <span class="topage"/>
+                </div>
+            </div>
+        </div>
+    </template> -->
+    
+
+</odoo>

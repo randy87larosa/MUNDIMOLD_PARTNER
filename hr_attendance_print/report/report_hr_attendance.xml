@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        
+        <report
+            id="hr_attendance_report_custom"
+            menu = 'False'
+            model="hr.attendance"
+            string="Print HR Attendance"
+            report_type="qweb-pdf"
+            name="hr_attendance_print.attendance_template_custom_id"
+            file="hr_attendance_print.attendance_template_custom_id"
+        />
+        
+        <template id="attendance_template_custom_id">
+             <t t-call="web.html_container">
+               <t t-foreach="docs" t-as="doc">
+                    <t t-call="web.external_layout">
+                      
+                      <t t-set="color1" t-value="doc.company_id.color1_qweb"/>
+                      <t t-set="color2" t-value="doc.company_id.color2_qweb"/>
+                      
+                      <style>
+                        .cabaddress {
+                            background-color: #<t t-esc="color2"/>;
+                        }
+                      </style>
+                      
+                         <div class="page">
+                           
+                           <style>
+                            .cabinv {
+                                background-color: #<t t-esc="color1"/>;
+                            }
+                            .table thead tr {
+                                  background-color: #<t t-esc="color1"/>;
+                              }
+                          </style>
+                           
+                           
+    
+                               <div style="width:100%; color:#FFF; text-align: center; padding:7px;" class="cabinv">
+                                   <strong>Empleado: <span t-esc="doc.name"/></strong><br/>
+                                   <strong>Desde <span t-esc="data['start_date']"/> hasta </strong>  <strong t-esc="data['end_date']"/>
+                               </div>
+                            <br/>
+                           <table class="table table-sm o_main_table" name="invoice_line_table" style="font-size: 10pt;">
+                             <thead>
+                               <tr style="color: #FFF; padding:6px;">
+                                    <td><strong>Entrada</strong></td>
+                                    <td><strong>Salida</strong></td>
+                                    <td><strong>Notas</strong></td>
+                               </tr>
+                               </thead>
+                               <tbody class="invoice_tbody">
+                               <t t-foreach="data['attendance_data'][str(doc.id)]" t-as="line">
+                                   <tr>
+                                    <td><span t-esc="line['check_in']"/></td>
+                                    <td><span t-esc="line['check_out']"/></td>
+                                    <td><!--<span t-esc="line['comentario']"/>--></td>
+                               </tr>
+                               </t>
+                               </tbody>
+                          </table>
+                          
+                          <br/><p><strong>FIRMA EMPLEADO:</strong></p>
+                        </div>
+                    </t>
+               </t>
+             </t>
+        </template>
+        
+  </data>
+</odoo>

@@ -1,0 +1,928 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        
+        
+
+        <menuitem name="Indicadores" id="bsc_menu_base"/>
+        <menuitem name="Cuadro de mando" id="bsc_bsc_menu_base" parent="bsc_menu_base" />
+        
+        
+        <!-- ############################################
+                     BSC.CONFIG
+        ############################################# -->
+        
+        
+        
+        <record model="ir.ui.view" id="view_bsc_config_tree">
+            <field name="name">bsc.config.tree</field>
+            <field name="model">bsc.config</field>
+            <field name="priority" eval="16"/>
+            <field name="arch" type="xml">
+                <tree string="Configuración">
+                    <field name="actual"/>
+                    <field name="show_complete_year"/>
+                    <field name="verde" groups="base.group_system"/>
+                    <field name="amarillo" groups="base.group_system"/>
+                    <field name="min_date" groups="base.group_system"/>
+                    <field name="year" groups="base.group_system"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record model="ir.ui.view" id="view_bsc_config_form">
+            <field name="name">bsc.config.form</field>
+            <field name="model">bsc.config</field>
+            <field name="arch" type="xml">
+                <form string="Configuración">
+                    <sheet>
+                        <group>
+                            <field name="name" groups="base.group_system"/>
+                            <field name="actual"/>
+                            <field name="verde" groups="base.group_system"/>
+                            <field name="amarillo" groups="base.group_system"/>
+                            <field name="min_date" groups="base.group_system"/>
+                            <field name="year" groups="base.group_system"/>
+                            <field name="show_complete_year"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="action_bsc_config">
+            <field name="name">Configuración</field>
+            <field name="res_model">bsc.config</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help">test
+            </field>
+        </record>
+        
+        <menuitem name="Periodo análisis" parent="bsc_bsc_menu_base" id="menu_bsc_config" action="action_bsc_config" sequence="1"/>
+        
+        
+        
+        
+        <!-- ############################################
+                     BSC.PERIOD
+        ############################################# -->
+        
+        
+        
+        <record model="ir.ui.view" id="view_bsc_period_tree">
+            <field name="name">bsc.period.tree</field>
+            <field name="model">bsc.period</field>
+            <field name="priority" eval="16"/>
+            <field name="arch" type="xml">
+                <tree string="Periodos">
+                    
+                    <field name="name"/>
+                    <field name="date_ini"/>
+                    <field name="date_fin"/>
+                    <field name="previous"/>
+                    <field name="year"/>
+                    <field name="date_ini_year"/>
+                </tree>
+            </field>
+        </record>
+        
+        
+        <record model="ir.ui.view" id="view_bsc_period_form">
+            <field name="name">bsc.period.form</field>
+            <field name="model">bsc.period</field>
+            <field name="arch" type="xml">
+                <form string="Periodos">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="date_ini"/>
+                            <field name="date_fin"/>
+                            <field name="previous"/>
+                            <field name="year"/>
+                            <field name="date_ini_year"/>
+                        </group>
+                        <notebook>
+                            <page string="Indicadores">
+                                <field name="line_ids">
+                                    <tree string="Líneas" editable="top" create="false">
+                                        <field name="period_id" readonly="1"/>
+                                        <field name="manual" invisible="1"/>
+                                        <field name="kpi_id"/>
+                                        <field name="target"/>
+                                        <field name="real" attrs="{'readonly': [('manual','=',False)], }"/>
+                                        <field name="real_ant"/>
+                                        <field name="target_acum"/>
+                                        <field name="real_acum"/>
+                                        
+                                        <field name="percentage_real_obj"/>
+                                        <field name="percentage_real_obj_acum"/>
+                                        <field name="percentage_real_ant"/>
+                                        <field name="percentage_real_ant_acum"/>
+                                        
+                                        <field name="is_actual" invisible="1"/>
+                                    </tree>
+                                </field>    
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+        
+        
+
+        <record model="ir.actions.act_window" id="action_bsc_period">
+            <field name="name">Periodos</field>
+            <field name="res_model">bsc.period</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+        <menuitem name="Periodos" parent="bsc_bsc_menu_base" id="menu_bsc_period" action="action_bsc_period" sequence="150"/>
+        
+        
+        
+        
+        <!-- ############################################
+                     BSC.UOM
+        ############################################# -->
+        
+        
+        
+        <record model="ir.ui.view" id="view_bsc_uom_tree">
+            <field name="name">bsc.uom.tree</field>
+            <field name="model">bsc.uom</field>
+            <field name="priority" eval="16"/>
+            <field name="arch" type="xml">
+                <tree string="Unidades de medida">
+                    
+                    <field name="name"/>
+                    
+                </tree>
+            </field>
+        </record>
+        
+        
+        <record model="ir.ui.view" id="view_bsc_uom_form">
+            <field name="name">bsc.uom.form</field>
+            <field name="model">bsc.uom</field>
+            <field name="arch" type="xml">
+                <form string="Unidades de medida">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+        
+        
+
+        <record model="ir.actions.act_window" id="action_bsc_uom">
+            <field name="name">Unidades de medida</field>
+            <field name="res_model">bsc.uom</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+        <menuitem name="Unidades de medida" parent="bsc_bsc_menu_base" id="menu_bsc_uom" action="action_bsc_uom" sequence="160"/>
+        
+        
+        
+        
+        <!-- ############################################
+                     BSC.CATEG
+        ############################################# -->
+        
+        
+        
+        <record model="ir.ui.view" id="view_bsc_categ_tree">
+            <field name="name">bsc.categ.tree</field>
+            <field name="model">bsc.categ</field>
+            <field name="priority" eval="16"/>
+            <field name="arch" type="xml">
+                <tree string="Categorías">
+                    
+                    <field name="name"/>
+                    
+                </tree>
+            </field>
+        </record>
+        
+        
+        <record model="ir.ui.view" id="view_bsc_categ_form">
+            <field name="name">bsc.categ.form</field>
+            <field name="model">bsc.categ</field>
+            <field name="arch" type="xml">
+                <form string="Categorías">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+        
+        
+
+        <record model="ir.actions.act_window" id="action_bsc_categ">
+            <field name="name">Categorías</field>
+            <field name="res_model">bsc.categ</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+        <menuitem name="Categorías" parent="bsc_bsc_menu_base" id="menu_bsc_categ" action="action_bsc_categ" sequence="110"/>
+        
+        
+        
+        
+        
+        <!-- ############################################
+                     BSC.KPI
+        ############################################# -->
+        
+        
+        
+        <record model="ir.ui.view" id="view_bsc_kpi_tree">
+            <field name="name">bsc.kpi.tree</field>
+            <field name="model">bsc.kpi</field>
+            <field name="priority" eval="16"/>
+            <field name="arch" type="xml">
+                <tree string="Indicadores">
+                    
+                    <field name="name"/>
+                    <field name="categ_id"/>
+                    <field name="uom_id"/>
+                    <field name="responsible_id"/>
+
+                    
+                </tree>
+            </field>
+        </record>
+        
+        
+        <record model="ir.ui.view" id="view_bsc_kpi_form">
+            <field name="name">bsc.kpi.form</field>
+            <field name="model">bsc.kpi</field>
+            <field name="arch" type="xml">
+                <form string="Indicadores">
+                    <sheet>
+                    
+                        <div class="oe_right oe_button_box" name="buttons"> 
+                            <button string="Crear líneas" type="object" name="create_lines_kpi" class="oe_inline oe_stat_button" icon="fa-list"/>
+                        </div>
+                        
+                        <group>
+                            <field name="name"/>
+                            <field name="categ_id"/>
+                            <field name="uom_id"/>
+                            <field name="responsible_id"/>
+                            <field name="type"/>
+                            <field name="manual"/>
+                            <field name="is_acumulado"/>
+                            <field name="description"/>
+                            <field name="sql" groups="base.group_system"/>
+                            <field name="action_id" groups="base.group_system"/>
+                            
+                        </group>
+                        
+                        <notebook>
+                            <page string="Datos">
+                                <field name="line_ids" domain="[('is_actual','=',True)]">
+                                    <tree string="Líneas" editable="top" create="false">
+                                        <field name="period_id" readonly="1"/>
+                                        <field name="manual" invisible="1"/>
+                                        <field name="target" />
+                                        <field name="real" attrs="{'readonly': [('manual','=',False)] }"/>
+                                        <field name="real_ant"/>
+                                        <field name="target_acum" />
+                                        <field name="real_acum" />
+                                        
+                                        <field name="is_actual" invisible="1"/>
+                                    </tree>
+                                </field>    
+                            </page>
+                            <page string="Informe">
+                                <group>
+                                    <field name="show_difference_real_obj"/>
+                                    <field name="show_percentage_real_obj"/>
+                                    <field name="show_difference_real_obj_acum"/>
+                                    <field name="show_percentage_real_obj_acum"/>
+                                    <field name="show_difference_real_ant"/>
+                                    <field name="show_percentage_real_ant"/>
+                                    <field name="show_difference_real_ant_acum"/>
+                                    <field name="show_percentage_real_ant_acum"/>
+                                    
+                                    
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+        
+        
+<!--        <record model="ir.ui.view" id="view_bsc_kpi_search">-->
+<!--            <field name="name">bsc.kpi.search</field>-->
+<!--            <field name="model">bsc.kpi</field>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <search string="Indicadores">-->
+<!--                    <field name="name"/>-->
+<!--                    <field name="categ_id"/>-->
+<!--                    <field name="uom_id"/>-->
+<!--                    <field name="responsible_id"/>-->
+<!--                    <group expand="0" string="Agrupar">-->
+<!--                       <filter string="Categoría" context="{'group_by': 'categ_id'}"/>-->
+<!--                       &lt;!&ndash;<filter string="Unidad de medida" context="{'group_by': 'uom_id'}"/>&ndash;&gt;-->
+<!--                       <filter string="Responsable" context="{'group_by': 'responsible_id'}"/>-->
+<!--                    </group>-->
+<!--                </search>-->
+<!--            </field>-->
+<!--        </record>-->
+
+        
+        
+        <record model="ir.ui.view" id="view_bsc_kpi_kanban">
+            <field name="name">bsc.kpi.kanban</field>
+            <field name="model">bsc.kpi</field>
+            <field name="priority" eval="16"/>
+            <field name="arch" type="xml">
+                <kanban class="oe_background_grey o_kanban_dashboard o_project_kanban o_emphasize_colors" on_create="project.open_create_project">
+                    <field name="name"/>
+                    <field name="color"/>
+                    <field name="difference_real_obj"/>
+                    <field name="percentage_real_obj"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="#{kanban_color(record.color.raw_value)} oe_kanban_global_click o_has_icon">
+                                <div class="o_project_kanban_main">
+                                    <div class="o_kanban_card_content">
+                                        <div class="o_kanban_primary_left">
+                                            <div class="o_primary">
+                                                <span><h2><field name="name"/></h2></span>
+                                            </div>
+                                            
+                                            <div class="oe_picking_type_gauge">
+                                                <field name="percentage_real_obj" widget="gauge" style="width:150px; height: 110px;" options="{'levelcolors': ['#ff0000', '#ff0000','#f9c802', '#a9d70b'], 'action_jump': '402'}"/>
+                                                <field name="period_id"/>
+                                                
+                                            </div>
+                                            
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="o_kanban_card_manage_pane dropdown-menu" groups="project.group_project_manager" role="menu">
+                                        <div class="o_kanban_card_manage_section o_kanban_manage_reports">
+
+                                            <div role="menuitem">
+                                                <a type="edit">Edit</a>
+                                            </div>
+                                        </div>
+                                        <div role="menuitem" aria-haspopup="true" class="o_no_padding_kanban_colorpicker">
+                                            <ul class="oe_kanban_colorpicker" data-field="color" role="popup"/>
+                                        </div>
+                                    </div>
+                                    <a class="o_kanban_manage_toggle_button o_left" href="#" groups="project.group_project_manager"><i class="fa fa-ellipsis-v" role="img" aria-label="Manage" title="Manage"/></a>
+                                </div>
+
+                                
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+        
+        
+        
+        
+		
+		
+	
+		
+		
+		
+		
+        
+        <!---DEFECTO-->
+
+        <record model="ir.actions.act_window" id="action_bsc_kpi">
+            <field name="name">Indicadores</field>
+            <field name="res_model">bsc.kpi</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,kanban,form</field>
+        </record>
+        
+        <menuitem name="Indicadores" parent="bsc_bsc_menu_base" id="menu_bsc_kpi" action="action_bsc_kpi" sequence="10"/>
+        
+        
+        <!---REAL VS OBJETIVO-->
+        
+        <record model="ir.ui.view" id="view_bsc_kpi_real_target_tree">
+            <field name="name">bsc.kpi.tree.real.target</field>
+            <field name="model">bsc.kpi</field>
+            <field name="priority" eval="16"/>
+            <field name="arch" type="xml">
+                <tree string="Indicadores">
+                    
+                    <field name="name"/>
+                    <field name="categ_id"/>
+                    <field name="uom_id"/>
+                    <field name="responsible_id"/>
+                    <field name="difference_real_obj"/>
+                    <field name="percentage_real_obj"/>
+                    
+                </tree>
+            </field>
+        </record>
+        
+        
+        <record model="ir.ui.view" id="view_bsc_kpi_real_target_kanban">
+            <field name="name">bsc.kpi.kanban.real.target</field>
+            <field name="model">bsc.kpi</field>
+            <field name="priority" eval="16"/>
+            <field name="arch" type="xml">
+                <kanban class="oe_background_grey o_kanban_dashboard o_project_kanban o_emphasize_colors" on_create="project.open_create_project">
+                    <field name="name"/>
+                    <field name="color"/>
+                    <field name="difference_real_obj"/>
+                    <field name="percentage_real_obj"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="#{kanban_color(record.color.raw_value)} oe_kanban_global_click o_has_icon">
+                                <div class="o_project_kanban_main">
+                                    <div class="o_kanban_card_content">
+                                        <div class="o_kanban_primary_left">
+                                            <div class="o_primary">
+                                                <span><h2><field name="name"/></h2></span>
+                                            </div>
+                                            
+                                            <div class="oe_picking_type_gauge">
+                                                <field name="percentage_real_obj" widget="gauge" style="width:150px; height: 110px;" options="{'levelcolors': ['#ff0000', '#ff0000','#f9c802', '#a9d70b'], 'action_jump': '402'}"/>
+                                                <field name="period_id"/>
+                                                
+                                            </div>
+                                            
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="o_kanban_card_manage_pane dropdown-menu" groups="project.group_project_manager" role="menu">
+                                        <div class="o_kanban_card_manage_section o_kanban_manage_reports">
+
+                                            <div role="menuitem">
+                                                <a type="edit">Edit</a>
+                                            </div>
+                                        </div>
+                                        <div role="menuitem" aria-haspopup="true" class="o_no_padding_kanban_colorpicker">
+                                            <ul class="oe_kanban_colorpicker" data-field="color" role="popup"/>
+                                        </div>
+                                    </div>
+                                    <a class="o_kanban_manage_toggle_button o_left" href="#" groups="project.group_project_manager"><i class="fa fa-ellipsis-v" role="img" aria-label="Manage" title="Manage"/></a>
+                                </div>
+
+                                
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_bsc_kpi_real_target">
+            <field name="name">Indicadores - Real vs Objetivo</field>
+            <field name="res_model">bsc.kpi</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,kanban,form</field>
+        </record>
+        <record id="action_bsc_kpi_real_target_view1" model="ir.actions.act_window.view">
+            <field eval="0" name="sequence"/>
+            <field name="view_mode">kanban</field>
+            <field name="view_id" ref="view_bsc_kpi_real_target_kanban"/>
+            <field name="act_window_id" ref="action_bsc_kpi_real_target"/>
+        </record>
+        <record id="action_bsc_kpi_real_target_view2" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_bsc_kpi_real_target_tree"/>
+            <field name="act_window_id" ref="action_bsc_kpi_real_target"/>
+        </record>
+        
+        <menuitem name="Real vs Objetivo" parent="bsc_bsc_menu_base" id="menu_bsc_kpi_real_target" action="action_bsc_kpi_real_target" sequence="11"/>
+        
+        
+        
+        <!---REAL VS OBJETIVO ACUM-->
+        
+        <record model="ir.ui.view" id="view_bsc_kpi_real_target_acum_tree">
+            <field name="name">bsc.kpi.tree.real.target.acum</field>
+            <field name="model">bsc.kpi</field>
+            <field name="priority" eval="16"/>
+            <field name="arch" type="xml">
+                <tree string="Indicadores">
+                    
+                    <field name="name"/>
+                    <field name="categ_id"/>
+                    <field name="uom_id"/>
+                    <field name="responsible_id"/>
+                    <field name="difference_real_obj_acum"/>
+                    <field name="percentage_real_obj_acum"/>
+                    
+                </tree>
+            </field>
+        </record>
+        
+        
+        <record model="ir.ui.view" id="view_bsc_kpi_real_target_acum_kanban">
+            <field name="name">bsc.kpi.kanban.real.target.acum</field>
+            <field name="model">bsc.kpi</field>
+            <field name="priority" eval="16"/>
+            <field name="arch" type="xml">
+                <kanban class="oe_background_grey o_kanban_dashboard o_project_kanban o_emphasize_colors" on_create="project.open_create_project">
+                    <field name="name"/>
+                    <field name="color"/>
+                    <field name="difference_real_obj"/>
+                    <field name="percentage_real_obj_acum"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="#{kanban_color(record.color.raw_value)} oe_kanban_global_click o_has_icon">
+                                <div class="o_project_kanban_main">
+                                    <div class="o_kanban_card_content">
+                                        <div class="o_kanban_primary_left">
+                                            <div class="o_primary">
+                                                <span><h2><field name="name"/></h2></span>
+                                            </div>
+                                            
+                                            <div class="oe_picking_type_gauge">
+                                                <field name="percentage_real_obj_acum" widget="gauge" style="width:150px; height: 110px;" options="{'levelcolors': ['#ff0000', '#ff0000','#f9c802', '#a9d70b'], 'action_jump': '402'}"/>
+                                                <field name="period_id"/>
+                                                
+                                            </div>
+                                            
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="o_kanban_card_manage_pane dropdown-menu" groups="project.group_project_manager" role="menu">
+                                        <div class="o_kanban_card_manage_section o_kanban_manage_reports">
+
+                                            <div role="menuitem">
+                                                <a type="edit">Edit</a>
+                                            </div>
+                                        </div>
+                                        <div role="menuitem" aria-haspopup="true" class="o_no_padding_kanban_colorpicker">
+                                            <ul class="oe_kanban_colorpicker" data-field="color" role="popup"/>
+                                        </div>
+                                    </div>
+                                    <a class="o_kanban_manage_toggle_button o_left" href="#" groups="project.group_project_manager"><i class="fa fa-ellipsis-v" role="img" aria-label="Manage" title="Manage"/></a>
+                                </div>
+
+                                
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_bsc_kpi_real_target_acum">
+            <field name="name">Indicadores - Real vs Objetivo Acumulado</field>
+            <field name="res_model">bsc.kpi</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,kanban,form</field>
+        </record>
+        <record id="action_bsc_kpi_real_target_acum_view1" model="ir.actions.act_window.view">
+            <field eval="0" name="sequence"/>
+            <field name="view_mode">kanban</field>
+            <field name="view_id" ref="view_bsc_kpi_real_target_acum_kanban"/>
+            <field name="act_window_id" ref="action_bsc_kpi_real_target_acum"/>
+        </record>
+        <record id="action_bsc_kpi_real_target_acum_view2" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_bsc_kpi_real_target_acum_tree"/>
+            <field name="act_window_id" ref="action_bsc_kpi_real_target_acum"/>
+        </record>
+        
+        <menuitem name="Real vs Objetivo (Acum)" parent="bsc_bsc_menu_base" id="menu_bsc_kpi_real_target_acum" action="action_bsc_kpi_real_target_acum" sequence="12"/>
+        
+        
+        
+        <!---REAL VS ANTERIOR-->
+        
+        <record model="ir.ui.view" id="view_bsc_kpi_real_ant_tree">
+            <field name="name">bsc.kpi.tree.real.ant</field>
+            <field name="model">bsc.kpi</field>
+            <field name="priority" eval="16"/>
+            <field name="arch" type="xml">
+                <tree string="Indicadores">
+                    
+                    <field name="name"/>
+                    <field name="categ_id"/>
+                    <field name="uom_id"/>
+                    <field name="responsible_id"/>
+                    <field name="difference_real_ant"/>
+                    <field name="percentage_real_ant"/>
+                    
+                </tree>
+            </field>
+        </record>
+        
+        
+        <record model="ir.ui.view" id="view_bsc_kpi_real_ant_kanban">
+            <field name="name">bsc.kpi.kanban.real.ant</field>
+            <field name="model">bsc.kpi</field>
+            <field name="priority" eval="16"/>
+            <field name="arch" type="xml">
+                <kanban class="oe_background_grey o_kanban_dashboard o_project_kanban o_emphasize_colors" on_create="project.open_create_project">
+                    <field name="name"/>
+                    <field name="color"/>
+                    <field name="difference_real_ant"/>
+                    <field name="percentage_real_ant"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="#{kanban_color(record.color.raw_value)} oe_kanban_global_click o_has_icon">
+                                <div class="o_project_kanban_main">
+                                    <div class="o_kanban_card_content">
+                                        <div class="o_kanban_primary_left">
+                                            <div class="o_primary">
+                                                <span><h2><field name="name"/></h2></span>
+                                            </div>
+                                            
+                                            <div class="oe_picking_type_gauge">
+                                                <field name="percentage_real_ant" widget="gauge" style="width:150px; height: 110px;" options="{'levelcolors': ['#ff0000', '#ff0000','#f9c802', '#a9d70b'], 'action_jump': '402'}"/>
+                                                <field name="period_id"/>
+                                                
+                                            </div>
+                                            
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="o_kanban_card_manage_pane dropdown-menu" groups="project.group_project_manager" role="menu">
+                                        <div class="o_kanban_card_manage_section o_kanban_manage_reports">
+
+                                            <div role="menuitem">
+                                                <a type="edit">Edit</a>
+                                            </div>
+                                        </div>
+                                        <div role="menuitem" aria-haspopup="true" class="o_no_padding_kanban_colorpicker">
+                                            <ul class="oe_kanban_colorpicker" data-field="color" role="popup"/>
+                                        </div>
+                                    </div>
+                                    <a class="o_kanban_manage_toggle_button o_left" href="#" groups="project.group_project_manager"><i class="fa fa-ellipsis-v" role="img" aria-label="Manage" title="Manage"/></a>
+                                </div>
+
+                                
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_bsc_kpi_real_ant">
+            <field name="name">Indicadores - Real vs Anterior</field>
+            <field name="res_model">bsc.kpi</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,kanban,form</field>
+        </record>
+        <record id="action_bsc_kpi_real_ant_view1" model="ir.actions.act_window.view">
+            <field eval="0" name="sequence"/>
+            <field name="view_mode">kanban</field>
+            <field name="view_id" ref="view_bsc_kpi_real_ant_kanban"/>
+            <field name="act_window_id" ref="action_bsc_kpi_real_ant"/>
+        </record>
+        <record id="action_bsc_kpi_real_ant_view2" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_bsc_kpi_real_ant_tree"/>
+            <field name="act_window_id" ref="action_bsc_kpi_real_ant"/>
+        </record>
+        
+        <menuitem name="Real vs Anterior" parent="bsc_bsc_menu_base" id="menu_bsc_kpi_real_ant" action="action_bsc_kpi_real_ant" sequence="13"/>
+        
+        
+        
+        
+        <!---REAL VS ANTERIOR ACUMULADO-->
+        
+        <record model="ir.ui.view" id="view_bsc_kpi_real_ant_acum_tree">
+            <field name="name">bsc.kpi.tree.real.ant.acum</field>
+            <field name="model">bsc.kpi</field>
+            <field name="priority" eval="16"/>
+            <field name="arch" type="xml">
+                <tree string="Indicadores">
+                    
+                    <field name="name"/>
+                    <field name="categ_id"/>
+                    <field name="uom_id"/>
+                    <field name="responsible_id"/>
+                    <field name="difference_real_ant_acum"/>
+                    <field name="percentage_real_ant_acum"/>
+                    
+                </tree>
+            </field>
+        </record>
+        
+        
+        <record model="ir.ui.view" id="view_bsc_kpi_real_ant_acum_kanban">
+            <field name="name">bsc.kpi.kanban.real.ant.acum</field>
+            <field name="model">bsc.kpi</field>
+            <field name="priority" eval="16"/>
+            <field name="arch" type="xml">
+                <kanban class="oe_background_grey o_kanban_dashboard o_project_kanban o_emphasize_colors" on_create="project.open_create_project">
+                    <field name="name"/>
+                    <field name="color"/>
+                    <field name="difference_real_ant_acum"/>
+                    <field name="percentage_real_ant_acum"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="#{kanban_color(record.color.raw_value)} oe_kanban_global_click o_has_icon">
+                                <div class="o_project_kanban_main">
+                                    <div class="o_kanban_card_content">
+                                        <div class="o_kanban_primary_left">
+                                            <div class="o_primary">
+                                                <span><h2><field name="name"/></h2></span>
+                                            </div>
+                                            
+                                            <div class="oe_picking_type_gauge">
+                                                <field name="percentage_real_ant_acum" widget="gauge" style="width:150px; height: 110px;" options="{'levelcolors': ['#ff0000', '#ff0000','#f9c802', '#a9d70b'], 'action_jump': '402'}"/>
+                                                <field name="period_id"/>
+                                                
+                                            </div>
+                                            
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="o_kanban_card_manage_pane dropdown-menu" groups="project.group_project_manager" role="menu">
+                                        <div class="o_kanban_card_manage_section o_kanban_manage_reports">
+
+                                            <div role="menuitem">
+                                                <a type="edit">Edit</a>
+                                            </div>
+                                        </div>
+                                        <div role="menuitem" aria-haspopup="true" class="o_no_padding_kanban_colorpicker">
+                                            <ul class="oe_kanban_colorpicker" data-field="color" role="popup"/>
+                                        </div>
+                                    </div>
+                                    <a class="o_kanban_manage_toggle_button o_left" href="#" groups="project.group_project_manager"><i class="fa fa-ellipsis-v" role="img" aria-label="Manage" title="Manage"/></a>
+                                </div>
+
+                                
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+
+
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_bsc_kpi_real_ant_acum">
+            <field name="name">Indicadores - Real vs Anterior (Acumulado)</field>
+            <field name="res_model">bsc.kpi</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,kanban,form</field>
+        </record>
+        
+        <record id="action_bsc_kpi_real_ant_acum_view1" model="ir.actions.act_window.view">
+            <field eval="0" name="sequence"/>
+            <field name="view_mode">kanban</field>
+            <field name="view_id" ref="view_bsc_kpi_real_ant_acum_kanban"/>
+            <field name="act_window_id" ref="action_bsc_kpi_real_ant_acum"/>
+        </record>
+        <record id="action_bsc_kpi_real_ant_acum_view2" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_bsc_kpi_real_ant_acum_tree"/>
+            <field name="act_window_id" ref="action_bsc_kpi_real_ant_acum"/>
+        </record>
+        
+        
+        <menuitem name="Real vs Anterior (Acum)" parent="bsc_bsc_menu_base" id="menu_bsc_kpi_real_ant_acum" action="action_bsc_kpi_real_ant_acum" sequence="14"/>
+        
+        
+        
+        
+        <!-- ############################################
+                     BSC.KPI.LINE
+        ############################################# -->
+        
+        
+        
+        <record model="ir.ui.view" id="view_bsc_kpi_line_tree">
+            <field name="name">bsc.kpi.line.tree</field>
+            <field name="model">bsc.kpi.line</field>
+            <field name="priority" eval="16"/>
+            <field name="arch" type="xml">
+                <tree string="Indicadores">
+                    
+                    <field name="kpi_id"/>
+                    <field name="period_id"/>
+                    <field name="date" invisible="1"/>
+                    <field name="target"/>
+                    <field name="real"/>
+                    
+                    
+                </tree>
+            </field>
+        </record>
+        
+        
+        <record model="ir.ui.view" id="view_bsc_kpi_line_form">
+            <field name="name">bsc.kpi.line.form</field>
+            <field name="model">bsc.kpi.line</field>
+            <field name="arch" type="xml">
+                <form string="Indicadores">
+                    <sheet>
+                        <group>
+                            <field name="kpi_id"/>
+                            <field name="period_id"/>
+                            <field name="date" invisible="1"/>
+                            <field name="target"/>
+                            <field name="real"/>
+                            
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+        
+        
+<!--        <record model="ir.ui.view" id="view_bsc_kpi_line_search">-->
+<!--            <field name="name">bsc.kpi.line.search</field>-->
+<!--            <field name="model">bsc.kpi.line</field>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <search string="Indicadores">-->
+<!--                    <field name="kpi_id"/>-->
+<!--                    <field name="period_id"/>-->
+<!--                    <group expand="0" string="Agrupar">-->
+<!--                       <filter string="Indicador" context="{'group_by': 'kpi_id'}"/>-->
+<!--                       <filter string="Periodo" context="{'group_by': 'period_id'}"/>-->
+<!--                       <filter string="Año" context="{'group_by': 'date:year'}"/>-->
+<!--                       <filter string="Trimestre" context="{'group_by': 'date:quarter'}"/>-->
+<!--                    </group>-->
+<!--                </search>-->
+<!--            </field>-->
+<!--        </record>-->
+        
+        
+        <record id="view_bsc_kpi_line_graph" model="ir.ui.view">
+            <field name="name">bsc.kpi.line.graph</field>
+            <field name="model">bsc.kpi.line</field>
+            <field name="arch" type="xml">
+			
+                <graph string="Gráfico indicadores">
+                    <field name="kpi_id"/>
+                    <field name="real" operator="+"/>
+                </graph>
+                
+
+            </field>
+        </record>
+        
+        
+
+        <record model="ir.actions.act_window" id="action_bsc_kpi_line">
+            <field name="name">Lineas Indicadores</field>
+            <field name="res_model">bsc.kpi.line</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,graph</field>
+        </record>
+        
+        <!--<menuitem name="Líneas KPI" parent="bsc_bsc_menu_base" id="menu_bsc_kpi_line" action="action_bsc_kpi_line" sequence="20"/>-->
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    </data>
+</odoo>

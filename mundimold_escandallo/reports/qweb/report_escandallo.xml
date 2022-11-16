@@ -1,0 +1,253 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+<template id="report_escandallo">
+    <t t-call="web.html_container">
+        <t t-foreach="docs" t-as="doc">
+            <t t-call="web.external_layout">
+			
+				<t t-set="lang" t-value="doc.user_id.sudo().lang"/>
+                <t t-set="doc" t-value="doc.with_context(lang=lang)"/>
+            
+                <t t-set="color1" t-value="doc.company_id.color1_qweb"/>
+                <t t-set="color2" t-value="doc.company_id.color2_qweb"/>
+                
+				
+				
+                <div class="page">
+                    
+                    
+                  <style>
+                      .cabinv {
+                      background-color: #<t t-esc="color1"/>;
+                      }
+                      
+                      p {
+                        font-size:11pt!important;
+						text-align: justify;
+                        text-justify: inter-word;
+                      }
+                      li p {
+                        padding:0px!important;
+                        margin:0px!important;
+                        font-size:11pt!important;
+                      }
+                      ul li {
+                        font-size:11pt!important;
+                      }
+                      ol li {
+                        font-size:11pt!important;
+                      }
+                      h3 {
+                        font-size:14pt;
+                        padding: 20px 0px 20px 0px;
+                      }
+                      h4 {
+                        font-size:12pt;
+                        padding: 20px 0px 20px 0px;
+                      }
+					  
+                  </style>
+                
+                  <div style="width:100%; color:#FFF; text-align: center; padding:5px;" class="cabinv">
+                    <strong><span style="text-transform: uppercase; font-size: 16pt; font-weight: bold;">
+                    
+                        
+                     PROYECTO <span t-field="doc.sequence_name"/>: <span t-field="doc.name"/>
+                    </span></strong>
+                  </div>
+                  
+                  <h3><strong>ESCANDALLO</strong></h3>
+				  
+				  <style>
+                    .table thead tr {
+                        background-color: #<t t-esc="color1"/>;
+                    }
+                  </style>
+				  <table class="table table-sm o_main_table" name="invoice_line_table" style="font-size: 9pt;">
+                    <thead>
+                        <tr style="color: #FFF; padding:6px;">
+                            <!-- TODO: remove in master -->
+                            
+                            <th class="text-left" style="padding:8px !important; vertical-align:middle">Cod</th>
+							<th class="text-left" style="padding:8px !important; vertical-align:middle; width:20%">Producto</th>
+							<th class="text-left" style="padding:8px !important; vertical-align:middle">Cantidad</th>
+							<th class="text-left" style="padding:8px !important; vertical-align:middle">Dimensiones</th>
+							<th class="text-left" style="padding:8px !important; vertical-align:middle">Aleación</th>
+							<th class="text-left" style="padding:8px !important; vertical-align:middle">Proveedor</th>
+							<th class="text-left" style="padding:8px !important; vertical-align:middle">Stock</th>
+							<th class="text-left" style="padding:8px !important; vertical-align:middle">Fecha pedido</th>
+							<th class="text-left" style="padding:8px !important; vertical-align:middle">Fecha prevista</th>
+							<th class="text-left" style="padding:8px !important; vertical-align:middle">Fecha recepc</th>
+							<th class="text-left" style="padding:8px !important; vertical-align:middle">ET</th>
+							<th class="text-left" style="padding:8px !important; vertical-align:middle">MT</th>
+							<th class="text-left" style="padding:8px !important; vertical-align:middle">3D</th>
+							<th class="text-left" style="padding:8px !important; vertical-align:middle">2D</th>
+							<th class="text-left" style="padding:8px !important; vertical-align:middle">Tratamiento</th>
+							<th class="text-left" style="padding:8px !important; vertical-align:middle">Coste</th>
+
+                        </tr>
+                    </thead>
+                    
+                    
+                    
+                    
+                    <tbody class="invoice_tbody">
+                        
+
+                        <t t-foreach="doc.escandallo_ids" t-as="line">
+                            <tr>
+                                
+                                    <td>
+                                      <span t-field="line.cod_pieza"/>
+                                    </td>
+									<td>
+                                      <span t-field="line.product_id.name"/>
+                                    </td>
+									<td>
+                                      <span t-field="line.quantity"/>
+                                    </td>
+									<td>
+                                      <span t-field="line.dimensiones"/>
+                                    </td>
+									<td>
+                                      <span t-field="line.aleacion"/>
+                                    </td>
+									<td>
+									  <t t-if="line.supplier_id.comercial"><span t-field="line.supplier_id.comercial"/></t>
+									  <t t-if="not line.supplier_id.comercial"><span t-field="line.supplier_id"/></t>
+                                    </td>
+									<td>
+                                      <span t-field="line.stock" t-att-checked="line.stock"/>
+                                    </td>
+									<td>
+                                      <span t-field="line.fecha_pedido"/>
+                                    </td>
+									<td>
+                                      <span t-field="line.fecha_prevista_recepcion"/>
+                                    </td>
+									<td>
+                                      <span t-field="line.fecha_recepcion"/>
+                                    </td>
+									<td>
+                                      <input type="checkbox" t-att-checked="line.etiqueta"/>
+                                    </td>
+									<td>
+                                      <input type="checkbox" t-att-checked="line.montaje"/>
+                                    </td>
+									<td>
+                                      <input type="checkbox" t-att-checked="line.diseno_3d"/>
+                                    </td>
+									<td>
+                                      <input type="checkbox" t-att-checked="line.diseno_2d"/>
+                                    </td>
+									<td>
+                                      <span t-field="line.tratamiento_id.name"/>
+                                    </td>
+									<td>
+                                      <span t-field="line.coste_calculado"/>
+                                    </td>
+
+                            </tr>
+
+
+                        </t>
+                        
+
+                    </tbody>
+                </table>
+				  
+				<p><strong>Coste total: </strong> <span t-field="doc.coste_escandallo"/></p>
+				  
+				
+				
+				
+				
+				
+				
+				
+				<h3 style="page-break-before:always"><strong>SUBCONTRATACIÓN</strong></h3>
+				  
+				  <style>
+                    .table thead tr {
+                        background-color: #<t t-esc="color1"/>;
+                    }
+                  </style>
+				  <table class="table table-sm o_main_table" name="invoice_line_table" style="font-size: 9pt;">
+                    <thead>
+                        <tr style="color: #FFF; padding:6px;">
+                            <!-- TODO: remove in master -->
+                            
+                            <th class="text-left" style="padding:8px !important; vertical-align:middle">Cod</th>
+							<th class="text-left" style="padding:8px !important; vertical-align:middle;">Pieza</th>
+							<th class="text-left" style="padding:8px !important; vertical-align:middle">Operación</th>
+							<th class="text-left" style="padding:8px !important; vertical-align:middle">Cantidad</th>
+							<th class="text-left" style="padding:8px !important; vertical-align:middle">Proveedor</th>
+							<th class="text-left" style="padding:8px !important; vertical-align:middle">Fecha pedido</th>
+							<th class="text-left" style="padding:8px !important; vertical-align:middle">Fecha prevista</th>
+							<th class="text-left" style="padding:8px !important; vertical-align:middle">Fecha recepc</th>
+							<th class="text-left" style="padding:8px !important; vertical-align:middle">Coste</th>
+
+                        </tr>
+                    </thead>
+                    
+                    
+                    
+                    
+                    <tbody class="invoice_tbody">
+                        
+
+                        <t t-foreach="doc.subcontratista_ids" t-as="line">
+                            <tr>
+                                
+                                    <td>
+                                      <span t-field="line.cod_pieza"/>
+                                    </td>
+									<td>
+                                      <span t-field="line.pieza_id.name"/>
+                                    </td>
+									<td>
+                                      <span t-field="line.product_id.name"/>
+                                    </td>
+									<td>
+                                      <span t-field="line.quantity"/>
+                                    </td>
+									<td>
+                                      <t t-if="line.supplier_id.comercial"><span t-field="line.supplier_id.comercial"/></t>
+									  <t t-if="not line.supplier_id.comercial"><span t-field="line.supplier_id"/></t>
+                                    </td>
+									<td>
+                                      <span t-field="line.fecha_pedido"/>
+                                    </td>
+									<td>
+                                      <span t-field="line.fecha_prevista_recepcion"/>
+                                    </td>
+									<td>
+                                      <span t-field="line.fecha_recepcion"/>
+                                    </td>
+									
+									<td>
+                                      <span t-field="line.coste_calculado"/>
+                                    </td>
+
+                            </tr>
+
+
+                        </t>
+                        
+
+                    </tbody>
+                </table>
+				  
+				<p><strong>Coste total: </strong> <span t-field="doc.coste_subcontratista"/></p>
+						
+
+
+                </div>
+                
+            </t>
+        </t>
+    </t>
+</template>
+</data>
+</openerp>

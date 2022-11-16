@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    
+
+    <record id="bank_statement_mundimold_treasury_form" model="ir.ui.view">
+        <field name="name">account.bank.statement.mundimold.treasury</field>
+        <field name="model">account.bank.statement</field>
+        <field name="inherit_id" ref="account.view_bank_statement_form"/>
+        <field name="arch" type="xml">
+        
+			
+            <field name="journal_id" position="after">
+				<field name="treasury_planning" invisible="1"/>
+                <button name="update_forecast_lines" type="object"
+											string="Actualizar previsiones de proyectos" class="oe_highlight" attrs="{'invisible': [('treasury_planning', '=', False)]}"/>
+            </field>
+        
+            
+
+        </field>
+    </record>
+    
+        
+
+</odoo>

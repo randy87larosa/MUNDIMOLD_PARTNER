@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <report 
+            id="rep_bsc_kpi"
+            string="Informe de indicador"
+            model="bsc.kpi" 
+            report_type="qweb-pdf"
+            file="indaws_bsc.report_bsc_kpi" 
+            name="indaws_bsc.report_bsc_kpi" 
+        />
+
+        <report 
+            id="rep_bsc_period"
+            string="Informe de periodo"
+            model="bsc.period" 
+            report_type="qweb-pdf"
+            file="indaws_bsc.report_bsc_period" 
+            name="indaws_bsc.report_bsc_period" 
+        />
+        
+        
+
+    </data>
+</odoo>

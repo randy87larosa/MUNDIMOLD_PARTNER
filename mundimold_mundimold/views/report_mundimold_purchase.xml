@@ -1,0 +1,22 @@
+﻿<?xml version="1.0"?>
+
+
+<openerp>
+<data>
+<template id="report_mundimold_purchaseorder">
+
+    <t t-name="mundimold_mundimold.report_mundimold_purchaseorder">
+    
+    
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="mundimold_mundimold.report_mundimold_purchaseorder_document" t-lang="o.partner_id.lang"/>
+            </t>
+        </t>
+    
+        
+    </t>
+
+</template>
+</data>
+</openerp>

@@ -1,0 +1,3 @@
+"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
+"access_project_invoice_plan","project_invoice_plan manager","model_project_invoice_plan","project.group_project_manager",1,1,1,1
+"access_project_invoice_supplier","project_invoice_supplier manager","model_project_invoice_supplier","project.group_project_manager",1,1,1,1

@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+		
+        <report 
+            id="rep_project_project_escandallo"
+            string="Detalle escandallo"
+            model="project.project" 
+            report_type="qweb-pdf"
+            file="mundimold_escandallo.report_escandallo" 
+            name="mundimold_escandallo.report_escandallo" 
+        />
+        
+		
+		
+
+    </data>
+</openerp>

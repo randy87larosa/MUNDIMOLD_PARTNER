@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+		
+		<report 
+            id="rep_account_invoice_packing_list"
+            string="Packing list"
+            model="account.invoice" 
+            report_type="qweb-pdf"
+            file="mundimold_mundimold.report_account_invoice_packing_list" 
+            name="mundimold_mundimold.report_account_invoice_packing_list" 
+        />
+		
+		<report 
+            id="rep_account_invoice_albaran"
+            string="Albarán"
+            model="account.invoice" 
+            report_type="qweb-pdf"
+            file="mundimold_mundimold.report_account_invoice_albaran" 
+            name="mundimold_mundimold.report_account_invoice_albaran" 
+        />
+        
+		
+		
+
+    </data>
+</openerp>

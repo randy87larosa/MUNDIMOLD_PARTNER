@@ -1,0 +1,25 @@
+﻿<openerp>
+    <data>
+        
+        
+
+        <record id="view_mundimold_invoice_line_print_form" model="ir.ui.view">
+            <field name="name">account.invoice.line.mundimold.print.inherit</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+            
+                <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='account_id']" position="before">
+					<field name="no_print_project"/>
+                </xpath>
+			
+                                
+                
+
+            </field>
+        </record>
+ 
+        
+
+    </data>
+</openerp>

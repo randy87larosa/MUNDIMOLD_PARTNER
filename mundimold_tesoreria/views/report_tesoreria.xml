@@ -1,0 +1,438 @@
+<?xml version="1.0"?>
+<odoo><data>
+
+
+    <!-- WIZARD -->
+    
+    <act_window id="launch_wizard_tesoreria_asignar_banco"
+            name="Asignar banco"
+            src_model="report.tesoreria.mundimold.line"
+            res_model="wizard.tesoreria.asignar.banco"
+            view_mode="form"
+            target="new"
+            key2="client_action_multi"/>
+            
+            
+        <record model="ir.ui.view" id="wizard_tesoreria_asignar_banco_form_view">
+        <field name="name">wizard.tesoreria.asignar.banco.form</field>
+        <field name="model">wizard.tesoreria.asignar.banco</field>
+        <field name="arch" type="xml">
+            <form string="Asignar banco">
+                <group>
+                    <field name="line_id" />
+                    <field name="journal_id" domain="[('type', '=', 'bank')]"/>
+				</group>
+
+                <footer>
+                    <button name="assign_journal" type="object"
+                            string="Asignar banco" class="oe_highlight"/>
+                    
+                    <button special="cancel" string="Cancelar"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+	
+	
+	<act_window id="launch_wizard_tesoreria_asignar_fecha"
+            name="Cambiar fecha"
+            src_model="report.tesoreria.mundimold.line"
+            res_model="wizard.tesoreria.asignar.fecha"
+            view_mode="form"
+            target="new"
+            key2="client_action_multi"/>
+            
+            
+        <record model="ir.ui.view" id="wizard_tesoreria_asignar_fecha_form_view">
+        <field name="name">wizard.tesoreria.asignar.fecha.form</field>
+        <field name="model">wizard.tesoreria.asignar.fecha</field>
+        <field name="arch" type="xml">
+            <form string="Asignar fecha">
+                <group>
+                    <field name="line_id" />
+                    <field name="date" />
+					<field name="ocultar" />
+				</group>
+
+                <footer>
+                    <button name="assign_date" type="object"
+                            string="Asignar fecha" class="oe_highlight"/>
+                    
+                    <button special="cancel" string="Cancelar"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    
+    
+    <act_window id="launch_wizard_tesoreria_eliminar_prevision"
+            name="Eliminar previsión"
+            src_model="report.tesoreria.mundimold.line"
+            res_model="wizard.tesoreria.eliminar.prevision"
+            view_mode="form"
+            target="new"
+            key2="client_action_multi"/>
+            
+            
+        <record model="ir.ui.view" id="wizard_tesoreria_eliminar_prevision_form_view">
+        <field name="name">wizard.tesoreria.eliminar.prevision.form</field>
+        <field name="model">wizard.tesoreria.eliminar.prevision</field>
+        <field name="arch" type="xml">
+            <form string="Eliminar previsión">
+                <group>
+                    <field name="line_id" />
+				</group>
+                
+                <group>
+                    <p>Al hacer clic en "Eliminar previsión" se eliminará la previsión definitivamente</p>
+				</group>
+                
+                
+
+                <footer>
+                    <button name="eliminar_prevision" type="object"
+                            string="Eliminar previsión" class="oe_highlight"/>
+                    
+                    <button special="cancel" string="Cancelar"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+      <!-- Act window for statement lines smart button on forecast view  -->
+    <record id="action_report_tesoreria_lines" model="ir.actions.act_window">
+      <field name="name">Líneas de tesorería</field>
+      <field name="res_model">report.tesoreria.mundimold.line</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,pivot</field>
+      <field name="context">{'search_default_report_id': active_id}</field>
+    </record>
+    
+    <record id="action_report_saldos_lines" model="ir.actions.act_window">
+      <field name="name">Saldos de tesorería</field>
+      <field name="res_model">report.tesoreria.mundimold.saldos.acumulados</field>
+      <field name="view_mode">tree,pivot</field>
+      <field name="view_type">form</field>
+      <field name="context">{'search_default_report_id': active_id}</field>
+    </record>
+	
+	<record id="action_report_pagares_lines" model="ir.actions.act_window">
+      <field name="name">Pagarés</field>
+      <field name="res_model">report.tesoreria.mundimold.pagares</field>
+      <field name="view_mode">tree,pivot</field>
+      <field name="view_type">form</field>
+      <field name="context">{'search_default_report_id': active_id}</field>
+    </record>
+
+    <record id="view_report_tesoreria_mundimold_form" model="ir.ui.view" >
+        <field name="name">view_report_tesoreria_mundimold_form</field>
+        <field name="model">report.tesoreria.mundimold</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+              <header>
+                <button name="update_report"
+                        type="object"
+                        string="Actualizar informe"/>
+              </header>
+
+              <sheet>
+                <div class="oe_button_box" name="button_box">
+                  <button class="oe_stat_button"
+                    string="Detalle"
+                    type="action"
+                    name="%(action_report_tesoreria_lines)d"
+                    icon="fa-bars"/>
+                  <button class="oe_stat_button"
+                    string="Saldos"
+                    type="action"
+                    name="%(action_report_saldos_lines)d"
+                    icon="fa-bars"/>
+				  <button class="oe_stat_button"
+                    string="Pagarés"
+                    type="action"
+                    name="%(action_report_pagares_lines)d"
+                    icon="fa-bars"/>
+                </div>
+                <group col="6">
+                  <group colspan='2'>
+                    <field name="date_ini"/>
+                    <field name="date_fin"/>
+                    <field name="incluir_vencidos_cliente"/>
+                    <field name="incluir_vencidos_proveedor"/>
+                    <field name="incluir_vencidos_financiacion"/>
+					<field name="company_id" options="{'no_create': True}"/>
+                  </group>
+                </group>
+
+
+
+                <notebook>
+                    <page name='lines' string="Líneas">
+                      <field name="line_ids">
+                        <tree>
+                            <field name="report_id" invisible="1"/>
+                            <field name="bank_line_id" invisible="1"/>
+                            <field name="date"/>
+                            <field name="main_type"/>
+                            <field name="type"/>
+                            <field name="name"/>
+                            <field name="partner_id"/>
+                            <field name="journal_id"/>
+							<field name="account_analytic_id"/>
+                            <field name="amount" sum="Importe"/>
+                            <button name="%(launch_wizard_tesoreria_asignar_banco)d" string="Asignar banco" icon="fa-dollar" type="action"/>
+							<button name="%(launch_wizard_tesoreria_asignar_fecha)d" string="Cambiar fecha" icon="fa-calendar" type="action"/>
+                            <button name="%(launch_wizard_tesoreria_eliminar_prevision)d" string="Eliminar previsión" icon="fa-ban" type="action" attrs="{'invisible': [('bank_line_id', '=', False)]}"/>							
+
+
+                        </tree>
+                      </field>
+                    </page>
+                    
+                    <page name='pagares' string="Pagarés">
+                      <field name="pagares_ids">
+                        <tree>
+                            <field name="report_id" invisible="1"/>
+                            <field name="date"/>
+                            <field name="name"/>
+                            <field name="partner_id"/>
+                            <field name="journal_id"/>
+                            <field name="amount" sum="Importe"/>
+
+                        </tree>
+                      </field>
+                    </page>
+                    
+                    <page name='accesos' string="Accesos">
+                        <group>
+                            <group>
+                              <field name="bank_statement_id" />
+                              <field name="forecast_template_id" />
+                              <field name="forecast_1_id" />
+                              <field name="forecast_2_id" />
+                              <field name="forecast_3_id" />
+                              <field name="forecast_4_id" />
+                            </group>
+                        </group>
+                    </page>
+					
+					<page name='saldos' string="Saldos">
+
+						<field name="saldos_ids">
+							<tree editable="bottom">
+								<field name="report_id" invisible="1"/>
+								<field name="journal_id" />
+								<field name="amount" />
+                                <field name="cobros" />
+                                <field name="pagos" />
+                                <field name="saldo_final" />
+							</tree>
+						</field>
+                        
+                        <group>
+                            <field name="cobros_sin_asignar" />
+                            <field name="pagos_sin_asignar" />
+                            <field name="saldo_inicial" />
+                            <field name="cobros" />
+                            <field name="pagos" />
+                            <field name="saldo_final" />
+                        </group>
+
+                    </page>
+                    
+                    
+                    <page name='financiacion' string="Financiación">
+
+						<field name="financiacion_ids">
+							<tree editable="bottom">
+								<field name="report_id" invisible="1"/>
+								<field name="name" />
+                                <field name="amount" />
+								<field name="saldo_calculado" />
+                                <field name="diferencia" />
+							</tree>
+						</field>
+						
+						<h3>Resumen por tipo</h3>
+						<field name="resumen_ids">
+							<tree editable="bottom">
+								<field name="report_id" invisible="1"/>
+								<field name="name" />
+                                <field name="amount" />
+								<field name="saldo_calculado" />
+                                <field name="diferencia" />
+							</tree>
+						</field>
+                    </page>
+                    
+
+                    
+                    <page name='cuentas' string="Config cuentas">
+                        <group>
+                            <group>
+                                <field name="customer_account_id" />
+                                <field name="customer_pagares_account_id"/>
+                                <field name="supplier_account_id" />
+                                <field name="supplier_pagares_account_id" />
+                            </group>
+                        </group>
+                    </page>
+                    
+                </notebook>
+              </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_report_tesoreria_mundimold_tree" model="ir.ui.view" >
+        <field name="name">view_report_tesoreria_mundimold_tree</field>
+        <field name="model">report.tesoreria.mundimold</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Treasury planning">
+              <field name="date_ini"/>
+              <field name="date_fin"/>
+            </tree>
+        </field>
+    </record>
+    
+    <record id="view_report_tesoreria_mundimold_tree_line" model="ir.ui.view" >
+        <field name="name">view_report_tesoreria_mundimold_tree_line</field>
+        <field name="model">report.tesoreria.mundimold.line</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Treasury planning">
+                <field name="report_id" invisible="1"/>
+                <field name="bank_line_id" invisible="1"/>
+                <field name="date"/>
+                <field name="main_type"/>
+                <field name="type"/>
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="journal_id"/>
+                <field name="amount" sum="Total"/>
+                <button name="%(launch_wizard_tesoreria_asignar_banco)d" string="Asignar banco" icon="fa-dollar" type="action"/>
+				<button name="%(launch_wizard_tesoreria_asignar_fecha)d" string="Cambiar fecha" icon="fa-calendar" type="action"/>
+                <button name="%(launch_wizard_tesoreria_eliminar_prevision)d" string="Eliminar previsión" icon="fa-ban" type="action" attrs="{'invisible': [('bank_line_id', '=', False)]}"/>
+            </tree>
+        </field>
+    </record>
+    
+    
+    <record id="view_report_tesoreria_mundimold_saldos_acumulados_tree" model="ir.ui.view" >
+        <field name="name">report.tesoreria.mundimold.saldos.acumulados.tree</field>
+        <field name="model">report.tesoreria.mundimold.saldos.acumulados</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Treasury planning">
+                <field name="report_id" invisible="1"/>
+                <field name="date"/>
+                <field name="journal_id"/>
+                <field name="amount" invisible="1"/>
+                <field name="acumulado"/>
+                <field name="semana" invisible="1"/>
+                <field name="mes" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+	
+	
+	
+	<record id="view_report_tesoreria_mundimold_pagares_tree" model="ir.ui.view" >
+        <field name="name">report.tesoreria.mundimold.pagares.tree</field>
+        <field name="model">report.tesoreria.mundimold.pagares</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Treasury planning">
+                <field name="report_id" invisible="1"/>
+				<field name="company_id" invisible="1"/>
+				<field name="date" />
+                <field name="name"/>
+				<field name="partner_id"/>
+                <field name="journal_id"/>
+                <field name="amount"/>
+            </tree>
+        </field>
+    </record>
+    
+    
+    
+    <record id="view_report_tesoreria_mundimold_search_line" model="ir.ui.view" >
+        <field name="name">view_report_tesoreria_mundimold_search_line</field>
+        <field name="model">report.tesoreria.mundimold.line</field>
+        <field name="type">search</field>
+        <field name="arch" type="xml">
+            <search string="Treasury planning">
+            
+                <field name="report_id" />
+            
+                <filter name="PREV_PAGO" string="Previsiones de pago" domain="[('type','=','06_PREV_PAGO')]"/>
+                <filter name="PREV_COBRO" string="Previsiones de cobro" domain="[('type','=','01_PREV_COBRO')]"/>
+                <filter name="FRA_PAGO_NACIONAL" string="Pagos de facturas nacionales (proveedores)" domain="[('type','=','03_FRA_PAGO_NACIONAL')]"/>
+				<filter name="FRA_PAGO_INTERNACIONAL" string="Pagos de facturas internacionales(proveedores)" domain="[('type','=','04_FRA_PAGO_INTERNACIONAL')]"/>
+                <filter name="FRA_COBRO" string="Cobros de facturas (clientes)" domain="[('type','=','00_FRA_COBRO')]"/>
+                <filter name="PAG_COBRO" string="Pagarés de clientes" domain="[('type','=','02_PAG_COBRO')]"/>
+                <filter name="PAG_PAGO" string="Pagarés de proveedores" domain="[('type','=','05_PAG_PAGO')]"/>
+				<filter name="SALDOS" string="Saldos iniciales" domain="[('type','=','12_SALDOS')]"/>
+				<filter name="FINANCIACION" string="Financiación" domain="[('type','=','11_FINANCIACION')]"/>
+				<filter name="IMPUESTOS" string="Impuestos" domain="[('type','=','10_IMPUESTOS')]"/>
+				<filter name="PAGOS_FIJOS" string="Pagos fijos" domain="[('type','=','07_PAGOS_FIJOS')]"/>
+				<filter name="PERSONAL" string="Personal" domain="[('type','=','08_PERSONAL')]"/>
+				<filter name="PRESTAMOS" string="Préstamos" domain="[('type','=','09_PRESTAMOS')]"/>
+                
+                <group expand="0" string="Agrupar por">
+                    <filter name="group_by_type" string="Tipo principal" context="{'group_by':'main_type'}"/>
+                    <filter name="group_by_type" string="Tipo" context="{'group_by':'type'}"/>
+                    <filter name="group_by_date" string="Fecha" context="{'group_by':'date'}"/>
+                    <filter name="group_by_journal" string="Diario de pago" context="{'group_by':'journal_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    
+    
+    <record id="view_report_tesoreria_mundimold_saldos_acumulados_search" model="ir.ui.view" >
+        <field name="name">report.tesoreria.mundimold.saldos.acumulados.search</field>
+        <field name="model">report.tesoreria.mundimold.saldos.acumulados</field>
+        <field name="type">search</field>
+        <field name="arch" type="xml">
+            <search string="Treasury planning">
+                <field name="report_id" />
+                
+                <filter name="semana" string="Semanal" domain="[('semana','=',True)]"/>
+                <filter name="mes" string="Mensual" domain="[('mes','=',True)]"/>
+                
+                
+                <group expand="0" string="Agrupar por">
+                    <filter name="group_by_journal" string="Banco" context="{'group_by':'journal_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    
+    
+    <act_window id="action_report_tesoreria_mundimold_line"
+        name="Líneas Informe de tesorería"
+        res_model="report.tesoreria.mundimold"
+        view_mode="tree,pivot"/>
+    
+    
+
+    <act_window id="action_report_tesoreria_mundimold"
+        name="Informe de tesorería"
+        res_model="report.tesoreria.mundimold"
+        view_mode="tree,form"/>
+
+    <menuitem id='menu_report_tesoreria_mundimold'
+        string='Informe de tesorería'
+        parent="treasury_forecast.menu_treasury_forecast_group"
+        action="action_report_tesoreria_mundimold"
+        sequence='15'/>
+        
+        
+    
+
+
+
+</data></odoo>

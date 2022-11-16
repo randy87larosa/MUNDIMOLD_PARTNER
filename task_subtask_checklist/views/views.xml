@@ -1,0 +1,390 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<record id="view_project_task_tree_custom" model="ir.ui.view">
+	    <field name="name">project.task.tree.custom</field>
+	    <field name="model">project.task</field>
+	    <field name="inherit_id" ref="project.view_task_tree2"/>
+	    <field name="arch" type="xml">
+	        <field name="stage_id" position="after">
+	            <field name="checklist_id" invisible="1"/>
+	            <field name="activity_progress" widget="progressbar" attrs="{'invisible' : [('checklist_id', '=', False)]}"/>
+	        </field>
+	    </field>
+	</record>
+	
+	<record id="view_project_task_kanban_custom" model="ir.ui.view">
+	    <field name="name">project.task.kanban.custom</field>
+	    <field name="model">project.task</field>
+	    <field name="inherit_id" ref="project.view_task_kanban"/>
+	    <field name="arch" type="xml">
+	        <field name="project_id" position="after">
+	            <field name="checklist_id"/>
+	            <field name="activity_progress"/>
+	        </field>
+	        <xpath expr="//div[hasclass('oe_clear')]" position="before">
+	            <div t-if="record.checklist_id.raw_value">
+	                <!--<field name="activity_progress" widget="gauge" style="width:136px; height: 90px;"/>-->
+	                <field name="activity_progress" widget="percentpie" nolabel="1"/>
+	            </div>
+	        </xpath>
+	    </field>
+	</record>
+	
+	<record id="view_task_form_custom" model="ir.ui.view">
+	    <field name="name">project.task.form.custom</field>
+	    <field name="model">project.task</field>
+	    <field name="inherit_id" ref="project.view_task_form2"/>
+	    <field name="arch" type="xml">
+	        <field name="user_id" position="after">
+	            <field name="checklist_id" domain="['|',('project_id','=', project_id),('project_id','=',False)]"/>
+	        </field>
+	        <notebook position="inside">
+	            <page string="Checklist" attrs="{'invisible' : [('checklist_id', '=', False)]}">
+	            <div class="row mt4">
+	                <div class="col-sm-9">
+	                    <field name="checklist_activity_ids">
+	                        <tree decoration-danger="canceled==True" decoration-success="completed==True"
+	                              decoration-info="progress==True" create="1" edit="1" delete="0">
+	                            <field name="sequence" widget="handle"/>
+	                            <field name="name"/>
+	                            <field name="description"/>
+	                            <field name="approve_user_id"/>
+	                            <field name="completed" invisible="1"/>
+	                            <field name="canceled" invisible="1"/>
+	                            <field name="progress" invisible="1"/>
+	                            <field name="default_stage" invisible="1"/>
+	                            <field name="can_reset_after_completed" invisible="1"/>
+	                            <field name="can_reset_after_canceled" invisible="1"/>
+	                            <button type="object" name="approve_and_next_stage" icon="fa-check" class="text-success"
+	                                    string="Approve And Next Stage"
+	                                    attrs="{'invisible': [('default_stage','in',('Completed','Canceled'))]}"/>
+	                            <button type="object" name="mark_completed" icon="fa-check-circle" class="text-success"
+	                                    string="Mark Completed"
+	                                    attrs="{'invisible': [('default_stage','in',('Completed','Canceled'))]}"/>
+	                            <button type="object" name="mark_canceled" icon="fa-times" class="text-danger" string="Mark Canceled"
+	                                    attrs="{'invisible': [('default_stage','in',('Completed','Canceled'))]}"/>
+	                            <!--<button type="object" name="reset_todo" icon="fa-undo" class="text-warning" string="Reset State"
+	                                    attrs="{'invisible': [('default_stage','!=','Canceled')]}"/>-->
+	                            <button type="object" name="reset_todo" icon="fa-undo" class="text-warning" string="Reset State"
+	                                    attrs="{'invisible': ['|',('default_stage','!=','Canceled'),('can_reset_after_canceled','=',False),'|',('default_stage','!=','Completed'),('can_reset_after_completed','=',False)]}"/>
+	                            <field name="activity_stage_id"/>
+	                        </tree>
+	
+	                        <form string="Activity">
+	                            <header>
+	                                <button type="object" name="approve_and_next_stage" class="text-success" string="Approve And Next Stage"
+	                                        icon="fa-check" attrs="{'invisible': [('default_stage','in',('Completed','Canceled'))]}"/>
+	                                <button type="object" name="mark_completed" icon="fa-check-circle" class="text-success"
+	                                        string="Mark Completed" attrs="{'invisible': [('default_stage','in',('Completed','Canceled'))]}"/>
+	                                <button type="object" name="mark_canceled" icon="fa-times" class="text-danger" string="Mark Canceled"
+	                                        attrs="{'invisible': [('default_stage','in',('Completed','Canceled'))]}"/>
+	                                <!--<button type="object" name="reset_todo" icon="fa-undo" class="text-warning" string="Reset State"
+	                                        attrs="{'invisible': [('default_stage','!=','Canceled')]}"/>-->
+                                    <button type="object" name="reset_todo" icon="fa-undo" class="text-warning" string="Reset State"
+                                            attrs="{'invisible': ['|',('default_stage','!=','Canceled'),('can_reset_after_canceled','=',False),'|',('default_stage','!=','Completed'),('can_reset_after_completed','=',False)]}"/>
+                                    <field name="activity_stage_id" widget="statusbar"/>
+	                                </header>
+	                                <group col="4">
+	                                    <field name="name"/>
+	                                    <field name="approve_user_id"/>
+	                                    <field name="description"/>
+	                                    <field name="default_stage" invisible="1"/>
+	                                    <field name="can_reset_after_completed" invisible="1"/>
+	                                    <field name="can_reset_after_canceled" invisible="1"/>
+	                                    <field name="task_id" invisible="1"/>
+	                    				<field name="project_id" invisible="1"/>
+	                                </group>
+	                            </form>
+	                        </field>
+	                    </div>
+	                    <div class="col-sm-3 text-center">
+	                        <field name="activity_progress" widget="gauge"/>
+	                    </div>
+	                </div>
+	            </page>
+	        </notebook>
+	    </field>
+	</record>
+	
+	<record id="view_task_form_custom_inherit" model="ir.ui.view">
+	    <field name="model">project.task</field>
+	    <field name="inherit_id" ref="view_task_form_custom"/>
+	    <field name="groups_id" eval="[(6, 0, [ref('project.group_project_manager')])]"/>
+	    <field name="arch" type="xml">
+	        <field name="checklist_id" position="attributes">
+	            <attribute name="readonly">False</attribute>
+	        </field>
+	    </field>
+	</record>
+	
+	<record id="view_task_type_edit_checklist" model="ir.ui.view">
+	    <field name="name">project.task.type.checklist.form</field>
+	    <field name="model">project.task.type</field>
+	    <field name="inherit_id" ref="project.task_type_edit"/>
+	    <field name="arch" type="xml">
+	        <field name="fold" position="after">
+	            <field name="checklist_task_progress_restriction" groups="task_subtask_checklist.group_checklist_task_progress_restriction"/>
+	        </field>
+	    </field>
+	</record>
+	
+	<record id="view_checklist_form" model="ir.ui.view">
+	    <field name="name">task.checklist.form</field>
+	    <field name="model">task.checklist</field>
+	    <field name="arch" type="xml">
+	        <form string="Checklist">
+	            <sheet>
+	                <div class="oe_title">
+	                    <h1 class="o_row">
+	                        <field name="name" required="1" placeholder="Checklist Name"/>
+	                    </h1>
+	                </div>
+	                <group colspan="4" col="4">
+	                    <field name="description" type="html"/>
+	                    <field name="project_id"/>
+	                </group>
+	                <div class="oe_clear"/>
+	                <label for="item_ids" string="CheckList Items"/>
+	                <field name="item_ids">
+	                    <tree editable="1">
+	                        <field name="sequence" widget="handle"/>
+	                        <field name="name" required="1"/>
+	                        <field name="description"/>
+	                    </tree>
+	                </field>
+	            </sheet>
+	        </form>
+	    </field>
+	</record>
+	
+	<record id="view_checklist_tree" model="ir.ui.view">
+	    <field name="name">task.checklist.tree</field>
+	    <field name="model">task.checklist</field>
+	    <field name="arch" type="xml">
+	        <tree>
+	            <field name="name"/>
+	            <field name="project_id"/>
+	            <field name="description"/>
+	        </tree>
+	    </field>
+	</record>
+	
+	<record id="view_checklist_filter" model="ir.ui.view">
+	    <field name="name">task.checklist.search</field>
+	    <field name="model">task.checklist</field>
+	    <field name="arch" type="xml">
+	        <search string="Checklists">
+	            <field name="name"/>
+	            <field name="project_id"/>
+	            <field name="description"/>
+	            <group expand="0" string="Group By">
+	                <filter name="group_project_id" string="Project" domain="[]" context="{'group_by':'project_id'}"/>
+	            </group>
+	        </search>
+	    </field>
+	</record>
+	
+	<record id="action_checklist_tree" model="ir.actions.act_window">
+	    <field name="name">Task Checklist</field>
+	    <field name="res_model">task.checklist</field>
+	    <field name="view_type">form</field>
+	    <field name="view_mode">tree,form</field>
+	</record>
+	
+	
+	<record id="checklist_activity_stages_form" model="ir.ui.view">
+	    <field name="name">checklist.activity.stages.form</field>
+	    <field name="model">checklist.activity.stages</field>
+	    <field name="arch" type="xml">
+	        <form string="Checklist Activity Stages">
+	            <sheet>
+	                <div class="oe_title">
+	                    <h2 class="o_row">
+	                        <field name="name" required="1" placeholder="Stage Name"/>
+	                    </h2>
+	                </div>
+	                <group colspan="4" col="4">
+	                    <field name="sequence"/>
+	                    <field name="default_stage" readonly="1"/>
+	                </group>
+	            </sheet>
+	        </form>
+	    </field>
+	</record>
+	
+	<record id="checklist_activity_stages_tree" model="ir.ui.view">
+	    <field name="name">checklist.activity.stages.tree</field>
+	    <field name="model">checklist.activity.stages</field>
+	    <field name="arch" type="xml">
+	        <tree>
+	            <field name="name"/>
+	            <field name="sequence"/>
+	            <field name="default_stage"/>
+	        </tree>
+	    </field>
+	</record>
+	
+	<record id="action_checklist_activity_stages" model="ir.actions.act_window">
+	    <field name="name">Checklist Activity Stages</field>
+	    <field name="res_model">checklist.activity.stages</field>
+	    <field name="view_type">form</field>
+	    <field name="view_mode">tree,form</field>
+	</record>
+	
+	
+	<record id="checklist_activities_form" model="ir.ui.view">
+	    <field name="name">checklist.activities.form</field>
+	    <field name="model">checklist.activities</field>
+	    <field name="arch" type="xml">
+	        <form string="Checklist Activities">
+	            <header>
+	                <button type="object" name="approve_and_next_stage" class="text-success" string="Approve And Next Stage"
+	                        icon="fa-check" attrs="{'invisible': [('default_stage','in',('Completed','Canceled'))]}"/>
+	                <button type="object" name="mark_completed" icon="fa-check-circle" class="text-success"
+	                        string="Mark Completed" attrs="{'invisible': [('default_stage','in',('Completed','Canceled'))]}"/>
+	                <button type="object" name="mark_canceled" icon="fa-times" class="text-danger" string="Mark Canceled"
+	                        attrs="{'invisible': [('default_stage','in',('Completed','Canceled'))]}"/>
+	                <!--<button type="object" name="reset_todo" icon="fa-undo" class="text-warning" string="Reset State"
+	                    attrs="{'invisible': [('default_stage','!=','Canceled')]}"/>-->
+	                <button type="object" name="reset_todo" icon="fa-undo" class="text-warning" string="Reset State"
+	                        attrs="{'invisible': ['|',('default_stage','!=','Canceled'),('can_reset_after_canceled','=',False),'|',('default_stage','!=','Completed'),('can_reset_after_completed','=',False)]}"/>
+	                <field name="activity_stage_id" widget="statusbar"/>
+	            </header>
+	            <sheet>
+	                <group col="4">
+	                    <field name="name"/>
+	                    <field name="task_id" readonly="1" force_save="1"/>
+	                    <field name="project_id" readonly="1" force_save="1"/>
+	                    <field name="approve_user_id"/>
+	                    <field name="description"/>
+	                    <field name="default_stage" invisible="1"/>
+	                    <field name="can_reset_after_completed" invisible="1"/>
+	                    <field name="can_reset_after_canceled" invisible="1"/>
+	                </group>
+	            </sheet>
+	            <div class="oe_chatter">
+	                <field name="message_ids" widget="mail_thread"/>
+	            </div>
+	        </form>
+	    </field>
+	</record>
+	
+	<record id="checklist_activities_tree" model="ir.ui.view">
+	    <field name="name">checklist.activities.tree</field>
+	    <field name="model">checklist.activities</field>
+	    <field name="arch" type="xml">
+	        <tree decoration-danger="canceled==True" decoration-success="completed==True"
+	              decoration-info="progress==True" create="1" edit="1" delete="0" string="Activity">
+	            <field name="sequence" widget="handle"/>
+	            <field name="name"/>
+	            <field name="task_id"/>
+	            <field name="project_id"/>
+	            <field name="approve_user_id"/>
+	            <field name="completed" invisible="1"/>
+	            <field name="canceled" invisible="1"/>
+	            <field name="progress" invisible="1"/>
+	            <field name="default_stage" invisible="1"/>
+	            <field name="can_reset_after_completed" invisible="1"/>
+	            <field name="can_reset_after_canceled" invisible="1"/>
+	            <button type="object" name="approve_and_next_stage" class="text-success" string="Approve And Next Stage"
+	                    icon="fa-check" attrs="{'invisible': [('default_stage','in',('Completed','Canceled'))]}"/>
+	            <button type="object" name="mark_completed" icon="fa-check-circle" class="text-success"
+	                    string="Mark Completed" attrs="{'invisible': [('default_stage','in',('Completed','Canceled'))]}"/>
+	            <button type="object" name="mark_canceled" icon="fa-times" class="text-danger" string="Mark Canceled"
+	                    attrs="{'invisible': [('default_stage','in',('Completed','Canceled'))]}"/>
+	            <!--<button type="object" name="reset_todo" icon="fa-undo" class="text-warning" string="Reset State"
+	                attrs="{'invisible': [('default_stage','!=','Canceled')]}"/>-->
+	            <button type="object" name="reset_todo" icon="fa-undo" class="text-warning" string="Reset State"
+	                    attrs="{'invisible': ['|',('default_stage','!=','Canceled'),('can_reset_after_canceled','=',False),'|',('default_stage','!=','Completed'),('can_reset_after_completed','=',False)]}"/>
+	            <field name="activity_stage_id"/>
+	        </tree>
+	    </field>
+	</record>
+	
+	
+	<record id="view_checklist_activities_filter" model="ir.ui.view">
+	    <field name="name">checklist.activities.search</field>
+	    <field name="model">checklist.activities</field>
+	    <field name="arch" type="xml">
+	        <search string="Checklist Activity">
+	            <field name="name"/>
+	            <field name="task_id"/>
+	            <field name="project_id"/>
+	            <field name="approve_user_id"/>
+	            <field name="activity_stage_id" invisible="0"/>
+	            <filter string="TODO" name="activity_TODO" domain="[('activity_stage_id.default_stage','=','TODO')]"/>
+	            <filter string="Completed" name="activity_Completed" domain="[('activity_stage_id.default_stage','=','Completed')]"/>
+	            <filter string="Canceled" name="activity_Canceled" domain="[('activity_stage_id.default_stage','=','Canceled')]"/>
+	            <filter string="Custom Stage" name="activity_Custom"
+	                    domain="[('activity_stage_id.default_stage','not in', ('TODO','Completed','Canceled'))]"/>
+	            <group expand="0" string="Group By">
+	                <filter name="group_stage" string="Stage" domain="[]" context="{'group_by':'activity_stage_id'}"/>
+	                <filter name="group_task" string="Task" domain="[]" context="{'group_by':'task_id'}"/>
+	                <filter name="group_project" string="Project" domain="[]" context="{'group_by':'project_id'}"/>
+	            </group>
+	        </search>
+	    </field>
+	</record>
+	
+	
+	<record id="action_checklist_activities" model="ir.actions.act_window">
+	    <field name="name">Checklist Activities</field>
+	    <field name="res_model">checklist.activities</field>
+	    <field name="view_type">form</field>
+	    <field name="view_mode">tree,form</field>
+	    <field name="context">{"search_default_approve_user_id":uid, "stage_type":'claim'}</field>
+	</record>
+	
+	<!--Called From Project kabab And Form View button-->
+	<record id="act_project_checklist_activities" model="ir.actions.act_window">
+	    <field name="name">Checklist Activities</field>
+	    <field name="res_model">checklist.activities</field>
+	    <field name="view_type">form</field>
+	    <field name="view_mode">tree,form</field>
+	    <field name="context">{'search_default_project_id': [active_id], 'default_project_id': active_id}</field>
+	    <field name="search_view_id" ref="view_checklist_activities_filter"/>
+	</record>
+	
+	<record id="view_project_project_kanban_custom" model="ir.ui.view">
+	    <field name="name">project.project.kanban.custom</field>
+	    <field name="model">project.project</field>
+	    <field name="inherit_id" ref="project.view_project_kanban"/>
+	    <field name="arch" type="xml">
+	        <field name="task_count" position="after">
+	            <field name="activity_count"/>
+	        </field>
+	        <div class="o_project_kanban_boxes" position="inside">
+	            <a t-if="record.activity_count.raw_value" class="o_project_kanban_box" name="%(act_project_checklist_activities)d" type="action">
+	                <span class="o_value">
+	                    <t t-esc="record.activity_count.raw_value"/>
+	                </span>
+	                <span class="o_label">Activities</span>
+	            </a>
+	        </div>
+	    </field>
+	</record>
+	
+	<record id="view_edit_project_custom" model="ir.ui.view">
+	    <field name="name">project.project.form.custom</field>
+	    <field name="model">project.project</field>
+	    <field name="inherit_id" ref="project.edit_project"/>
+	    <field name="arch" type="xml">
+	        <div class="oe_button_box" name="button_box" position="inside">
+	            <button class="oe_inline oe_stat_button" type="action" attrs="{'invisible':[('activity_count','=', 0)]}"
+	                    name="%(act_project_checklist_activities)d" icon="fa-list-alt">
+	                <field string="Activities" name="activity_count" widget="statinfo"/>
+	            </button>
+	        </div>
+	    </field>
+	</record>
+	
+	<menuitem id="menu_action_view_task" name="Checklist Activities" sequence="15"
+	          parent="project.menu_main_pm" action="action_checklist_activities"/>
+	
+	<menuitem id="menu_config_checklist" name="Checklist" parent="project.menu_project_config" sequence="30"/>
+	<menuitem id="menu_checklist" name="Task Checklist" sequence="30" parent="menu_config_checklist" action="action_checklist_tree"/>
+	<menuitem id="menu_checklist_activity_stages" name="Checklist Activity Stages" sequence="31"
+	          parent="menu_config_checklist" action="action_checklist_activity_stages"/>
+
+</odoo>

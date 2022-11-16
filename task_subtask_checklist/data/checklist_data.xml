@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="activity_stage_todo" model="checklist.activity.stages">
+            <field name="name">TODO</field>
+            <field name="sequence">1</field>
+            <field name="default_stage">TODO</field>
+        </record>
+        <record id="activity_stage_completed" model="checklist.activity.stages">
+            <field name="name">Completed</field>
+            <field name="sequence">21</field>
+            <field name="default_stage">Completed</field>
+        </record>
+        <record id="activity_stage_canceled" model="checklist.activity.stages">
+            <field name="name">Canceled</field>
+            <field name="sequence">22</field>
+            <field name="default_stage">Canceled</field>
+        </record>
+
+    </data>
+</odoo>

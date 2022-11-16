@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template>
+<t t-extend="DashBoard">
+    <t t-jquery=".oe_dashboard_links" t-operation="attributes">
+            <attribute name="t-if">node.perm_close</attribute>
+    </t>
+    <t t-jquery="t[t-call='DashBoard.action']" t-operation="replace">
+        <t t-if="node.perm_close">
+            <t t-foreach="column.children" t-as="action" t-if="action.tag == 'action'" t-call="DashBoard.action"/>
+        </t>
+        <t t-else="">
+            <t t-foreach="column.children" t-as="action" t-if="action.tag == 'action'" t-call="DashBoard.action.no_close"/>
+        </t>
+    </t>
+</t>
+<t t-name="DashBoard.action.no_close">
+    <div t-att-data-id="action.attrs.id" class="oe_action">
+        <h2 t-attf-class="oe_header #{action.attrs.string ? '' : 'oe_header_empty'}">
+            <span class="oe_header_txt"> <t t-esc="action.attrs.string"/> </span>
+            <input class = "oe_header_text" type="text"/>
+            <t t-if="!action.attrs.string">&amp;nbsp;</t>
+        </h2>
+        <div class="oe_content"/>
+    </div>
+</t>
+</template>

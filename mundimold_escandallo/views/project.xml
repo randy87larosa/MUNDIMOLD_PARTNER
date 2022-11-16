@@ -1,0 +1,508 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+
+    <record id="action_project_escandallo_project" model="ir.actions.act_window">
+      <field name="name">Líneas de escandallo</field>
+      <field name="res_model">project.escandallo</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,pivot</field>
+      <field name="context">{'search_default_project_id': active_id}</field>
+    </record>
+
+
+
+    <record id="project_mundimold_escandallo_form" model="ir.ui.view">
+        <field name="name">project.project.mundimold.escandallo</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.edit_project"/>
+        <field name="arch" type="xml">
+        
+            <xpath expr="//button[@name='toggle_active']" position="after">
+                <button class="oe_stat_button"
+                    string="Escandallo"
+                    type="action"
+                    name="%(action_project_escandallo_project)d"
+                    icon="fa-bars"/>
+            </xpath>
+        
+            <xpath expr="//page[@name='settings']" position="after">
+            
+                <page string="Escandallo" groups="project.group_project_manager">
+                
+
+					
+					<h3>Escandallo</h3>
+                
+                    <field name='escandallo_ids' context="{'default_project_id': active_id, }">
+                        <tree string="Escandallo" editable="top">
+                            <field name="project_id" invisible="1"/>
+                            <field name="cod_pieza"/>
+                            <field name="product_id"/>
+                            <field name="quantity"/>
+                            <field name="dimensiones"/>
+							<field name="peso"/>
+                            <field name="aleacion"/>
+                            <field name="supplier_id"/>
+                            <field name="purchase_id"/>
+                            <field name="stock"/>
+							<field name="pieza_subcontratista" />
+							<field name="cuadreado" />
+                            <field name="fecha_pedido"/>
+                            <field name="fecha_prevista_recepcion"/>
+                            <field name="fecha_recepcion"/>
+                            <field name="fecha_factura"/>
+							<field name="etiqueta" />
+							<field name="montaje" />
+							<field name="diseno_3d" string="3D"/>
+							<field name="diseno_2d" string="2D"/>
+							<field name="tratamiento_id" domain="[('categ_id','like', 'TRATAMIENTO')]"/>
+							<field name="coste_calculado"/>
+                        </tree>
+                    </field>
+					
+					<group>
+						<field name="coste_estimado_escandallo"/>
+                        <field name="coste_escandallo"/>
+                    </group>
+					
+					<h3>Subcontratistas</h3>
+					<field name='subcontratista_ids' >
+						<tree string="Subcontratistas" editable="top">
+							<field name="project_id" invisible="1"/>
+							<field name="cod_pieza"/>
+							<field name="pieza_id"/>
+							<field name="product_id"/>
+							<field name="quantity_pieza"/>
+							<field name="supplier_id"/>
+							<field name="purchase_id"/>
+							<field name="fecha_pedido"/>
+							<field name="fecha_prevista_recepcion"/>
+							<field name="fecha_recepcion"/>
+							<field name="fecha_factura"/>
+							<field name="coste_calculado"/>
+							<field name="fecha_envio"/>
+							<field name="attachment_ids" widget="many2many_binary"/>
+						</tree>
+					</field>
+					
+					
+					<group>
+						<field name="coste_estimado_subcontratista"/>
+                        <field name="coste_subcontratista"/>
+                    </group>
+                    
+                    <group>
+                        <h3>Copiar escandallo de proyecto existente</h3>
+                        <field name="project_copiar_id"/>
+                        <button name="copiar_escandallo" type="object"
+											string="Copiar escandallo" class="oe_highlight" />
+                    </group>
+
+                </page>
+            
+            </xpath>
+
+        </field>
+    </record>
+    
+    
+    <!-- ############################################
+                     ESCANDALLO
+        ############################################# -->
+        
+        
+        
+        <record model="ir.ui.view" id="view_project_escandallo_tree">
+            <field name="name">project.escandallo.tree</field>
+            <field name="model">project.escandallo</field>
+            <field name="priority" eval="16"/>
+            <field name="arch" type="xml">
+                <tree string="Escandallo" editable="top" decoration-muted="fecha_recepcion!=False" decoration-success="fecha_prevista_recepcion&gt;current_date and purchase_id!=False and fecha_recepcion==False" decoration-danger="fecha_prevista_recepcion&lt;current_date and purchase_id!=False and fecha_recepcion==False">
+   
+                    <field name="project_id" invisible="1"/>
+					<field name="cod_proyecto" />
+                    <field name="cod_pieza"/>
+                    <field name="product_id"/>
+                    <field name="quantity"/>
+                    <field name="dimensiones"/>
+					<field name="peso"/>
+                    <field name="aleacion"/>
+                    <field name="num_solicitudes" string="NS"/>
+                    <field name="supplier_id"/>
+                    <field name="purchase_id" string="OC"/>
+                    <field name="fecha_pedido"/>
+                    <field name="fecha_prevista_recepcion"/>
+                    <field name="fecha_recepcion"/>
+					<field name="pieza_subcontratista" />
+					<field name="etiqueta" />
+					<field name="montaje" />
+                    <field name="diseno_3d" string="3D"/>
+                    <field name="diseno_2d" string="2D"/>
+                    <field name="diseno_torno" string="Tor" invisible="1"/>
+                    <field name="tratamiento_id" domain="[('categ_id','like', 'TRATAMIENTO')]"/>
+					<field name="stock" />
+					<field name="cuadreado" />
+                    <field name="txt_subcontratista"/>
+					<field name="coste"/>
+					<field name="coste_calculado" groups="account.group_account_manager"/>
+                    <button string="+" 
+						name="action_view_form_project_escandallo" 
+						type="object" 
+						class="oe_highlight"/>
+                    <button string="OC" 
+						name="action_view_form_purchase_order" 
+						type="object" 
+						class="oe_highlight"/>
+                    <button string="PR" 
+						name="action_view_list_purchase_order" 
+						type="object" 
+						class="oe_highlight"/>
+                </tree>
+            </field>
+        </record>
+        
+        
+        
+        
+        
+        <record model="ir.ui.view" id="view_project_escandallo_form">
+            <field name="name">project.escandallo.form</field>
+            <field name="model">project.escandallo</field>
+            <field name="arch" type="xml">
+                <form string="Gastos fijos">
+                    <sheet>
+                        <group>
+                            <group string="Escandallo">
+                                <field name="project_id" invisible="1"/>
+                                <field name="cod_pieza"/>
+                                <field name="product_id"/>
+                                <field name="quantity"/>
+                                <field name="dimensiones"/>
+								<field name="peso"/>
+                                <field name="aleacion"/>
+								<field name="entregar_a_id"/>
+								<field name="cuadreado"/>
+                                <field name="supplier_id"/>
+                                <field name="purchase_id"/>
+								<field name="forecast_id"/>
+                                <field name="coste"/>
+								<field name="coste_calculado"/>
+								<field name="coste_subcontratistas"/>
+								<field name="analytic_line_id"/>
+								
+                            </group>
+                            <group string="Diseño">
+                                <field name="diseno_3d"/>
+                                <field name="diseno_2d"/>
+                                <field name="diseno_torno" invisible="1"/>
+                                <field name="tratamiento_id" domain="[('categ_id','like', 'TRATAMIENTO')]"/>
+                            </group>
+                            <group string="Fechas">
+                                <field name="fecha_pedido"/>
+                                <field name="fecha_prevista_recepcion"/>
+                                <field name="fecha_recepcion"/>
+                                <field name="fecha_factura"/>
+                                <field name="fecha_pago"/>
+                            </group>
+                            <group string="Fijar Fechas">
+                                <field name="fecha_pedido_manual"/>
+                                <field name="fecha_prevista_recepcion_manual"/>
+                                <field name="fecha_recepcion_manual"/>
+                                <field name="fecha_factura_manual"/>
+                                <field name="fecha_pago_manual"/>
+                            </group>
+                        </group>
+                        <group string="Subcontratistas">
+                            <field name='subcontratista_ids' context="{'default_escandallo_id': active_id, }">
+                                <tree string="Escandallo" >
+                                    <field name="escandallo_id" invisible="1"/>
+                                    <field name="project_id" invisible="1"/>
+                                    <field name="product_id"/>
+                                    <field name="quantity"/>
+                                    <field name="name"/>
+                                    <field name="supplier_id"/>
+                                    <field name="purchase_id"/>
+									<field name="coste"/>
+                                    <field name="entregar_a_id"/>
+                                </tree>
+                            </field>
+                        </group>
+						<group string="Acciones">
+									
+							<button name="create_forecast_bank_line" type="object"
+											string="Crear previsión tesorería" class="oe_highlight" attrs="{'invisible': [('forecast_id', '!=', False)]}"/>
+							<br/>
+							<button name="delete_forecast_bank_line" type="object"
+									string="Borrar previsión tesorería" class="oe_highlight" attrs="{'invisible': [('forecast_id', '=', False)]}"/>
+							<br/>
+							<button name="compute_cost" type="object"
+									string="Computar coste de stock" class="oe_highlight" />
+						</group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+        
+        <record model="ir.ui.view" id="view_project_escandallo_search">
+            <field name="name">project.escandallo.search</field>
+            <field name="model">project.escandallo</field>
+            <field name="arch" type="xml">
+                <search string="Budget">
+					<field name="cod_pieza"/>
+                    <field name="product_id"/>
+                    <field name="project_id"/>
+                    <field name="dimensiones"/>
+                    <field name="aleacion"/>
+                    <field name="supplier_id"/>
+                    <field name="purchase_id"/>
+                    <filter string="Sin pedido" name="unassigned" domain="[('purchase_id', '=', False)]"/>
+                    <filter string="Pdte recibir" name="not_recieved" domain="[('fecha_recepcion', '=', False)]"/>
+					<filter string="En stock" name="en_stock" domain="[('stock', '!=', False)]"/>
+					<filter string="Sin stock" name="sin_stock" domain="[('stock', '=', False)]"/>
+                    <group expand="0" string="Group by">
+                       <filter string="Proyecto" name="project" context="{'group_by': 'project_id'}"/>
+                       <filter string="Proveedor" name="supplier" context="{'group_by': 'supplier_id'}"/>
+					   <filter string="Producto" name="project" context="{'group_by': 'product_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        
+        <act_window id="launch_wizard_project_escandallo"
+            name="Generar presupuestos"
+            src_model="project.escandallo"
+            res_model="wizard.escandallo.purchase"
+            view_mode="form"
+            target="new"
+            key2="client_action_multi"/>
+            
+            
+        <record model="ir.ui.view" id="wizard_escandallo_purchase_form_view">
+            <field name="name">wizard.escandallo.purchase.form</field>
+            <field name="model">wizard.escandallo.purchase</field>
+            <field name="arch" type="xml">
+                <form string="Crear solicitudes de presupuesto">
+                    <group>
+                        <group>
+                            <field name="partner_ids" widget="many2many_tags"/>
+							<field name="fecha_prevista"/>
+                            <field name="entregar_a_id"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name='escandallo_ids' >
+                                <tree string="Escandallo" editable="top">
+                                    <field name="project_id" />
+                                    <field name="cod_pieza"/>
+                                    <field name="product_id"/>
+                                    <field name="quantity"/>
+                                    <field name="dimensiones"/>
+                                    <field name="aleacion"/>
+									<field name="entregar_a_id"/>
+									<field name="cuadreado"/>
+                                    <field name="fecha_prevista_recepcion_manual"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </group>
+
+                    <footer>
+                        <button name="create_purchases_wizard" type="object"
+                                string="Crear solicitudes de presupuesto" class="oe_highlight"/>
+                        
+                        <button special="cancel" string="Cancelar"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        
+        
+        
+        <act_window id="launch_wizard_project_subcontratista"
+            name="Generar presupuestos subcontratista"
+            src_model="project.escandallo"
+            res_model="wizard.subcontratista"
+            view_mode="form"
+            target="new"
+            key2="client_action_multi"/>
+            
+            
+        <record model="ir.ui.view" id="wizard_subcontratista_form_view">
+            <field name="name">wizard.subcontratista.form</field>
+            <field name="model">wizard.subcontratista</field>
+            <field name="arch" type="xml">
+                <form string="Crear solicitudes de presupuesto">
+
+
+                    <group>
+                        <group>
+                            <field name="partner_ids" widget="many2many_tags"/>
+                            <field name="fecha_prevista"/>
+                            <field name="entregar_a_id"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name='line_ids' >
+                                <tree string="Escandallo" editable="top">
+                                    <field name="project_id" />
+                                    <field name="product_id"/>
+									<field name="cod_pieza"/>
+									<field name="pieza_id"/>
+                                    <field name="name"/>
+                                    <field name="entregar_a_id"/>
+                                    <field name="fecha_prevista_recepcion_manual"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </group>
+
+
+
+                    <footer>
+                        <button name="create_purchases_wizard" type="object"
+                                string="Crear solicitudes de presupuesto" class="oe_highlight"/>
+                        
+                        <button special="cancel" string="Cancelar"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        
+        
+        
+        
+        <act_window id="launch_wizard_escandallo_subco"
+            name="Añadir subcontratistas"
+            src_model="project.escandallo"
+            res_model="wizard.escandallo.subco"
+            view_mode="form"
+            target="new"
+            key2="client_action_multi"/>
+            
+            
+        <record model="ir.ui.view" id="wizard_escandallo_subco_form_view">
+            <field name="name">wizard.escandallo.subco.form</field>
+            <field name="model">wizard.escandallo.subco</field>
+            <field name="arch" type="xml">
+                <form string="Añadir subcontratistas">
+
+
+                    <group>
+                        <group>
+                            <field name="product_id" domain="[('subcontratado_ok','=',True)]"/>
+                            <field name="name"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name='escandallo_ids' >
+                                <tree string="Escandallo" readonly="1">
+                                    <field name="project_id" />
+                                    <field name="cod_pieza"/>
+                                    <field name="product_id"/>
+                                    <field name="quantity"/>
+                                    <field name="dimensiones"/>
+                                    <field name="aleacion"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </group>
+
+                    <footer>
+                        <button name="create_lineas_subco" type="object"
+                                string="Añadir escandallo" class="oe_highlight"/>
+                        
+                        <button special="cancel" string="Cancelar"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+				
+        <record model="ir.actions.act_window" id="action_project_escandallo">
+            <field name="name">Escandallo</field>
+            <field name="res_model">project.escandallo</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+        <menuitem name="Escandallo" parent="project.menu_main_pm" id="menu_project_escandallo" action="action_project_escandallo" sequence="37"/>
+        
+        <!-- SUBCONTRATISTA -->
+        <record model="ir.ui.view" id="view_project_escandallo_subcontratista_form">
+            <field name="name">project.escandallo.subcontratista.form</field>
+            <field name="model">project.escandallo.subcontratista</field>
+            <field name="arch" type="xml">
+                <form string="Gastos fijos">
+                    <sheet>
+                        <group>
+                            <group string="Subcontratista">
+                                <field name="escandallo_id" invisible="1"/>
+                                <field name="product_id" domain="[('subcontratado_ok','=',True)]"/>
+                                <field name="name"/>
+                                <field name="quantity"/>
+                                <field name="supplier_id"/>
+                                <field name="entregar_a_id"/>
+								<field name="forecast_id"/>
+                                <field name="coste"/>
+								<field name="fecha_envio"/>
+								<field name="attachment_ids" widget="many2many_binary"/>
+                            </group>
+                            <group string="Fechas">
+                                <field name="fecha_pedido"/>
+                                <field name="fecha_prevista_recepcion"/>
+                                <field name="fecha_recepcion"/>
+                                <field name="fecha_factura"/>
+                                <field name="fecha_pago"/>
+                            </group>
+                            <group string="Fijar Fechas">
+                                <field name="fecha_pedido_manual"/>
+                                <field name="fecha_prevista_recepcion_manual"/>
+                                <field name="fecha_recepcion_manual"/>
+                                <field name="fecha_factura_manual"/>
+                                <field name="fecha_pago_manual"/>
+                            </group>
+							<group></group>
+							<group string="Acciones">
+									
+									<button name="create_forecast_bank_line" type="object"
+											string="Crear previsión tesorería" class="oe_highlight" attrs="{'invisible': [('forecast_id', '!=', False)]}"/>
+									<br/>
+									<button name="delete_forecast_bank_line" type="object"
+											string="Borrar previsión tesorería" class="oe_highlight" attrs="{'invisible': [('forecast_id', '=', False)]}"/>
+								</group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+        
+        
+        
+        
+        
+        
+    
+
+</odoo>

@@ -1,0 +1,158 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        
+        
+        <record model="ir.ui.view" id="view_sale_order_cotizacion_form">
+            <field name="name">sale.order.cotizacion.form</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+
+                
+                <field name="partner_shipping_id" position="after">
+                    <field name="oferta_extensa"/>
+					<field name="plazo_entrega"/>
+                    <field name="is_proforma" invisible="1"/>
+                </field>
+            
+                <xpath expr="//page[@name='other_information']" position="after">
+                
+                    <page string="Datos oferta" name="datos_oferta" attrs="{'invisible': [('oferta_extensa', '=', False)]}">
+                        <group>
+                            
+                            <field name="description" invisible="1"/>
+                            <field name="category_mold_id" domain="[('parent_id','=',False)]" invisible="1"/>
+                            <field name="subcategory_mold_id" domain="[('parent_id','=',category_mold_id)]" invisible="1"/>
+                            <field name="atencion" invisible="1"/>
+                            <field name="validez" invisible="1"/>
+                            <field name="observaciones"/>
+                            <field name="plantilla_id"/>
+                        </group>
+                        <group>
+                            <button name="action_load_template" type="object" string="Cargar plantilla"/>
+                        </group>
+                    </page>
+                
+                    <page string="Especificaciones" name="cot_a" attrs="{'invisible': [('oferta_extensa', '=', False)]}">
+                        <field name="a1"/>
+                    </page>
+                    <page string="Cotización" name="cot_b" attrs="{'invisible': [('oferta_extensa', '=', False)]}">
+                        <field name="b1"/>
+                    </page>
+                    
+                    <page string="Información económica" name="cot_c123" attrs="{'invisible': [('oferta_extensa', '=', False)]}">
+                        <h3>Características generales</h3>
+                        <field name="c1"/>
+                        
+                        <br/><h3>Tabla de precios</h3>
+                        <field name="line_oferta_ids" context="{'sale_id': active_id, }">
+                            <tree string="Líneas" editable="bottom">
+                                <field name="sequence" widget="handle"/>
+                                <field name="product_id" domain="[('sale_ok','=',True)]"/>
+                                <field name="name"/>
+                                <field name="precio"/>
+                                <field name="ciclo_produccion"/>
+                                <field name="plazo_entrega"/>
+								<field name="sale_line_id" invisible="1"/>
+								<button name="action_create_line" type="object" string="Crear línea" class="oe_highlight" attrs="{'invisible': [('sale_line_id', '!=', False)]}"/>
+                            </tree>
+                        </field>   
+                        
+                        <group>
+                            <field name="total_oferta_extensa"/>
+                        </group>
+                        
+                        <br/><h3>Forma y plazo de pago</h3>
+                        <field name="c2"/>
+                        <br/><h3>Pruebas del molde</h3>
+                        <field name="c3"/>
+                    </page>
+                    
+                    <page string="Proyecto" name="cot_c4567891011" attrs="{'invisible': [('oferta_extensa', '=', False)]}">
+                        <br/><h3>Fases del proyecto</h3>
+                        <field name="c4"/>
+                        
+                        <br/><h3>Ciclos de producción</h3>
+                        <field name="c5"/>
+                        
+                        <br/><h3>Envío de muestras</h3>
+                        <field name="c6"/>
+                        
+                        <br/><h3>Control de calidad de las muestras</h3>
+                        <field name="c7"/>
+                        
+                        <br/><h3>Documentación e instrucciones</h3>
+                        <field name="c8"/>
+                        
+                        <br/><h3>Garantías</h3>
+                        <field name="c9"/>
+                        
+                        <br/><h3>Confidencialidad</h3>
+                        <field name="c10"/>
+                        
+                        <br/><h3>Contactos</h3>
+                        <field name="c11"/>
+                        
+                        <br/><h3>Texto legal</h3>
+                        <field name="c12"/>
+                    
+                    </page>
+                
+        
+                </xpath>
+                
+                
+
+            </field>
+        </record>
+        
+        
+        <record model="ir.ui.view" id="view_sale_order_cotizacion_tree">
+            <field name="name">sale.order.cotizacion.tree</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_tree"/>
+            <field name="arch" type="xml">
+
+                <field name="partner_id" position="after">
+                    <field name="subcategory_mold_id" invisible="1"/>
+                    <field name="summary_sale"/>
+					<field name="producto_lineas"/>
+                </field>
+				<field name="amount_total" position="after">
+                    <field name="total_oferta_extensa" sum="Total"/>
+                </field>
+            </field>
+        </record>
+        
+        
+        
+        <record model="ir.ui.view" id="view_sale_quotation_cotizacion_tree">
+            <field name="name">sale.quotation.cotizacion.tree</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_quotation_tree"/>
+            <field name="arch" type="xml">
+
+                <field name="partner_id" position="after">
+                    <field name="subcategory_mold_id" invisible="1"/>
+                    <field name="summary_sale"/>
+					<field name="producto_lineas"/>
+                </field>
+				<field name="amount_total" position="after">
+                    <field name="total_oferta_extensa" sum="Total"/>
+                </field>
+				<field name="amount_untaxed" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+            </field>
+        </record>
+        
+        
+        
+        
+    
+   
+    
+    
+    
+</odoo>

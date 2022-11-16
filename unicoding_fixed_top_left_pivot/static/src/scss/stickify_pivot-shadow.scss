@@ -1,0 +1,33 @@
+.o_pivot {
+  
+  // old
+  /* thead tr:first-child th:first-child:before, 
+  thead tr:last-child th:before {
+    position: absolute;
+    left: 0;
+    bottom: -21px;
+    width: 100%;
+    height: 20px;
+    content: '';
+    // background: red;
+    display: block; 
+    background-image: linear-gradient(to bottom, rgba(64, 63, 63, 0.1), transparent);
+    pointer-events: none;
+    z-index: -2;    
+  } */
+  
+  // new
+  thead tr:first-child th:first-child:before{
+    position: absolute;
+    left: 0;
+    bottom: -21px;
+    width: 100vw;
+    height: 20px;
+    content: '';
+    // background: red;
+    display: block; 
+    background-image: linear-gradient(to bottom, rgba(64, 63, 63, 0.1), transparent);
+    pointer-events: none;
+    z-index: -2;    
+  }
+}

@@ -1,0 +1,159 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+
+    <record id="view_mundimold_hr_attendance_tree" model="ir.ui.view">
+            <field name="name">hr.attendance.mundimold.tree.inherit</field>
+            <field name="model">hr.attendance</field>
+            <field name="inherit_id" ref="hr_attendance.view_attendance_tree"/>
+            <field name="arch" type="xml">
+            
+            
+                <field name="check_out" position="after">
+                    <field name="comentario"/>
+                </field>
+                
+
+            </field>
+        </record>
+    
+
+    <record id="view_mundimold_hr_employee_form" model="ir.ui.view">
+            <field name="name">hr.employee.mundimold.form.inherit</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+            
+            
+				<field name="department_id" position="before">
+                    <field name="maquina_id"/>
+				</field>
+			
+			
+                <field name="address_home_id" position="after">
+                    <field name="personal_phone"/>
+                    <field name="personal_mobile"/>
+                    <field name="personal_email"/>
+				</field>
+				
+				<field name="bank_account_id" position="replace">
+                    <field name="personal_bank"/>
+                    <field name="coste_extra"/>
+                    <field name="coste_festivo"/>
+                    <field name="talla_camisa"/>
+                    <field name="talla_pantalones"/>
+                    <field name="talla_sueter"/>
+					<field name="talla_zapato"/>
+                    
+                </field>
+			
+				
+                <xpath expr="//page[@name='personal_information']" position="after">
+            
+                    <page string="Documentos" groups="account.group_account_user">
+                        <group>
+                            <field name="file_documentos" widget="many2many_binary"/>
+                            <field name="file_contratos" widget="many2many_binary"/>
+                            <field name="file_curriculum" widget="many2many_binary"/>
+                            <field name="file_formacion" widget="many2many_binary"/>
+                            <field name="file_reconocimiento" widget="many2many_binary"/>
+                            <field name="file_amonestaciones" widget="many2many_binary"/>
+                            <field name="file_funciones" widget="many2many_binary"/>
+                        </group>
+                    </page>
+                    <page string="Vida laboral" groups="account.group_account_user">
+                        <group>
+                            <field name="vida_laboral_ids">
+                                <tree editable="bottom">
+                                    <field name="employee_id" invisible="1"></field>
+                                    <field name="date"></field>
+                                    <field name="contract_type"></field>
+                                    <field name="duration"></field>
+                                    <field name="categoria_id"></field>
+									<field name="categoria_oficial_id"></field>
+                                    <field name="salario_bruto"></field>
+                                    <field name="date_finalizacion"></field>
+                                    <field name="bonificacion"></field>
+                                    <field name="cuantia_bonificada"></field>
+                                    <field name="attachment_ids" widget="many2many_binary"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </page>
+                    <page string="Formación" groups="account.group_account_user">
+                        <group>
+                            <field name="formacion_ids">
+                                <tree editable="bottom">
+                                    <field name="employee_id" invisible="1"></field>
+                                    <field name="date"></field>
+                                    <field name="curso"></field>
+                                    <field name="duracion"></field>
+                                    <field name="ponente"></field>
+                                    <field name="attachment_ids" widget="many2many_binary"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </page>
+                </xpath>
+                
+                
+                
+                <field name="address_home_id" position="after">
+                    <field name="personal_phone"/>
+                    <field name="personal_mobile"/>
+                    <field name="personal_email"/>
+					
+				</field>
+                
+                
+                
+                <field name="address_home_id" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                
+                <field name="job_title" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                
+
+            </field>
+        </record>
+        
+		
+		
+		<!-- ############################################
+                     HORAS EXTRA
+        ############################################# -->
+        
+        
+        
+        <record model="ir.ui.view" id="view_hr_horas_extra_tree">
+            <field name="name">hr.horas.extra.tree</field>
+            <field name="model">hr.horas.extra</field>
+            <field name="priority" eval="88"/>
+            <field name="arch" type="xml">
+                <tree string="Rentabilidad" >
+                    
+                    <field name="employee_id" />
+                    <field name="date"/>
+                    <field name="horas" sum="Horas" widget="float_time"/>
+                </tree>
+            </field>
+        </record>
+        
+		
+		
+        <record model="ir.actions.act_window" id="action_hr_horas_extra">
+            <field name="name">Horas extra</field>
+            <field name="res_model">hr.horas.extra</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+        <menuitem name="Horas extra" parent="hr_attendance.menu_hr_attendance_report" id="menu_hr_horas_extra" action="action_hr_horas_extra" sequence="37"/>
+        
+        
+    
+    
+</odoo>

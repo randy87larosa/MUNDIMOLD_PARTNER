@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="res_partner_amundimold_fields_1" model="ir.ui.view">
+            <field name="name">Res Partner Mundimold Fields</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//notebook" position="inside">
+                    <page string="Sistema de refrigeración">
+                        <group>
+                            <field name="temperatura"></field>
+                            <field name="caudal"></field>
+                            <field name="presion"></field>
+                            <field name="dos_temperaturas"></field>
+                            <field name="modelo"></field>
+                            <field name="tipo_enchufe_ids" widget="many2many_tags"></field>
+                            <field name="colectores_ids" widget="many2many_tags"></field>
+                            <field name="enchufe_entrada_ids" widget="many2many_tags"></field>
+                            <field name="enchufe_salida_ids" widget="many2many_tags"></field>
+                            <field name="enchufe_salida_ids" widget="many2many_tags"></field>
+                            <field name="valvulas_conector_salida"></field>
+                            <field name="zona_dif_temp"></field>
+                        </group>
+                        <group string="Comentarios">
+                            <field name="comments_1" nolabel="1"></field>
+                        </group>
+                    </page>
+                    <page string="Sistema hidráulico">
+                        <group>
+                            <field name="prov_cil_hid_ids" widget="many2many_tags"></field>
+                            <field name="conexion_entrada_h_ids" widget="many2many_tags"></field>
+                            <field name="conexion_salida_h_ids" widget="many2many_tags"></field>
+                        </group>
+                        <group string="Comentarios">
+                            <field name="comments_2" nolabel="1"></field>
+                        </group>
+                    </page>
+                    <page string="Sistema de inyección">
+                        <group>
+                            <field name="tipo_inyeccion_ids" widget="many2many_tags"></field>
+                            <field name="valvula_gate_obt_ids" widget="many2many_tags"></field>
+                            <field name="pro_diff_inyec_ids" widget="many2many_tags"></field>
+                            <field name="filtro_en_camara"></field>
+                            <field name="apoyo_boqui_maq_ids" widget="many2many_tags"></field>
+                        </group>
+                        <group string="Comentarios">
+                            <field name="comments_3" nolabel="1"></field>
+                        </group>
+                    </page>
+                    <page string="Neumática">
+                        <group>
+                            <field name="conexion_neumatica_ids" widget="many2many_tags"></field>
+                        </group>
+                        <group string="Comentarios">
+                            <field name="comments_4" nolabel="1"></field>
+                        </group>
+                    </page>
+                    <page string="Expulsión">
+                        <group>
+                            <field name="tipo_expulsion_ids" widget="many2many_tags"></field>
+                            <field name="expulsion_piezas_ids" widget="many2many_tags"></field>
+                            <field name="expulsion_acontecimientos_ids" widget="many2many_tags"></field>
+                        </group>
+                        <group string="Comentarios">
+                            <field name="comments_5" nolabel="1"></field>
+                        </group>
+                    </page>
+                    <page string="Accionamientos">
+                        <group>
+                            <field name="tipo_accionamineto_ids" widget="many2many_tags"></field>
+                            <field name="detec_mov_ids" widget="many2many_tags"></field>
+                        </group>
+                        <group string="Comentarios">
+                            <field name="comments_6" nolabel="1"></field>
+                        </group>
+                    </page>
+                    <page string="Manipulación de molde">
+                        <group>
+                            <field name="puente_grua_ids" widget="many2many_tags"></field>
+                            <field name="carretilla_elevadora_ids" widget="many2many_tags"></field>
+                            <field name="entrega_molde_ids" widget="many2many_tags"></field>
+                        </group>
+                    </page>
+                    <page string="Documentación" invisible="1">
+                        <group>
+                        
+                        </group>
+                        <group string="Comentarios">
+                            <field name="comments_7" nolabel="1"></field>
+                        </group>
+                    </page>
+                    <page string="Documentación">
+                        <group>
+                            <field name="entrega_3_molde"></field>
+                            <field name="entrega_3_pieza"></field>
+                            <field name="carpeta_doc_ids" widget="many2many_tags"></field>
+                        </group>
+                    </page>
+                    <page string="Requerimientos">
+                        <group>
+                            <field name="molde_pintado_ids" widget="many2many_tags"></field>
+                            <field name="fijacion_maq_ids" widget="many2many_tags"></field>
+                            <field name="attachment_file_req" widget="many2many_binary"/>
+                        </group>
+                         <group string="Comentarios">
+                            <field name="comments_8" nolabel="1"></field>
+                        </group>
+                    </page>
+                    <page string="Parque maquinaria">
+                        <group>
+                            <field name="parque_maquinaria_ids">
+                                <tree editable="bottom">
+                                    <field name="partner_id" invisible="1"></field>
+                                    <field name="fabricante"></field>
+                                    <field name="modelo"></field>
+                                    <field name="tonelaje"></field>
+                                    <field name="plato_anc"></field>
+                                    <field name="paso_columnas"></field>
+                                    <field name="columnas"></field>
+                                    <field name="espesor_min_max"></field>
+                                    <field name="centrador_parte_fija"></field>
+                                    <field name="centrador_parte_movil"></field>
+                                    <field name="apoyo_maquina"></field>
+                                    <field name="paso"></field>
+                                    <field name="attachment_file" widget="many2many_binary"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+    </record>
+</odoo>

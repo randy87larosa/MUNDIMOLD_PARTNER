@@ -1,0 +1,193 @@
+.o_pivot {
+  overflow: unset;
+  
+  .stick-left{
+    position: sticky;
+    left: 200px;
+  }
+
+  // reset
+  .table-bordered thead th, 
+  .table-bordered thead td {
+      border-bottom-width: 1px;
+  }
+  
+  // moved to shift
+  /*
+  table thead {
+    
+    //reset:
+        .o_pivot_header_cell_closed::before {
+            content: none;
+        }
+
+        .o_pivot_header_cell_opened::before {
+            content: none;
+        }
+  
+    // set  
+        span.stick-left {
+          pointer-events: none;
+        }
+        .o_pivot_header_cell_closed {
+            .stick-left::before {
+                font-family: FontAwesome;
+                content: "";
+                margin-right: 8px;
+            }
+        }
+
+        .o_pivot_header_cell_opened {
+            .stick-left::before {
+                font-family: FontAwesome;
+                content: "";
+                margin-right: 8px;
+            }
+        }
+  }
+  */
+  thead, thead tr th {
+    position: sticky;
+    top: 0;
+    z-index: 7;
+    padding-right: 7px; // helper to be not too near to the border.
+    // background: lightgoldenrodyellow;
+  }
+  thead tr:nth-child(1) th:nth-child(1) {
+    position: sticky;
+    left: 0;
+    z-index: 9;
+    // background: red;
+  }
+  
+  thead tr th:after, 
+  tbody tr td:nth-child(1):after { // fake border
+    content: '';
+    position: absolute;
+    top: -1px;
+    right: -1px;
+    bottom: -1px;
+    background: inherit;
+    left: -1px;
+    z-index: -1;
+    border: 1px solid #dee2e6;
+
+  }
+  thead tr:nth-child(1) th:nth-child(1):after, 
+  tbody tr td:nth-child(1):after { // fake border
+    border-right-width: 2px;
+  }
+  // assumed that pivot is .table-sm
+  // $cellheight: calc
+/*   thead tr + tr { 
+    th {
+      top: calc(1 * (#{2 * $table-cell-padding-sm} + (1em * #{$line-height-base}) )); }
+    & +tr th {
+      top: calc(2 * (#{2 * $table-cell-padding-sm} + (1em * #{$line-height-base}) )); }
+    & +tr +tr th {
+      top: calc(3 * (#{2 * $table-cell-padding-sm} + (1em * #{$line-height-base}) )); }
+    & +tr +tr +tr th {
+      top: calc(4 * (#{2 * $table-cell-padding-sm} + (1em * #{$line-height-base}) )); }
+    & +tr +tr +tr +tr th {
+      top: calc(5 * (#{2 * $table-cell-padding-sm} + (1em * #{$line-height-base}) )); }
+    & +tr +tr +tr +tr +tr th {
+      top: calc(6 * (#{2 * $table-cell-padding-sm} + (1em * #{$line-height-base}) )); }
+  }
+  
+ */  
+  // $pv_cellheight: (2 * $table-cell-padding-sm) + (1em * $line-height-base) + 1px;
+  
+  
+  // @function pv-cellheight($multi) {    
+    // @return calc(#{$multi} * (#{2 * $table-cell-padding-sm} + (1em * #{$line-height-base}) ) ); 
+  // }
+  // thead tr {
+    // & +tr th {
+      // top: pv-cellheight(1); }
+    // & +tr +tr th {
+      // top: pv-cellheight(2); }
+    // & +tr +tr +tr th {
+      // top: pv-cellheight(3); }
+    // & +tr +tr +tr +tr th {
+      // top: pv-cellheight(4); }
+    // & +tr +tr +tr +tr +tr th {
+      // top: pv-cellheight(5); }
+    // & +tr +tr +tr +tr +tr +tr th {
+      // top: pv-cellheight(6); }
+    // & +tr +tr +tr +tr +tr +tr +tr th {
+      // top: pv-cellheight(7); }
+    // & +tr +tr +tr +tr +tr +tr +tr +tr th {
+      // top: pv-cellheight(8); }
+    // & +tr +tr +tr +tr +tr +tr +tr +tr +tr th {
+      // top: pv-cellheight(9); }
+  // }
+  
+  
+  tbody tr td:nth-child(1) {
+    position: sticky;
+    left: 0;
+    z-index: 7;
+    // background: red;
+  }
+  
+  
+  // interferer with hover bg, due now th1 may overlay the next td.
+  table {
+    // background-color: $o-view-background-color;
+    $pv-hover-bg: darken($o-view-background-color, 4%);
+    $pv-hover2-bg: darken($o-view-background-color, 10%);
+    
+/*     &.table-hover tbody tr:hover,
+     tbody tr:hover .o_pivot_header_cell_opened,
+     tbody tr:hover .o_pivot_header_cell_closed{
+        // color: #4c4c4c;
+        background-color: $pv-hover-bg;
+    }
+ */    
+    
+    .o_pivot_header_cell_opened:hover,
+    .o_pivot_header_cell_closed:hover,
+    .o_pivot_measure_row:hover {
+      background-color: $pv-hover2-bg;        
+    }
+    
+    tbody tr:hover {
+      .o_pivot_header_cell_opened,
+      .o_pivot_header_cell_closed{
+        // color: #4c4c4c;
+        background-color: $pv-hover-bg;
+        
+        &:hover{
+          background-color: $pv-hover2-bg;          
+        }
+      }
+    }
+    .o_pivot_cell_value.o_cell_hover {
+        background-color: $pv-hover-bg; // $table-hover-bg;
+    }
+    &.table-hover tbody tr:hover .o_pivot_cell_value.o_cell_hover {
+        background-color: $pv-hover2-bg; // $table-hover-bg;
+    }
+  }
+  
+  // /* BUGFIX POPUP TO BE NOT SCROLLED */
+  .has-fixedPopup>.dropdown-menu{
+    position:fixed;
+  }
+  
+  /* thead tr:first-child th:first-child:before, 
+  thead tr:last-child th:before {
+    position: absolute;
+    left: 0;
+    bottom: -21px;
+    width: 100%;
+    height: 20px;
+    content: '';
+    // background: red; 
+    // display: block; 
+    background-image: linear-gradient(to bottom, rgba(64, 63, 63, 0.1), transparent);
+    // pointer-events: none; 
+    z-index: -2;
+    top: 9px; 
+  } */
+}
